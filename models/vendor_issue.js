@@ -5,7 +5,7 @@ class VendorIssue extends Model {}
 
 VendorIssue.init(
   {
-    vender_issue_id: {
+    vendor_issue_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
