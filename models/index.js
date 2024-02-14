@@ -4,7 +4,7 @@ const Property = require("./properties");
 const Issue = require("./issues");
 const Tasks = require("./tasks");
 const Vendor = require("./vendors");
-const VendorIssue = require("./vender_issue");
+const VendorIssue = require("./vendor_issue");
 
 
 Owner.hasMany(Property, {
