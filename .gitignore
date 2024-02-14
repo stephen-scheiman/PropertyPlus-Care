@@ -396,3 +396,12 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# dotenv
+.env
+
+# workingfolder
+working folder
+
+# for MacOS
+.DS_store
