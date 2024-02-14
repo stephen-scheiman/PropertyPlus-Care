@@ -1,10 +1,10 @@
-const User = require("./users");
-const Owner = require("./owners");
-const Property = require("./properties");
-const Issue = require("./issues");
-const Tasks = require("./tasks");
-const Vendor = require("./vendors");
-const VendorIssue = require("./vendor_issue");
+const User = require("./Users");
+const Owner = require("./Owners");
+const Property = require("./Properties");
+const Issue = require("./Issues");
+const Tasks = require("./Tasks");
+const Vendor = require("./Vendors");
+const VendorIssue = require("./Vendor_issue");
 
 
 Owner.hasMany(Property, {
