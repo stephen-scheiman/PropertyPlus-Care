@@ -24,12 +24,12 @@ const seedDatabase = async () => {
     returning: true,
   });
 
-  for (const project of projectData) {
-    await .create({
-      ...project,
-      user_id: users[Math.floor(Math.random() * users.length)].id,
-    });
-  }
+  await Issue.bulkCreate(issueData, {});
+
+  await Owner.bulkCreate(ownerData, {});
+  await Property.bulkCreate(propertyData, {});
+  await Task.bulkCreate(taskData, {});
+  await Vendor.bulkCreate(vendorData, {});
 
   process.exit(0);
 };
