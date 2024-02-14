@@ -1,0 +1,37 @@
+[
+  {
+    "vendor_first_name": "Garrett",
+    "vendor_last_name": "Grady",
+    "vendor_trade": "Electrical",
+    "vendor_email": "shockyou@grady.com",
+    "vendor_phone": "209-555-1234"
+  },
+  {
+    "vendor_first_name": "Marty",
+    "vendor_last_name": "MacGyver",
+    "vendor_trade": "Handyman",
+    "vendor_email": "fixyou@macgyver.com",
+    "vendor_phone": "312-555-4321"
+  },
+  {
+    "vendor_first_name": "Randall",
+    "vendor_last_name": "Reynolds",
+    "vendor_trade": "Plumbing",
+    "vendor_email": "pumpyou@reynolds.com",
+    "vendor_phone": "408-555-1123"
+  },
+  {
+    "vendor_first_name": "Simon",
+    "vendor_last_name": "Simmons",
+    "vendor_trade": "Roofer",
+    "vendor_email": "roofyou@simmons.com",
+    "vendor_phone": "415-555-12234"
+  },
+  {
+    "vendor_first_name": "Edward",
+    "vendor_last_name": "Edwards",
+    "vendor_trade": "Flooring",
+    "vendor_email": "flooryou@edwards.com",
+    "vendor_phone": "615-555-1233"
+  }
+]
