@@ -11,7 +11,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const hbs = exphbs.create({ helpers });
+const hbs = exphbs.create({ extname: 'hbs', helpers });
 
 const sess = {
   secret: 'Super secret secret',
@@ -31,8 +31,8 @@ const sess = {
 app.use(session(sess));
 
 // Inform Express.js on which template engine to use
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars');
+app.engine('hbs', hbs.engine);
+app.set('view engine', 'hbs');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
