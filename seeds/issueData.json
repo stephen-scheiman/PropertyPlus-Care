@@ -1,0 +1,27 @@
+[
+  {
+    "issue_title": "Broken stove",
+    "issue_description": "Renter said stove stopped turning on but it's plugged in",
+    "issue_isDone": "false"
+  },
+  {
+    "issue_title": "Heater not working",
+    "issue_description": "Ms. Jackson says the heater is not heating the unit",
+    "issue_isDone": "false"
+  },
+  {
+    "issue_title": "Leaky sink",
+    "issue_description": "Renter says bathroom sink drips all night",
+    "issue_isDone": "false"
+  },
+  {
+    "issue_title": "Light bulb out",
+    "issue_description": "Front porch light is out might need a new bulb",
+    "issue_isDone": "false"
+  },
+  {
+    "issue_title": "Leak in unit 5",
+    "issue_description": "Renter says water is dripping from ceiling in bathroom",
+    "issue_isDone": "false"
+  }
+]
