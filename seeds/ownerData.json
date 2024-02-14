@@ -1,0 +1,47 @@
+[
+{
+  "owner_name":"Bob Berkowitz",
+  "owner_email":"bob@bob.com",
+  "owner_phone":"(555)555-5555",
+  "owner_street":"555 Anywhere Street",
+  "owner_city":"Anywhere",
+  "owner_state":"CA",
+  "owner_zip":55555  
+},
+{
+    "owner_name":"Nancy Phillips",
+    "owner_email":"nancy@bob.com",
+    "owner_phone":"(222)222-2222",
+    "owner_street":"123 Nowhere Street",
+    "owner_city":"Nowhere",
+    "owner_state":"CA",
+    "owner_zip":44444 
+  },
+  {
+    "owner_name":"Holly Hobby",
+    "owner_email":"holly@bob.com",
+    "owner_phone":"(333)333-3333",
+    "owner_street":"321 Cheesy Street",
+    "owner_city":"Cheese",
+    "owner_state":"CA",
+    "owner_zip":12345
+  },
+  {
+    "owner_name":"Hank Smith",
+    "owner_email":"hank@bob.com",
+    "owner_phone":"(444)444-4444",
+    "owner_street":"222 Douglas Circle",
+    "owner_city":"Pancakes",
+    "owner_state":"CA",
+    "owner_zip":54321
+  },
+  {
+    "owner_name":"Sally Jones",
+    "owner_email":"sally@bob.com",
+    "owner_phone":"(312)456-3456",
+    "owner_street":"467 Bixby Avenue",
+    "owner_city":"Pancakes",
+    "owner_state":"CA",
+    "owner_zip":65785
+  }
+]
