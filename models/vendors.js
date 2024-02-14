@@ -26,6 +26,10 @@ Vendor.init(
     vendor_email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
+      },
     },
     vendor_phone: {
       type: DataTypes.STRING,
