@@ -5,11 +5,8 @@ async function errorHandler(err, req, res, next) {
   };
 
 
-  if (req.header.HX - Request) {
 
-  } else {
-    res.status(customError.statusCode).json({ message: err.message });
-  }
+  res.status(customError.statusCode).json({ message: err.message });
 }
 
 module.exports = errorHandler;
