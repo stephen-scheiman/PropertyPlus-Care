@@ -1,11 +1,13 @@
+require('express-async-errors');
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 const helpers = require('./utils/helpers');
-
+const morgan = require('morgan');
 const sequelize = require('./config/connection');
+const errorHandler = require('./utils/error-handler');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
@@ -34,11 +36,13 @@ app.use(session(sess));
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 
+app.use(morgan('tiny'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
+app.use(errorHandler)
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log('Now listening'));
