@@ -2,9 +2,9 @@ const User = require("./Users");
 const Owner = require("./Owners");
 const Property = require("./Properties");
 const Issue = require("./Issues");
-const Tasks = require("./Tasks");
+const Task = require("./Tasks");
 const Vendor = require("./Vendors");
-const VendorIssue = require("./Vendor_issue");
+const VendorIssue = require("./Vendor_issues");
 
 
 Owner.hasMany(Property, {
@@ -42,7 +42,7 @@ module.exports = {
   Owner,
   Property,
   Issue,
-  Tasks,
+  Task,
   Vendor,
   VendorIssue,
 }

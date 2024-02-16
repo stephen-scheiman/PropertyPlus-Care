@@ -15,6 +15,7 @@ Property.init(
     property_name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
 
     property_street: {

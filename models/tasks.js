@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Task extends Model {}
+class Task extends Model { }
 
 Task.init(
   {
@@ -12,6 +12,11 @@ Task.init(
       autoIncrement: true,
     },
 
+    task_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+
     status_update: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -20,12 +25,12 @@ Task.init(
     followUp_date: {
       type: DataTypes.DATE,
       allowNull: false,
-      },
+    },
 
     is_done: {
-    type: DataTypes.BOOLEAN,
+      type: DataTypes.BOOLEAN,
     },
-    },
+  },
   {
     sequelize,
     timestamps: false,
@@ -35,4 +40,4 @@ Task.init(
   }
 );
 
-module.exports = Tasks;
+module.exports = Task;
