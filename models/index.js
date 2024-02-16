@@ -28,6 +28,14 @@ Issue.hasMany(Task, {
 }});
 Task.belongsTo(Issue);
 
+Property.hasMany(Task, {
+  foreignKey: {
+    name: "property_id",
+    allowNull: false,
+  }
+});
+Task.belongsTo(Property);
+
 // SMM association
 Vendor.belongsToMany(Issue, { through: VendorIssue , sourceKey: 'vendor_id', targetKey: 'issue_id'});
 Issue.belongsToMany(Vendor, { through: VendorIssue , sourceKey: 'issue_id', targetKey: 'vendor_id'});
