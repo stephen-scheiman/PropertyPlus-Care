@@ -3,30 +3,40 @@
     "task_name": "Assign handyman",
     "status_update": "Tried to assign Grady but haven't heard back yet. Will keep trying but if no response will try Reggie tomorrow 2/14/24",
     "followUp_data": "2024-02-14",
-    "is_done": "false"
+    "is_done": "false",
+    "issue_id": "1",
+    "property_id": "1"
   },
   {
     "task_name": "Follow-up with Reginald",
     "status_update": "Assigned Reginald, he says it'll be a quick fix. Should be done by tomorrow morning",
     "followUp_data": "2024-02-14",
-    "is_done": "false"
+    "is_done": "false",
+    "issue_id": "2",
+    "property_id": "2"
   },
   {
     "task_name": "Confirm issue is resolved, mark complete?",
     "status_update": "MacGyver was onsite already so he took a look and finished it up right away",
     "followUp_data": "2024-02-14",
-    "is_done": "true"
+    "is_done": "true",
+    "issue_id": "3",
+    "property_id": "3"
   },
   {
     "task_name": "Follow-up with Simon",
     "status_update": "LVM for Simon he's usually really quick about responding, should be out this week",
     "followUp_data": "2024-02-14",
-    "is_done": "false"
+    "is_done": "false",
+    "issue_id": "4",
+    "property_id": "4"
   },
   {
     "task_name": "Follow-up with Edward",
     "status_update": "Called Edward after lunch and he said it's too late to come back out today but will be back on Thursday 2/15/24",
     "followUp_data": "2024-02-15",
-    "is_done": "false"
+    "is_done": "false",
+    "issue_id": "5",
+    "property_id": "5"
   }
 ]
