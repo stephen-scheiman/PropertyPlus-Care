@@ -1,11 +1,11 @@
 const sequelize = require('../config/connection');
-const {   User,
+const { User,
   Owner,
   Property,
   Issue,
-  Tasks,
+  Task,
   Vendor,
-  VendorIssue, } = require('../models');
+} = require('../models');
 
 const userData = require('./userData.json');
 const issueData = require('./issueData.json');
@@ -18,15 +18,15 @@ const vendorData = require('./vendorData.json');
 const seedDatabase = async () => {
   await sequelize.sync({ force: true });
 
-await User.bulkCreate(userData, {
-  individualHooks: true,
-  returning: true,
-});
+  await User.bulkCreate(userData, {
+    individualHooks: true,
+    returning: true,
+  });
 
   await Issue.bulkCreate(issueData, {});
   await Owner.bulkCreate(ownerData, {});
   await Property.bulkCreate(propertyData, {});
-  await Tasks.bulkCreate(taskData, {});
+  await Task.bulkCreate(taskData, {});
   await Vendor.bulkCreate(vendorData, {});
 
   process.exit(0);
