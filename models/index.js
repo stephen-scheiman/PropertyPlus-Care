@@ -12,21 +12,36 @@ Owner.hasMany(Property, {
     name: 'owner_id',
     allowNull: false,
 }});
-Property.belongsTo(Owner);
+Property.belongsTo(Owner, {
+  foreignKey: {
+    name: 'owner_id',
+    allowNull: false,
+}});
+
 
 Property.hasMany(Issue, {
   foreignKey: {
     name: 'property_id',
     allowNull: false,
 }});
-Issue.belongsTo(Property);
+Issue.belongsTo(Property, {
+  foreignKey: {
+    name: 'property_id',
+    allowNull: false,
+}});
+
 
 Issue.hasMany(Task, {
   foreignKey: {
     name: 'issue_id',
     allowNull: false,
 }});
-Task.belongsTo(Issue);
+Task.belongsTo(Issue, {
+  foreignKey: {
+    name: 'issue_id',
+    allowNull: false,
+}});
+
 
 Property.hasMany(Task, {
   foreignKey: {
@@ -34,15 +49,52 @@ Property.hasMany(Task, {
     allowNull: false,
   }
 });
-Task.belongsTo(Property);
+Task.belongsTo(Property, {
+  foreignKey: {
+    name: "property_id",
+    allowNull: false,
+  }
+});
 
 // SMM association
-Vendor.belongsToMany(Issue, { through: VendorIssue , sourceKey: 'vendor_id', targetKey: 'issue_id'});
-Issue.belongsToMany(Vendor, { through: VendorIssue , sourceKey: 'issue_id', targetKey: 'vendor_id'});
-Vendor.hasMany(VendorIssue);
-VendorIssue.belongsTo(Vendor);
-Issue.hasMany(VendorIssue);
-VendorIssue.belongsTo(Issue);
+Vendor.belongsToMany(Issue, {
+  through: VendorIssue,
+  foreignKey: {
+    name: 'vendor_id',
+    allowNull: false,
+  }
+});
+Issue.belongsToMany(Vendor, {
+  through: VendorIssue,
+  foreignKey: {
+    name: 'issue_id',
+    allowNull: false,
+  }
+});
+Vendor.hasMany(VendorIssue, {
+  foreignKey: {
+    name: 'vendor_id',
+    allowNull: false,
+  }
+});
+VendorIssue.belongsTo(Vendor, {
+  foreignKey: {
+    name: 'vendor_id',
+    allowNull: false,
+  }
+});
+Issue.hasMany(VendorIssue, {
+  foreignKey: {
+    name: 'issue_id',
+    allowNull: false,
+  }
+});
+VendorIssue.belongsTo(Issue, {
+  foreignKey: {
+    name: 'issue_id',
+    allowNull: false,
+  }
+});
 
 
 module.exports = {
