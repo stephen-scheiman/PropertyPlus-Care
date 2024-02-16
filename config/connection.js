@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 
-const URL = process.env.JAWS_DB || process.env.DB_URL;
+const URL = process.env.JAWSDB_URL || process.env.DB_URL;
 
 const sequelize = new Sequelize(URL);
 

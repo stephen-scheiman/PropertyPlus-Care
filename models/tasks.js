@@ -1,15 +1,20 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Tasks extends Model {}
+class Task extends Model { }
 
-Tasks.init(
+Task.init(
   {
     task_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
+    },
+
+    task_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
 
     status_update: {
@@ -20,12 +25,12 @@ Tasks.init(
     followUp_date: {
       type: DataTypes.DATE,
       allowNull: false,
-      },
+    },
 
     is_done: {
-    type: DataTypes.BOOLEAN,
+      type: DataTypes.BOOLEAN,
     },
-    },
+  },
   {
     sequelize,
     timestamps: false,
@@ -35,4 +40,4 @@ Tasks.init(
   }
 );
 
-module.exports = Tasks;
+module.exports = Task;
