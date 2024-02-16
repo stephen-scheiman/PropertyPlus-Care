@@ -7,11 +7,11 @@ const vendorController = require('../../controller/api/vendorController.js');
 const taskController = require('../../controller/api/taskController.js');
 
 // these are the api end points I see using
-router.use('/users', userController);
-router.use('/properties', propertyController);
-router.use('/issues', issueController);
-router.use('/owners', ownerController);
-router.use('/vendors', vendorController);
-router.use('/tasks', taskController);
+// router.use('/users',);
+// router.use('/properties', propertyController);
+// router.use('/issues', issueController);
+// router.use('/owners', ownerController);
+// router.use('/vendors', vendorController);
+// router.use('/tasks', taskController);
 
 module.exports = router;
