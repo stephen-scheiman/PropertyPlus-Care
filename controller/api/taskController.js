@@ -1,7 +1,6 @@
-const router = require('express').Router();
-const { Tasks } = require('../../models');
+const { Task } = require('../../models');
 
 // insert .get / .post etc routes here as appropriate
 
 // is this the correct export for all controller files?
-module.exports = router;
+// module.export = //function ;

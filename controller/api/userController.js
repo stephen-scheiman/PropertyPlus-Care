@@ -1,76 +1,34 @@
-const router = require('express').Router();
 const { User } = require('../../models');
+const { BadRequestError } = require('../../utils/errors');
 
-// Create new user
-router.post('/', async (req, res) => {
-  console.log(req.body.name)
-  try {
-    const dbUserData = await User.create({
-      user_name: req.body.name,
-      user_email: req.body.email,
-      user_password: req.body.password,
-    });
+async function createUser(req, res) {
+  const { user_name, user_email, user_password } = req.body;
 
-    req.session.save(() => {
-      req.session.loggedIn = true;
-      req.session.userId = dbUserData.user_id;
-      req.session.userName = dbUserData.user_name;
-      res.status(200).json(dbUserData);
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
+  if (!(user_name && user_email && user_password)) {
+    throw new BadRequestError('Missing Data - Please fill out all required fields.');
   }
-});
 
-// Login
-router.post('/login', async (req, res) => {
-  try {
-    const dbUserData = await User.findOne({
-      where: {
-        user_email: req.body.email,
-      },
-    });
+  const newUser = await User.create({
+    user_name,
+    user_email,
+    user_password
+  });
 
-    if (!dbUserData) {
-      res
-        .status(400)
-        .json({ message: 'Incorrect email or password. Please try again!' });
-      return;
-    }
+  req.session.save(() => {
+    req.session.loggedIn = true;
+    req.session.user_id = newUser.user_id;
+    // if api send json IF htmx send html / render
+    res.status(200).json(newUser);
+  });
+};
 
-    const validPassword = await dbUserData.checkPassword(req.body.password);
+// enter additional user functions below
+async function userLogin(req, res) {
 
-    if (!validPassword) {
-      res
-        .status(400)
-        .json({ message: 'Incorrect email or password. Please try again!' });
-      return;
-    }
+};
 
-    req.session.save(() => {
-      req.session.loggedIn = true;
-      req.session.userId = dbUserData.user_id;
-      req.session.userName = dbUserData.user_name;
-      res
-        .status(200)
-        .json({ user: dbUserData, message: 'You are now logged in!' });
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
+async function userLogout(req, res) {
 
-// Logout
-router.post('/logout', (req, res) => {
-  if (req.session.loggedIn) {
-    req.session.destroy(() => {
-      res.status(204).end();
-    });
-  } else {
-    res.status(404).end();
-  }
-});
+};
 
-module.exports = router;
+module.exports = { createUser, userLogin, userLogout };
