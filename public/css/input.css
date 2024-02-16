@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.img {
+  height: 15px;
+  width: 15px;
+  justify-content: space-around;
+}
