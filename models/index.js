@@ -21,12 +21,12 @@ Property.hasMany(Issue, {
 }});
 Issue.belongsTo(Property);
 
-Issue.hasMany(Tasks, {
+Issue.hasMany(Task, {
   foreignKey: {
     name: 'issue_id',
     allowNull: false,
 }});
-Tasks.belongsTo(Issue);
+Task.belongsTo(Issue);
 
 // SMM association
 Vendor.belongsToMany(Issue, { through: VendorIssue , sourceKey: 'vendor_id', targetKey: 'issue_id'});
