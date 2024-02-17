@@ -22,7 +22,6 @@ async function createUser(req, res) {
   });
 };
 
-// enter additional user functions below
 async function userLogin(req, res) {
   const { user_email, user_password } = req.body;
 
@@ -32,9 +31,7 @@ async function userLogin(req, res) {
     throw new BadRequestError("Incorrect email or password, please try again or register a new account");
   }
 
-  // checkPassword -- VS Code says it doesn't return promise, no await needed.
-  // Is this because we are using "compareSync" in our checkPassword method? versus just compare?
-  const validPassword = userData.checkPassword(user_password);
+  const validPassword = await userData.checkPassword(user_password);
 
   if (!validPassword) {
     throw new BadRequestError("Incorrect email or password, please try again or register a new account");
@@ -54,8 +51,7 @@ async function userLogout(req, res) {
       res.status(204).end();
     });
   } else {
-    // should this be a 404? or a BadRequestError?
-    throw new NotFoundError("Logout Failed");
+    throw new BadRequestError("You are not logged in.");
   }
 };
 
