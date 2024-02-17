@@ -36,7 +36,7 @@ async function findTasks() {
  * @returns User model object
  */
 async function getUser(id) {
-  return await User.findByPk(id);
+  return (await User.findByPk(id)).toJSON();
 };
 
 // homepage loads all current and past due Tasks
