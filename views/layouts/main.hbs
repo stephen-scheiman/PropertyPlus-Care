@@ -3,23 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/style.css"/>
-    <link rel="stylesheet" href="https://kit.fontawesome.com/542c6a9870.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://kit.fontawesome.com/542c6a9870.css"
+      crossorigin="anonymous"
+    />
     <title>PropertyPlus Care</title>
     <script src="/js/htmx.min.js"></script>
   </head>
   <body>
-    <header class="fixed max-h-10 max-w-10 right-0 sm:hidden"><a
+    <header class="fixed right-0 max-h-10 max-w-10 sm:hidden"><a
         href="./help.hbs"
       ><img src="/img/questionmark.png" alt="question mark" /></a></header>
-    {{{body}}}
-    <footer class="flex fixed align-bottom bottom-0 bg-slate-500 sm:hidden w-screen text-center">
+    <div id="test"></div>
+
+    <footer
+      class="fixed bottom-0 flex w-screen bg-slate-500 text-center align-bottom sm:hidden"
+    >
       <nav class="m-auto w-screen py-1.5">
-        <ul class="flex justify-around max-w-screen-sm">
-          <li><i class="fa-regular fa-calendar fa-3x"></i></li>
-          <li><i class="fa-regular fa-square-check fa-3x"></i></li>
-          <li><i class="fa-regular fa-house fa-3x"></i></li>
-          <li><i class="fa-regular fa-user-helmet-safety fa-3x"></i></li>
+        <ul class="flex max-w-screen-sm justify-around">
+          <li><i
+              hx-get="/test/pg1"
+              hx-trigger="click"
+              hx-swap="innerHTML"
+              hx-target="#test"
+              hx-push-url="true"
+              class="fa-regular fa-calendar fa-3x"
+            ></i></li>
+          <li><i
+              hx-get="/test/pg2"
+              hx-trigger="click"
+              hx-swap="innerHTML"
+              hx-target="#test"
+              hx-push-url="true"
+              class="fa-regular fa-square-check fa-3x"
+            ></i></li>
+          <li><i
+              hx-get="/test/pg3"
+              hx-trigger="click"
+              hx-swap="innerHTML"
+              hx-target="#test"
+              hx-push-url="true"
+              class="fa-regular fa-house fa-3x"
+            ></i></li>
+          <li><i
+              hx-get="/test/pg4"
+              hx-trigger="click"
+              hx-swap="innerHTML"
+              hx-target="#test"
+              hx-push-url="true"
+              class="fa-regular fa-user-helmet-safety fa-3x"
+            ></i></li>
         </ul>
       </nav>
     </footer>
