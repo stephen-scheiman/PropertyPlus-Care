@@ -1,5 +1,5 @@
 const { User } = require('../../models');
-const { BadRequestError } = require('../../utils/errors');
+const { BadRequestError, NotFoundError } = require('../../utils/errors');
 
 async function createUser(req, res) {
   const { user_name, user_email, user_password } = req.body;
@@ -24,11 +24,39 @@ async function createUser(req, res) {
 
 // enter additional user functions below
 async function userLogin(req, res) {
+  const { user_email, user_password } = req.body;
 
+  const userData = await User.findOne({ where: {email: user_email}});
+
+  if (!userData) {
+    throw new BadRequestError("Incorrect email or password, please try again or register a new account");
+  }
+
+  // checkPassword -- VS Code says it doesn't return promise, no await needed.
+  // Is this because we are using "compareSync" in our checkPassword method? versus just compare?
+  const validPassword = userData.checkPassword(user_password);
+
+  if (!validPassword) {
+    throw new BadRequestError("Incorrect email or password, please try again or register a new account");
+  }
+
+  req.session.save(() => {
+    req.session.user_id = userData.user_id;
+    req.session.logged_in = true;
+
+    res.status(200).json(userData);
+  })
 };
 
 async function userLogout(req, res) {
-
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    // should this be a 404? or a BadRequestError?
+    throw new NotFoundError("Logout Failed");
+  }
 };
 
 module.exports = { createUser, userLogin, userLogout };
