@@ -9,7 +9,7 @@ router.route('/')
 router.route('/:id')
   .get(c.renderOneIssue)
   .post(c.renderAddVendor)
-  .put(c.renderUpdatedIssue)
+  .patch(c.renderUpdatedIssue)
   .delete(c.renderDeletedIssue)
 
 
