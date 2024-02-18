@@ -40,11 +40,10 @@ async function renderPg1(req, res) {
   const p2 = findTasks();
   const [userData, taskData] = await Promise.all([p1,p2]);
 
-
-  if (req.headers['content-type'] === 'application/json') {
-    res.status(200).json({ msg: 'Success', userData, taskData });
-  } else if (req.headers['hx-request']) {
+  if (req.headers['hx-request']) {
     res.status(200).render("test1", { taskData, userData, layout: false });
+  } else if (req.headers['content-type'] === 'application/json') {
+    res.status(200).json({ msg: 'Success', userData, taskData });
   } else {
     res.status(200).render("test1", { taskData, userData });
   }
@@ -119,7 +118,6 @@ async function findTasks() {
 async function getUser(id) {
   return (await User.findByPk(id)).toJSON();
 };
-
 
 function withAuth(req, res, next) {
   if (!req.session.logged_in) {
