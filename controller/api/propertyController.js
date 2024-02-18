@@ -98,7 +98,7 @@ async function deleteProperty(req, res) {
   if (!propDelData) {
     throw new BadRequestError("Delete property failed");
   } else {
-    res.status(200).json({ msg: `Delete property ${propery_id} succeeded`});
+    res.status(200).json({ msg: `Delete property ${property_id} succeeded`});
   }
 };
 
