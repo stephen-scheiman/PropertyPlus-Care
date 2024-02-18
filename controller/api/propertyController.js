@@ -83,7 +83,26 @@ async function createProperty(req, res) {
 };
 
 async function updateProperty(req, res) {
+  const property_id = req.params.id;
+  const { property_name, property_street, property_city, property_state, property_zip, owner_id } = req.body;
 
+  const propData = await Property.update({
+    property_name,
+    property_street,
+    property_city,
+    property_state,
+    property_zip,
+    owner_id}, {
+      where: {
+        property_id
+      },
+    });
+
+    if (propData[0] === 0) {
+      throw new BadRequestError("Update property failed");
+    } else {
+      res.status(200).json({ msg: `Update property ID: ${property_id} succeeded`});
+    }
 };
 
 async function deleteProperty(req, res) {
@@ -98,7 +117,7 @@ async function deleteProperty(req, res) {
   if (!propDelData) {
     throw new BadRequestError("Delete property failed");
   } else {
-    res.status(200).json({ msg: `Delete property ${property_id} succeeded`});
+    res.status(200).json({ msg: `Delete property ID: ${property_id} succeeded`});
   }
 };
 
