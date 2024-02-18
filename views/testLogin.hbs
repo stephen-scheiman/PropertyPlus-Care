@@ -1,8 +1,28 @@
-<form>
-  <label for="user_name">
-    <input type="text" id="user_name" name="user_name" />
-  </label>
-  <label for="user_password">
-    <input type="text" id="user_password" name="user_password" />
-  </label>
-</form>
+<main class="m-auto w-[90%]">
+  <form
+    hx-post="/test/login"
+    hx-trigger="submit"
+    hx-target="#test"
+    class="flex flex-col"
+  >
+    <label for="user_email">
+      Email:
+    </label>
+    <input
+      type="text"
+      id="user_email"
+      name="user_email"
+      class="shawow border border-black"
+    />
+    <label for="user_password">
+      Password:
+    </label>
+    <input
+      type="password"
+      id="user_password"
+      name="user_password"
+      class="border border-black shadow"
+    />
+    <button type="submit">Login</button>
+  </form>
+</main>
