@@ -15,4 +15,6 @@ const c = require('../../controller/api/vendorController');
 */
 router.route('/').get(c.renderVendors);
 
+router.route('/:id').get(c.renderOneVendor);
+
 module.exports = router;
