@@ -34,9 +34,11 @@ async function renderTasks(req, res) {
 async function getTaskByID(id) {
     const taskData = Task.findByPk(id, {
       include: [
-        { model: Property },
+        { model: Property,
+        attributes: ['property_name'],  
+      },
         { model: Issue,
-          attributes: { exclude: ['createdAt', 'updatedAt']}
+          attributes: ['issue_title'],
         }
       ],
       raw: true,
@@ -61,10 +63,12 @@ async function renderOneTask(req, res) {
 async function createTask(req, res) {
     const { task_name, 
         status_update, 
-        followUp_date, 
-        is_done } = req.body;   
+        followUp_date,
+        property_name,
+        issue_id, 
+        } = req.body;   
 
-if (!(task_name || status_update || followUp_date)) {
+if (!(task_name || status_update || followUp_date || property_name || issue_id)) {
     throw new BadRequestError("Missing Data - Please complete all fields");
 }
 
@@ -72,7 +76,8 @@ const newTask = await Task.create({
     task_name,
     status_update,
     followUp_date,
-    is_done
+    property_name,
+    issue_id,
 });
 
 if (!newTask) {
