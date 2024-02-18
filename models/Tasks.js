@@ -29,6 +29,8 @@ Task.init(
 
     is_done: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
   },
   {
