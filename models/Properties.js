@@ -32,6 +32,10 @@ Property.init(
     property_zip: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        isNumeric: true,
+        len: [5,5],
+      },
     },
     owner_id: {
       type: DataTypes.INTEGER,

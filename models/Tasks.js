@@ -27,6 +27,9 @@ Task.init(
     followUp_date: {
       type: DataTypes.DATE,
       allowNull: false,
+      validate: {
+        isDate: true,
+      },
     },
 
     is_done: {
