@@ -1,17 +1,17 @@
 const router = require('express').Router();
-const userController = require('../../controller/api/userController.js');
+const userRoutes = require('./userRoutes.js');
 const propertyRoutes = require('./propertyRoutes.js');
-const issueController = require('../../controller/api/issueController.js');
-const ownerController = require('../../controller/api/ownerController.js');
-const vendorController = require('../../controller/api/vendorController.js');
-const taskController = require('../../controller/api/taskController.js');
+const issueRoutes = require('./issueRoutes.js');
+const ownerRoutes = require('./ownerRoutes.js');
+const vendorRoutes = require('./vendorRoutes.js');
+const taskRoutes = require('./taskRoutes.js');
 
 // these are the api end points I see using
-// router.use('/users',);
+router.use('/users', userRoutes);
 router.use('/properties', propertyRoutes);
-// router.use('/issues', issueController);
-// router.use('/owners', ownerController);
-// router.use('/vendors', vendorController);
-// router.use('/tasks', taskController);
+router.use('/issues', issueRoutes);
+router.use('/owners', ownerRoutes);
+router.use('/vendors', vendorRoutes);
+router.use('/tasks', taskRoutes);
 
 module.exports = router;
