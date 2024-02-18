@@ -1,5 +1,5 @@
 
-const { Vendor, Issue, VendorIssue, Property, Task } = require('../../models');
+const { Vendor, Issue, Property, Task } = require('../../models');
 const { NotFoundError, InternalServerError, BadRequestError } = require('../../utils/errors');
 
 async function renderIssues(req, res) {
