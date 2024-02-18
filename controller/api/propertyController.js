@@ -87,7 +87,19 @@ async function updateProperty(req, res) {
 };
 
 async function deleteProperty(req, res) {
+  const property_id = req.params.id;
 
+  const propDelData = await Property.destroy({
+    where: {
+      property_id
+    }
+  });
+
+  if (!propDelData) {
+    throw new BadRequestError("Delete property failed");
+  } else {
+    res.status(200).json({ msg: `Delete property ${propery_id} succeeded`});
+  }
 };
 
 // is this the correct export for all controller files?
