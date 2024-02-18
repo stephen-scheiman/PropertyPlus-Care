@@ -1,5 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
+const Issue = require('./Issues');
+const Property = require('./Properties');
 
 class Task extends Model { }
 
@@ -31,6 +33,26 @@ Task.init(
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,
+    },
+    issue_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+      references: {
+        model: Issue,
+        key: 'issue_id',
+      },
+    },
+    property_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+      references: {
+        model: Property,
+        key: 'property_id',
+      },
     },
   },
   {

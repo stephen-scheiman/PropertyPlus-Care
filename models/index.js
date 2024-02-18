@@ -10,7 +10,6 @@ const VendorIssue = require("./Vendor_issues");
 Owner.hasMany(Property, {
   foreignKey: {
     name: 'owner_id',
-    allowNull: false,
   },
   onDelete: 'SET NULL',
   onUpdate: 'CASCADE',

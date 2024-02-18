@@ -11,7 +11,11 @@ Owner.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    owner_name: {
+    owner_first_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    owner_last_name: {
       type: DataTypes.STRING,
       allowNull: false,
     },

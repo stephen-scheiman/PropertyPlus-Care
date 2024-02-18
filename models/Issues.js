@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
+const Property = require('./Properties');
 
 class Issue extends Model {}
 
@@ -24,6 +25,24 @@ Issue.init(
       allowNull: false,
       defaultValue: false,
     },
+    property_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+      references: {
+        model: Property,
+        key: 'property_id',
+      },
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    }
   },
   {
     sequelize,
