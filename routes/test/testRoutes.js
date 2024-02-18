@@ -5,25 +5,32 @@ const { Op } = require('sequelize');
 // header logging
 router.use((req, res, next) => {
   console.log('\n\njson: ', req.headers['content-type'], '\nhtmx: ', req.headers['hx-request'], '\n\n');
+  console.log(req.body, '\n\n');
   next();
 })
 
 
 router.route('/')
-  .get((req, res) => {res.render("homepage")})
+  .get(withAuth, (req, res) => { res.redirect('/test/pg1') })
 
 router.route("/pg1")
-  .get(renderPg1)
+  .get(withAuth, renderPg1)
 
 router.route("/pg2")
-  .get((req, res) => {res.render("test2")})
+  .get(withAuth, (req, res) => {res.render("test2")})
 
 router.route("/pg3")
-  .get((req, res) => {res.render("test3")})
+  .get(withAuth, (req, res) => {res.render("test3")})
 
 router.route("/pg4")
-  .get((req, res) => {res.render("test4")})
+  .get(withAuth, (req, res) => {res.render("test4")})
 
+router.route('/login')
+  .get((req, res) => {res.render('testLogin')})
+  .post(userLogin)
+
+router.route('/logout')
+  .post(userLogout)
 
 
 async function renderPg1(req, res) {
@@ -41,8 +48,54 @@ async function renderPg1(req, res) {
   } else {
     res.status(200).render("test1", { taskData, userData });
   }
-
 }
+
+async function userLogin(req, res) {
+  const { user_email, user_password } = req.body;
+
+  const userData = await User.findOne({ where: {user_email}});
+
+  if (!userData) {
+    throw new BadRequestError("Incorrect email or password, please try again or register a new account");
+  }
+
+  const validPassword = await userData.checkPassword(user_password);
+
+  if (!validPassword) {
+    throw new BadRequestError("Incorrect email or password, please try again or register a new account");
+  }
+
+  req.session.save(() => {
+    req.session.user_id = userData.user_id;
+    req.session.logged_in = true;
+
+    console.log('found and logged in');
+
+    if (req.headers['hx-request']) {
+      res.status(200).set('HX-Redirect', '/test/pg1').end()
+    } else if (req.headers['content-type'] === 'application/json') {
+      res.status(200).json({ msg: 'Success', userData })
+    } else {
+      res.status(200).redirect('/test/pg1');
+    }
+  })
+};
+
+async function userLogout(req, res) {
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      if (req.headers['hx-request']) {
+        res.status(200).set('hx-Redirect', '/test/login').end();
+      } else if (req.headers['content-type'] === 'application/json') {
+        res.status(200).json({ msg: 'Logout' })
+      } else {
+        res.status(200).redirect('/test/login');
+      }
+    });
+  } else {
+    throw new BadRequestError("You are not logged in.");
+  }
+};
 
 async function findTasks() {
   const taskData = await Task.findAll({
@@ -63,14 +116,17 @@ async function findTasks() {
   return taskData;
 };
 
-/**
- *
- * @param {number} id user ID
- * @returns User model object
- */
 async function getUser(id) {
   return (await User.findByPk(id)).toJSON();
 };
 
+
+function withAuth(req, res, next) {
+  if (!req.session.logged_in) {
+    res.redirect('/test/login');
+  } else {
+    next();
+  }
+};
 
 module.exports = router;
