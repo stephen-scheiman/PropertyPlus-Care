@@ -8,7 +8,7 @@ from render data functions */
 async function getAllTasks() {
   const taskData = Task.findAll({
     include: [
-      { model: Property, attributes: ["property_id", "property_name"]},
+      { model: Property, attributes: ["property_name"]},
       { model: Issue, attributes: ["issue_title"]},
     ],
     raw: true,
@@ -32,7 +32,7 @@ async function renderTasks(req, res) {
 async function getTaskByID(id) {
   const taskData = Task.findByPk(id, {
     include: [
-      { model: Property, attributes: ["property_id", "property_name"] },
+      { model: Property, attributes: ["property_name"] },
       { model: Issue, attributes: ["issue_title"] },
     ],
     raw: true,
