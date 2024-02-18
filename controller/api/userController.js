@@ -1,5 +1,5 @@
 const { User } = require('../../models');
-const { BadRequestError } = require('../../utils/errors');
+const { BadRequestError, NotFoundError } = require('../../utils/errors');
 
 async function createUser(req, res) {
   const { user_name, user_email, user_password } = req.body;
@@ -22,13 +22,37 @@ async function createUser(req, res) {
   });
 };
 
-// enter additional user functions below
 async function userLogin(req, res) {
+  const { user_email, user_password } = req.body;
 
+  const userData = await User.findOne({ where: {email: user_email}});
+
+  if (!userData) {
+    throw new BadRequestError("Incorrect email or password, please try again or register a new account");
+  }
+
+  const validPassword = await userData.checkPassword(user_password);
+
+  if (!validPassword) {
+    throw new BadRequestError("Incorrect email or password, please try again or register a new account");
+  }
+
+  req.session.save(() => {
+    req.session.user_id = userData.user_id;
+    req.session.logged_in = true;
+
+    res.status(200).json(userData);
+  })
 };
 
 async function userLogout(req, res) {
-
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    throw new BadRequestError("You are not logged in.");
+  }
 };
 
 module.exports = { createUser, userLogin, userLogout };
