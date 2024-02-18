@@ -50,17 +50,38 @@ async function getTaskByID(id) {
     return taskData;
   };
   
-  // render one task function
-  async function renderOneTask(req, res) {
+// render one task function
+async function renderOneTask(req, res) {
     const { id: task_id } = req.params;
     const task = await getTaskByID(task_id);  
     res.status(200).json({ task });
-  };
+};
+
+// create task function
+async function createTask(req, res) {
+    const { task_name, 
+        status_update, 
+        followUp_date, 
+        is_done } = req.body;   
+
+if (!(task_name || status_update || followUp_date)) {
+    throw new BadRequestError("Missing Data - Please complete all fields");
+}
+
+const newTask = await Task.create({
+    task_name,
+    status_update,
+    followUp_date,
+    is_done
+});
+
+if (!newTask) {
+    throw new InternalServerError("New Task creation failed.");
+    } else {
+  res.status(200).json({ msg: "New Task succesfully created!" });
+    }
+};
 
 
 
-
-
-
-
-module.exports = { renderTasks, renderOneTask } ;
+module.exports = { renderTasks, renderOneTask, createTask } ;
