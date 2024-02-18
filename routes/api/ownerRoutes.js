@@ -1,5 +1,17 @@
 const router = require('express').Router();
+const { getRounds } = require('bcrypt');
 const c = require('../../controller/api/ownerController');
+
+
+router.route('/')
+  .get(c.renderOwners)
+  .post(c.renderNewOwner);
+
+router.route('/:id')
+  .get(c.renderOwner)
+  .patch(c.renderUpdateOwner)
+  .delete(c.renderDeleteOwner)
+
 
 /* we need:
 GET all Owners
