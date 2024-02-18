@@ -82,6 +82,28 @@ if (!newTask) {
     }
 };
 
+// update an existing task by ID
+async function updateTask(req,res) {
+  const task_id = req.params.id;
+  const { task_name, status_update, followUp_date, is_done } = req.body;
+
+  const taskData = await Task.update({
+    task_name,
+    status_update,
+    followUp_date,
+    is_done,
+  }, {
+  where: {
+    task_id
+  }
+});
+
+if (!taskData[0]) {
+  throw new BadRequestError("Update task failed");
+} else {
+  res.status(200).json({ msg: `Update task ID: ${task_id} succeeded`});
+}
+};
 
 
-module.exports = { renderTasks, renderOneTask, createTask } ;
+module.exports = { renderTasks, renderOneTask, createTask, taskData } ;
