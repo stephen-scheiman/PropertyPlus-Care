@@ -3,11 +3,11 @@ const c = require('../../controller/api/ownerController');
 
 
 router.route('/')
-  .get(c.renderOwners)
+  .get(c.renderAllOwners)
   .post(c.renderNewOwner);
 
 router.route('/:id')
-  .get(c.renderOwner)
+  .get(c.renderOneOwner)
   .patch(c.renderUpdateOwner)
   .delete(c.renderDeleteOwner)
 
