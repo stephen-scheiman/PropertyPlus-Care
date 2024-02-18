@@ -15,5 +15,13 @@ const c = require('../../controller/api/taskController');
   DELETE Task by ID
   - only to be used if user accidentally created it wrong or something (not MVP: add admin level permission)
   - make sure that somewhere there is a "are you sure you want to delete" check*/
+  router.route('/')
+    .get(c.renderTasks)
+    .post(c.createTask);
+
+  router.route('/:id')
+    .get(c.renderOneTask)
+    .put(c.createTask)
+    .update(c.updateTask)
 
 module.exports = router;
