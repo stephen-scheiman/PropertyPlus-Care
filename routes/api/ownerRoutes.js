@@ -1,6 +1,17 @@
 const router = require('express').Router();
 const c = require('../../controller/api/ownerController');
 
+
+router.route('/')
+  .get(c.renderAllOwners)
+  .post(c.renderNewOwner);
+
+router.route('/:id')
+  .get(c.renderOneOwner)
+  .patch(c.renderUpdateOwner)
+  .delete(c.renderDeleteOwner)
+
+
 /* we need:
 GET all Owners
   - all Owner fields
