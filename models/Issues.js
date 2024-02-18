@@ -22,6 +22,7 @@ Issue.init(
     issue_isDone: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: false,
     },
   },
   {

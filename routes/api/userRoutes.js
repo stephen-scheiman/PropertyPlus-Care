@@ -1,4 +1,4 @@
-const { User } = require('../../models');
+const router = require('express').Router();
 const c = require('../../controller/api/userController');
 
 router.post('/', c.createUser);
