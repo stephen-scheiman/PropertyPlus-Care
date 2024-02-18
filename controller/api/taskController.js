@@ -68,7 +68,7 @@ async function createTask(req, res) {
         issue_id, 
         } = req.body;   
 
-if (!(task_name || status_update || followUp_date || property_name || issue_id)) {
+if (!(task_name && status_update && followUp_date && property_name && issue_id)) {
     throw new BadRequestError("Missing Data - Please complete all fields");
 }
 
