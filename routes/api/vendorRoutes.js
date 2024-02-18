@@ -13,6 +13,6 @@ const c = require('../../controller/api/vendorController');
     DELETE vendor
     - make sure that somewhere there is a "are you sure you want to delete" check
 */
-
+router.route('/').get(c.renderVendors);
 
 module.exports = router;
