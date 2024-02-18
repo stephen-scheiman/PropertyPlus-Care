@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { getRounds } = require('bcrypt');
 const c = require('../../controller/api/ownerController');
 
 
