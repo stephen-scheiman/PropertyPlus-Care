@@ -1,6 +1,18 @@
 const router = require('express').Router();
 const c = require('../../controller/api/issueController');
 
+
+router.route('/')
+  .get(c.renderIssues)
+  .post(c.renderNewIssue);
+
+router.route('/:id')
+  .get(c.renderOneIssue)
+  .post(c.renderAddVendor)
+  .put(c.renderUpdatedIssue)
+  .delete(c.renderDeletedIssue)
+
+
 /* we need:
  GET all Issues
   - all Issue fields
