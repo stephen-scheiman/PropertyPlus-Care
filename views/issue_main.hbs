@@ -1,0 +1,25 @@
+<main class="bg-gray-500 h-[500px] ">
+  <h1 class="font-bold text-2xl my-8">Open Issues</h1>
+  <div id="pagediv">
+    {{#each issueData}}
+      <div class="mx-auto px-4 my-2">
+        <h2
+          class="font-bold text-xl my-2"
+          hx-get="/issue/:id"
+          hx-swap="innerHTML"
+          hx-target="#pagediv"
+          hx-push-url="true"
+        >{{this.issue_title}}</h2>
+        <h3
+          class="font-semibold text-lg"
+          hx-get="/property/:id"
+          hx-swap="innerHTML"
+          hx-target="#pagediv"
+          hx-push-url="true"
+        >Property: {{this.property.property_name}}</h3>
+        <p class="font-medium">Description: <span>{{this.issue_description}}</span></p>
+        <p class="font-medium">Next Follow-Up Date: <span>{{this.task.followUp_date}}</span></p>
+      </div>
+    {{/each}}
+  </div>  
+</main>
