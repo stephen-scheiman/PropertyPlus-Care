@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const c = require('../../controller/api/taskController');
+const c = require('../../controller/taskController');
 
 /* What we need:
   GET all Tasks [done]

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const c = require('../../controller/api/vendorController');
+const c = require('../../controller/vendorController');
 
 /*  GET all vendors [done and tested]
     - vendor name, trade, email, phone

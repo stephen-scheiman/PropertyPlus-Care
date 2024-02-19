@@ -1,5 +1,5 @@
-const { Owner, Property } = require('../../models');
-const { InternalServerError, NotFoundError, BadRequestError } = require('../../utils/errors');
+const { Owner, Property } = require('../models');
+const { InternalServerError, NotFoundError, BadRequestError } = require('../utils/errors');
 
 
 async function renderAllOwners(req, res) {

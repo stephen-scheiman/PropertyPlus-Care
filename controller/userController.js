@@ -1,5 +1,5 @@
-const { User } = require('../../models');
-const { BadRequestError, NotFoundError } = require('../../utils/errors');
+const { User } = require('../models');
+const { BadRequestError, NotFoundError } = require('../utils/errors');
 
 async function createUser(req, res) {
   const { user_name, user_email, user_password } = req.body;

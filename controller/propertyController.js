@@ -1,5 +1,5 @@
-const { Property, Owner, Issue } = require('../../models');
-const { BadRequestError, InternalServerError } = require('../../utils/errors');
+const { Property, Owner, Issue } = require('../models');
+const { BadRequestError, InternalServerError } = require('../utils/errors');
 
 /* for purposes of unit testing, separating sequelize request function
 from render data functions */
@@ -22,7 +22,7 @@ async function getAllProperties() {
 
 // render data function
 async function renderProperties(req, res) {
-  const properties = await getAllProperties();  
+  const properties = await getAllProperties();
   res.status(200).json({ properties });
 };
 
@@ -38,7 +38,7 @@ async function getPropertyByID(id) {
     raw: true,
     nest:true
   });
-  
+
   if (!propertyData) {
     throw new BadRequestError('Something went wrong');
   }
@@ -49,7 +49,7 @@ async function getPropertyByID(id) {
 // render data funciton
 async function renderOneProperty(req, res) {
   const { id: property_id } = req.params;
-  const properties = await getPropertyByID(property_id);  
+  const properties = await getPropertyByID(property_id);
   res.status(200).json({ properties });
 };
 

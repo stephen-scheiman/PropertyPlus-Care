@@ -1,5 +1,5 @@
-const { Property, Issue, Task } = require("../../models");
-const { BadRequestError, InternalServerError } = require("../../utils/errors");
+const { Property, Issue, Task } = require("../models");
+const { BadRequestError, InternalServerError } = require("../utils/errors");
 
 /* for purposes of unit testing, separating sequelize request function
 from render data functions */
