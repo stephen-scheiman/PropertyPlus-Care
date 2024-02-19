@@ -1,6 +1,6 @@
 
-const { Vendor, Issue, Property, Task } = require('../../models');
-const { NotFoundError, InternalServerError, BadRequestError } = require('../../utils/errors');
+const { Vendor, Issue, Property, Task } = require('../models');
+const { NotFoundError, InternalServerError, BadRequestError } = require('../utils/errors');
 
 async function renderIssues(req, res) {
   const issues = await findAllIIssues();
