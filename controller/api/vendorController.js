@@ -47,7 +47,7 @@ async function renderOneVendor(req, res) {
 }
 
 //create new vendor
-async function createVendor(req,res) {
+async function createVendor(req, res) {
   const {
     vendor_first_name,
     vendor_last_name,
@@ -84,19 +84,51 @@ async function createVendor(req,res) {
 }
 
 //delete vendor
-async function deleteVendor(req,res) {
-    const vendor_id = req.params.id;
+async function deleteVendor(req, res) {
+  const vendor_id = req.params.id;
 
-    const vendorDelData = await Vendor.destroy({
-        where: {
-            vendor_id
-        }
-    });
-    if (!vendorDelData) {
-        throw new BadRequestError("Delete vendor failed");
-      } else {
-        res.status(200).json({ msg: `Delete vendor ID: ${vendor_id} succeeded`});
-      }
+  const vendorDelData = await Vendor.destroy({
+    where: {
+      vendor_id,
+    },
+  });
+  if (!vendorDelData) {
+    throw new BadRequestError("Delete vendor failed");
+  } else {
+    res.status(200).json({ msg: `Delete vendor ID: ${vendor_id} succeeded` });
+  }
+}
+
+//update vendor
+async function updateVendor(req, res) {
+  const vendor_id = req.params.id;
+  const {
+    vendor_first_name,
+    vendor_last_name,
+    vendor_trade,
+    vendor_email,
+    vendor_phone,
+  } = req.body;
+
+  const vendorData = await Vendor.update(
+    {
+      vendor_first_name,
+      vendor_last_name,
+      vendor_trade,
+      vendor_email,
+      vendor_phone,
+    },
+    {
+      where: {
+        vendor_id,
+      },
+    },
+  );
+  if (!vendorData[0]) {
+    throw new BadRequestError("Update vendor failed");
+  } else {
+    res.status(200).json({ msg: `Update vendor ID: ${vendor_id} succeeded` });
+  }
 };
 
-module.exports = { renderVendors, renderOneVendor, createVendor, deleteVendor };
+module.exports = { renderVendors, renderOneVendor, createVendor, deleteVendor, updateVendor };

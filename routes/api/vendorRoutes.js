@@ -19,6 +19,7 @@ router.route('/')
 
 router.route('/:id')
 .get(c.renderOneVendor)
+.put(c.updateVendor)
 .delete(c.deleteVendor);
 
 module.exports = router;
