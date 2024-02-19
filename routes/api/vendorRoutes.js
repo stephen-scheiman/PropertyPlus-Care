@@ -6,11 +6,11 @@ const c = require('../../controller/api/vendorController');
     GET one vendor [done and tested]
     - all fields
     - include issues
-    Create new vendor
+    Create new vendor [done and tested]
     - fist name, last name, trade, email, phone
-    UPDATE vendor
+    UPDATE vendor [done and tested]
     - any of the above fields
-    DELETE vendor
+    DELETE vendor [done and tested]
     - make sure that somewhere there is a "are you sure you want to delete" check
 */
 router.route('/')
