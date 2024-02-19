@@ -1,0 +1,20 @@
+<main>
+  <ul>
+    {{#each properties}}
+      <li>
+        <h2>
+          <a
+            href="/properties/{{property_id}}"
+            hx-boost="true" hx-target="#property-{{property_id}}">
+            {{property_name}}
+          </a>
+        </h2>
+        <p>{{property_street}}</p>
+        <p>{{property_city}}, {{property_state}} {{property_zip}}</p>
+        <p>{{owner.owner_first_name}} {{owner.owner_last_name}}</p>
+        <div id="property-{{property_id}}"></div>
+      </li>
+      <br />
+    {{/each}}
+  </ul>
+</main>
