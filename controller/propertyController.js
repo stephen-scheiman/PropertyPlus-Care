@@ -69,7 +69,7 @@ async function createProperty(req, res) {
 
   // validate the proper state abbreviation
   if (property_state.length > 2 || property_state.length < 2){
-    throw new BadRequestError("Please use the two letter state abbreviation");
+    throw new BadRequestError("Please use the proper, two letter state abbreviation");
   }
   // convert state abbreviation to upper case
   property_state = property_state.toUpperCase();
