@@ -23,9 +23,9 @@ Owner.init(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      validate: {
-        isEmail: true,
-      },
+      // validate: {
+      //   isEmail: true,
+      // },
     },
     owner_phone: {
       type: DataTypes.STRING,
