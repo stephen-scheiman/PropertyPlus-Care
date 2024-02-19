@@ -35,11 +35,10 @@ async function renderNewOwner(req, res) {
   //validate letters only
   const namePattern = /^[a-zA-Z]+$/;
   //validate properly formed email
-  const emailPattern = /^ [a-zA-Z0-9._-]+@ [a-zA-Z0-9.-]+\\. [a-zA-Z] {2,6}$/;
-  //validate properly formed phone number
-  const phonePattern = /^(?:(\d{3}))?[- ]?(\d{3})[- ]?(\d{4,6})$/im;
+  const emailPattern =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   //validate proper street address
-  const streetPattern = /^[a-zA-Z0-9.]+$/;
+  const streetPattern = /^[a-zA-Z0-9. ]+$/;
   //validate two letter state
   const statePattern = /^[a-zA-Z]{2}$/;
   //validate zip is 5 digit number
@@ -66,16 +65,18 @@ async function renderNewOwner(req, res) {
   if (
     !(
       namePattern.test(owner_first_name) &&
-      namePattern.test(owner_last_name) &&
-      emailPattern.test(owner_email) /* &&
-      phonePattern.test(owner_phone) &&
-      streetPattern.test(owner_street) &&
-      namePattern.test(owner_city) &&
-      statePattern.test(owner_state) &&
-      zipPattern.test(owner_zip)*/
+      namePattern.test(owner_last_name) 
     )
   ) {
-    throw new BadRequestError("Missing data, please fill out all forms");
+    throw new BadRequestError("Please enter your first and last name");
+  }
+
+  if(!emailPattern.test(owner_email)){
+    throw new BadRequestError("Please enter a valid email address");
+  }
+
+  if(!phonePattern.test(owner_phone)){
+    throw new BadRequestError("Please enter a valid 10 digit phone number");
   }
 
   const newOwner = await createOwner({

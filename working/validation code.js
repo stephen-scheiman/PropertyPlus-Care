@@ -6,3 +6,11 @@ streetPattern.test(owner_street) &&
 namePattern.test(owner_city) &&
 statePattern.test(owner_state) &&
 zipPattern.test(owner_zip)
+
+&&
+      emailPattern.test(owner_email) &&
+      owner_phone &&
+      streetPattern.test(owner_street) &&
+      namePattern.test(owner_city) &&
+      statePattern.test(owner_state) &&
+      zipPattern.test(owner_zip)
