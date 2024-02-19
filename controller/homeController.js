@@ -36,7 +36,7 @@ async function findTasks() {
  * @returns User model object
  */
 async function getUser(id) {
-  return (await User.findByPk(id)).toJSON();
+  return (await User.findByPk(id));
 };
 
 // homepage loads all current and past due Tasks
@@ -51,7 +51,7 @@ async function renderHome(req, res) {
   const [userData, taskData] = await Promise.all([p1,p2]);
 
   // this needs to be completed when we know what the homepage will look like
-  res.status(200).json({ taskData, userData });
+  res.status(200).render('homepage', { taskData });
 
   // res.status(200).render('homepage', {
   //   logged_in, taskData, userData
