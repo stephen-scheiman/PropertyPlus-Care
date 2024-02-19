@@ -1,4 +1,13 @@
 <main class="h-[500px] bg-blue-900">
   <h1>Page 2</h1>
   <h2>Page 2 text</h2>
+
+  <select name="owners" id="owners">
+    <option value="" selected="selected">None</option>
+    {{#each owners}}
+    <option value="{{owner_id}}">{{owner_first_name}} {{owner_last_name}}</option>
+    {{/each}}
+  </select>
+  <button >New Owner</button>
+
 </main>

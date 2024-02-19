@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {User, Task, Property} = require('../../models');
+const {User, Task, Property, Owner} = require('../../models');
 const { Op } = require('sequelize');
 
 // header logging
@@ -17,7 +17,10 @@ router.route("/pg1")
   .get(withAuth, renderPg1)
 
 router.route("/pg2")
-  .get(withAuth, (req, res) => {res.render("test2")})
+  .get(withAuth, renderAllOwners)
+
+router.route('/pg2/owners')
+  .get(renderAllOwners)
 
 router.route("/pg3")
   .get(withAuth, (req, res) => {res.render("test3")})
@@ -94,6 +97,26 @@ async function userLogout(req, res) {
   } else {
     throw new BadRequestError("You are not logged in.");
   }
+};
+
+async function renderAllOwners(req, res) {
+  const owners = await findOwners();
+
+
+
+  res.status(200).render('test2',{ owners });
+};
+
+async function findOwners() {
+  const owners = await Owner.findAll({
+    raw: true,
+    nest: true,
+  });
+
+  if (!owners) {
+    throw new NotFoundError('No owners found');
+  }
+  return owners;
 };
 
 async function findTasks() {
