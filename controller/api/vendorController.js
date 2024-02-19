@@ -83,4 +83,20 @@ async function createVendor(req,res) {
   }
 }
 
-module.exports = { renderVendors, renderOneVendor, createVendor };
+//delete vendor
+async function deleteVendor(req,res) {
+    const vendor_id = req.params.id;
+
+    const vendorDelData = await Vendor.destroy({
+        where: {
+            vendor_id
+        }
+    });
+    if (!vendorDelData) {
+        throw new BadRequestError("Delete vendor failed");
+      } else {
+        res.status(200).json({ msg: `Delete vendor ID: ${vendor_id} succeeded`});
+      }
+};
+
+module.exports = { renderVendors, renderOneVendor, createVendor, deleteVendor };

@@ -18,6 +18,7 @@ router.route('/')
 .post(c.createVendor);
 
 router.route('/:id')
-.get(c.renderOneVendor);
+.get(c.renderOneVendor)
+.delete(c.deleteVendor);
 
 module.exports = router;
