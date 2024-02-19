@@ -65,6 +65,16 @@ async function createProperty(req, res) {
   if (!(property_name && property_street && property_city && property_state && property_zip && owner_id)) {
     throw new BadRequestError("Missing Data - Please complete all fields");
   }
+// validate the proper state abbreviation
+  if (property_state.length > 2 || property_state.length < 2){
+    throw new BadRequestError("Please use the two letter state abbreviation")
+  }
+  property_state = property_state.toUpperCase();
+  const zipRegex = /^\d{5}$/;
+// validate 5 digit, number only zip code
+  if (property_zip.length > 5 || property_zip.length < 5 || zipRegex.test(property_zip) ){
+
+  }
 
   const newProperty = await Property.create({
     property_name,
