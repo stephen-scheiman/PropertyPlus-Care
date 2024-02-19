@@ -1,0 +1,12 @@
+<main class="bg-gray-500 h-[500px] ">
+  <h1 class="font-bold text-2xl">Open Issues</h1>
+  <div>
+    {{#each issueData}}
+      <h2>{{issueData._name}}</h2>
+
+    {{/each}}
+  </div>
+  
+  <h3>Property Name: {{this.property.property_name}}</h3>
+  
+</main>
