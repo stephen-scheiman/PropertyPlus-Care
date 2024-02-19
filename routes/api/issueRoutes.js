@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const c = require('../../controller/api/issueController');
+const c = require('../../controller/issueController');
 
 
 router.route('/')

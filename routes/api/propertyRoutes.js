@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const c = require('../../controller/api/propertyController');
+const c = require('../../controller/propertyController');
 
 router.route('/')
   .get(c.renderProperties)

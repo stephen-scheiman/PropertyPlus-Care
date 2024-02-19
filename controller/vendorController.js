@@ -1,5 +1,5 @@
-const { Vendor, Issue } = require("../../models");
-const { BadRequestError, InternalServerError } = require("../../utils/errors");
+const { Vendor, Issue } = require("../models");
+const { BadRequestError, InternalServerError } = require("../utils/errors");
 
 /* for purposes of unit testing, separating sequelize request function
 from render data functions */

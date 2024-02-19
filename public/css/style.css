@@ -588,6 +588,11 @@ video {
   justify-content: space-around;
 }
 
+.bg-\[\#085394\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(8 83 148 / var(--tw-bg-opacity));
+}
+
 .bg-blue-900 {
   --tw-bg-opacity: 1;
   background-color: rgb(30 58 138 / var(--tw-bg-opacity));
@@ -629,6 +634,11 @@ video {
 
 .align-bottom {
   vertical-align: bottom;
+}
+
+.text-slate-300 {
+  --tw-text-opacity: 1;
+  color: rgb(203 213 225 / var(--tw-text-opacity));
 }
 
 .img {
