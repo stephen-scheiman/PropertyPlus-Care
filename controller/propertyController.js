@@ -98,7 +98,7 @@ async function createProperty(req, res) {
 
 async function updateProperty(req, res) {
   const property_id = req.params.id;
-  const { property_name, property_street, property_city, property_state, property_zip, owner_id } = req.body;
+  let { property_name, property_street, property_city, property_state, property_zip, owner_id } = req.body;
 
   // validate the proper state abbreviation
   if (property_state.length > 2 || property_state.length < 2){
@@ -108,8 +108,8 @@ async function updateProperty(req, res) {
   property_state = property_state.toUpperCase();
 
 // validate 5 digit, number only zip code
-  const zipRegex = /^\d{5}$/;
-  if (property_zip.length > 5 || property_zip.length < 5 || zipRegex.test(property_zip) ){
+const zipCodePattern = /^\d{5}$/;
+  if (!zipCodePattern.test(property_zip)){
     throw new BadRequestError("Please use a proper, five digit zip code");
   }
 
