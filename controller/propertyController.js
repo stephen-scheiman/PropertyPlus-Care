@@ -1,13 +1,37 @@
 const { Property, Owner, Issue } = require('../models');
 const { BadRequestError, InternalServerError } = require('../utils/errors');
 
-/* for purposes of unit testing, separating sequelize request function
-from render data functions */
+
+async function renderProperties(req, res) {
+  const properties = await getAllProperties();
+  console.log(properties);
+
+  if (req.headers['hx-request']) {
+    res.status(200).render('property-main', { properties, layout: false });
+  } else {
+    res.status(200).render('property-main', { properties });
+  }
+};
+
+// render data funciton
+async function renderOneProperty(req, res) {
+  const { id: property_id } = req.params;
+  const properties = await getPropertyByID(property_id);
+
+
+  if (req.headers['hx-request']) {
+    res.status(200).render('property-id', { properties, layout: false });
+  } else {
+    console.log('\n\nhere');
+    res.status(200).redirect('/properties');
+  }
+};
+
 async function getAllProperties() {
-  const propertyData = Property.findAll({
+  const propertyData = await Property.findAll({
     include: [{
       model: Owner,
-      attributes: ["owner_name",]
+      attributes: ["owner_first_name", "owner_last_name"],
     }],
     raw: true,
     nest: true
@@ -18,12 +42,6 @@ async function getAllProperties() {
   }
 
   return propertyData;
-};
-
-// render data function
-async function renderProperties(req, res) {
-  const properties = await getAllProperties();
-  res.status(200).json({ properties });
 };
 
 // sequelize request function
@@ -44,13 +62,6 @@ async function getPropertyByID(id) {
   }
 
   return propertyData;
-};
-
-// render data funciton
-async function renderOneProperty(req, res) {
-  const { id: property_id } = req.params;
-  const properties = await getPropertyByID(property_id);
-  res.status(200).json({ properties });
 };
 
 async function createProperty(req, res) {
