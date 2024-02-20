@@ -2,8 +2,9 @@ const { Task } = require("../models");
 const { BadRequestError, InternalServerError } = require("../utils/errors");
 const {
   getAllTasks,
-  getTaskByID, 
-  updateIsDone } = require("../utils/queries/tasks");
+  getTaskByID,
+  updateIsDone,
+} = require("../utils/queries/tasks");
 
 async function renderTasks(req, res) {
   const tasks = await getAllTasks();
@@ -24,14 +25,14 @@ async function renderIsDone(req, res) {
     task = await updateIsDone(id, false);
   } else {
     task = await updateIsDone(id, true);
-  };
+  }
 
   res.status(200).render("issue-ID", { task });
 }
 
 // create task function
 async function createTask(req, res) {
-  const { task_name, status_update, followUp_date, property_id, issue_id } =
+  let { task_name, status_update, followUp_date, property_id, issue_id } =
     req.body;
 
   if (
@@ -40,10 +41,12 @@ async function createTask(req, res) {
     throw new BadRequestError("Missing Data - Please complete all fields");
   }
 
-  const datePattern =
-    /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(([1][26]|[2468][048]|[3579][26])00))))$/g;
-  if (!datePattern.test(followUp_date)) {
-    throw new BadRequestError("Please enter the follow up date as 'MM/DD/YYY'");
+  followUp_date = new Date(followUp_date);
+ 
+  if (isNaN(followUp_date)) {
+    throw new BadRequestError(
+      "Please enter a valid date in the form of MM/DD/YY",
+    );
   }
 
   const newTask = await Task.create({
@@ -64,12 +67,12 @@ async function createTask(req, res) {
 //update task function
 async function updateTask(req, res) {
   const task_id = req.params.id;
-  const { task_name, status_update, followUp_date, is_done } = req.body;
+  let { task_name, status_update, followUp_date, is_done } = req.body;
 
-  const datePattern =
-    /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(([1][26]|[2468][048]|[3579][26])00))))$/g;
-  if (!datePattern.test(followUp_date)) {
-    throw new BadRequestError("Please enter the follow up date as 'MM/DD/YY'");
+  followUp_date = new Date(followUp_date);
+ 
+  if (isNaN(followUp_date)) {
+    throw new BadRequestError("Please enter a valid date in the form MM/DD/YY");
   }
 
   const taskData = await Task.update(
@@ -93,4 +96,10 @@ async function updateTask(req, res) {
   }
 }
 
-module.exports = { renderTasks, renderOneTask, createTask, updateTask, renderIsDone };
+module.exports = {
+  renderTasks,
+  renderOneTask,
+  createTask,
+  updateTask,
+  renderIsDone,
+};
