@@ -53,10 +53,12 @@ async function renderNewOwner(req, res) {
 
 
   //format the phone number as (XXX)XXX-XXXX
+  owner_phone = owner_phone.replace(/[^0-9 ]/g, "");
+
   if (owner_phone.length > 10 || owner_phone.length < 10) {
     throw new BadRequestError("Please enter a valid 10 digit phone number, no symbols or spaces");
-  }
-  owner_phone = owner_phone.replace(/[^a-zA-Z0-9 ]/g, "");
+  }  
+  
   owner_phone =
     "(" +
     owner_phone.slice(0, 3) +
@@ -146,10 +148,12 @@ async function renderUpdateOwner(req, res) {
 
 
   //format the phone number as (XXX)XXX-XXXX
+  owner_phone = owner_phone.replace(/[^0-9 ]/g, "");
+
   if (owner_phone.length > 10 || owner_phone.length < 10) {
     throw new BadRequestError("Please enter a valid 10 digit phone number, no symbols or spaces");
-  }
-  owner_phone = owner_phone.replace(/[^a-zA-Z0-9 ]/g, "");
+  }  
+
   owner_phone =
     "(" +
     owner_phone.slice(0, 3) +
