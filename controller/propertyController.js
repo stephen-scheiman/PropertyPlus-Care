@@ -46,7 +46,7 @@ async function getPropertyByID(id) {
   return propertyData;
 }
 
-// render data funciton
+// render data function
 async function renderOneProperty(req, res) {
   const { id: property_id } = req.params;
   const properties = await getPropertyByID(property_id);
@@ -91,6 +91,14 @@ async function createProperty(req, res) {
     );
   }
 
+  //validate that the property name is unique
+  const propertyNames = await getAllProperties();
+  for(x=0; x<propertyNames.length; x++){
+    if (property_name === propertyNames[x].property_name){
+      throw new BadRequestError("Please enter a unique property name")
+    } 
+  }
+
   //validate proper street address
   const streetPattern = /^[a-zA-Z0-9. ]+$/;
   if (!streetPattern.test(property_street)) {
@@ -109,11 +117,7 @@ async function createProperty(req, res) {
 
   //validate two letter state
   const statePattern = /^[a-zA-Z]{2}$/;
-  if (
-    property_state.length > 2 ||
-    property_state.length < 2 ||
-    !statePattern.test(property_state)
-  ) {
+  if (!statePattern.test(property_state)) {
     throw new BadRequestError(
       "Please use the proper, two letter state abbreviation",
     );
@@ -176,6 +180,17 @@ async function updateProperty(req, res) {
     );
   }
 
+  //validate that the property name is unique
+  //
+  //commented out for update until discussed with team
+  //
+  // const propertyNames = await getAllProperties();
+  // for(x=0; x<propertyNames.length; x++){
+  //   if (property_name === propertyNames[x].property_name){
+  //     throw new BadRequestError("Please enter a unique property name")
+  //   } 
+  // }
+
   //validate proper street address
   const streetPattern = /^[a-zA-Z0-9. ]+$/;
   if (!streetPattern.test(property_street)) {
@@ -193,11 +208,7 @@ async function updateProperty(req, res) {
 
   //validate two letter state
   const statePattern = /^[a-zA-Z]{2}$/;
-  if (
-    property_state.length > 2 ||
-    property_state.length < 2 ||
-    !statePattern.test(property_state)
-  ) {
+  if (!statePattern.test(property_state)) {
     throw new BadRequestError(
       "Please use the proper, two letter state abbreviation",
     );

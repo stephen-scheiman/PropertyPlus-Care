@@ -18,6 +18,15 @@ async function renderOneOwner(req, res) {
   res.status(200).json({ owner });
 }
 
+// Recreated by SBS to feed this data to the email uniqueness check below....
+async function getAllOwners() {
+  const ownerData = Owner.findAll();
+  if (!ownerData) {
+    throw new BadRequestError("Something went wrong");
+  }
+  return ownerData;
+}
+
 async function renderNewOwner(req, res) {
   console.log(req.body);
   let {
@@ -79,6 +88,14 @@ async function renderNewOwner(req, res) {
 
   if (!emailPattern.test(owner_email)) {
     throw new BadRequestError("Please enter a valid email address");
+  }
+
+  //validate that the email is unique
+  const ownerData = await getAllOwners();
+  for(x=0; x<ownerData.length; x++){
+    if (owner_email === ownerData[x].owner_email){
+      throw new BadRequestError("A user with this email address already exists")
+    } 
   }
 
   if (!streetPattern.test(owner_street)) {
@@ -174,6 +191,17 @@ async function renderUpdateOwner(req, res) {
   if (!emailPattern.test(owner_email)) {
     throw new BadRequestError("Please enter a valid email address");
   }
+  
+  // validate that the email is unique
+  //
+  // Commenting out for now until we discuss update validation
+  //
+  // const ownerData = await getAllOwners();
+  // for(x=0; x<ownerData.length; x++){
+  //   if (owner_email === ownerData[x].owner_email){
+  //     throw new BadRequestError("A user with this email address already exists")
+  //   } 
+  // }
 
   if (!streetPattern.test(owner_street)) {
     throw new BadRequestError("Please enter a valid street address");
