@@ -67,17 +67,23 @@ async function createProperty(req, res) {
     throw new BadRequestError("Missing Data - Please complete all fields");
   }
 
+  //validate that property name contains only letters and spaces
+  const propNamePattern = /^[a-zA-Z ]+$/
+  if (!propNamePattern.test(property_name)) {
+    throw new BadRequestError("Please enter a valid property name, letters and spaces only");
+  }
+
   //validate proper street address
   const streetPattern = /^[a-zA-Z0-9. ]+$/;
   if (!streetPattern.test(property_street)) {
     throw new BadRequestError("Please enter a valid street address");
   }
 
-  //validate city name
   //format city name
   property_city = property_city[0].toUpperCase() + property_city.slice(1).toLowerCase();
-   //validate letters only
-   const namePattern = /^[a-zA-Z]+$/;
+
+  //validate letters only in city name
+  const namePattern = /^[a-zA-Z]+$/;
   if (!namePattern.test(property_city)) {
     throw new BadRequestError("Please enter a valid city name");
   }
@@ -118,18 +124,44 @@ async function updateProperty(req, res) {
   const property_id = req.params.id;
   let { property_name, property_street, property_city, property_state, property_zip, owner_id } = req.body;
 
-  // validate the proper state abbreviation
-  if (property_state.length > 2 || property_state.length < 2){
-    throw new BadRequestError("Please use the two letter state abbreviation");
+  if (!(property_name && property_street && property_city && property_state && property_zip && owner_id)) {
+    throw new BadRequestError("Missing Data - Please complete all fields");
   }
-// convert state abbreviation to upper case
-  property_state = property_state.toUpperCase();
 
-// validate 5 digit, number only zip code
-const zipCodePattern = /^\d{5}$/;
-  if (!zipCodePattern.test(property_zip)){
+  //validate that property name contains only letters and spaces
+  const propNamePattern = /^[a-zA-Z ]+$/
+  if (!propNamePattern.test(property_name)) {
+    throw new BadRequestError("Please enter a valid property name, letters and spaces only");
+  }
+
+  //validate proper street address
+  const streetPattern = /^[a-zA-Z0-9. ]+$/;
+  if (!streetPattern.test(property_street)) {
+    throw new BadRequestError("Please enter a valid street address");
+  }
+
+  //format city name
+  property_city = property_city[0].toUpperCase() + property_city.slice(1).toLowerCase();
+    //validate letters only
+    const namePattern = /^[a-zA-Z]+$/;
+  if (!namePattern.test(property_city)) {
+    throw new BadRequestError("Please enter a valid city name");
+  }
+
+  //validate two letter state
+  const statePattern = /^[a-zA-Z]{2}$/;
+  if (property_state.length > 2 || property_state.length < 2 || !statePattern.test(property_state)){
+    throw new BadRequestError("Please use the proper, two letter state abbreviation");
+  }
+
+  //validate zip is 5 digit number
+  const zipPattern = /^\d{5}$/;
+  if (!zipPattern.test(property_zip) ){
     throw new BadRequestError("Please use a proper, five digit zip code");
   }
+
+  // convert state abbreviation to upper case
+  property_state = property_state.toUpperCase();
 
   const propData = await Property.update({
     property_name,
