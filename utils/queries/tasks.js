@@ -69,6 +69,16 @@ async function updateTask(task_id, taskData) {
   return task;
 }
 
+async function updateIsDone(task_id, is_done) {
+  const task = await Task.update({is_done}, { where: { task_id }});
+
+  if (!task) {
+    throw new InternalServerError(`Couldn't create task with data ${task_id}`);
+  }
+  // console.log(taskDone);
+  return task;
+}
+
 async function deleteTask(task_id) {
   const task = await Task.destroy({ where: { task_id } });
 
@@ -87,4 +97,5 @@ module.exports = {
   createTask,
   updateTask,
   deleteTask,  
+  updateIsDone
 }

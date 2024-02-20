@@ -1,5 +1,6 @@
 const { Property, Issue, Task } = require("../models");
 const { BadRequestError, InternalServerError } = require("../utils/errors");
+const { isDone } = require("../utils/queries/tasks");
 
 /* for purposes of unit testing, separating sequelize request function
 from render data functions */
@@ -51,6 +52,19 @@ async function renderOneTask(req, res) {
   const { id: task_id } = req.params;
   const task = await getTaskByID(task_id);
   res.status(200).json({ task });
+}
+
+async function renderIsDone(req, res) {
+  let task;
+  const { id } = req.params;
+  const { isDone } = req.body;
+  if (isDone === "Re-Open") {
+    task = await updateIsDone(id, false);
+  } else {
+    task = await updateIsDone(id, true);
+  };
+
+  res.status(200).render("issue-ID", { task });
 }
 
 // create task function
@@ -105,4 +119,4 @@ async function updateTask(req, res) {
   }
 }
 
-module.exports = { renderTasks, renderOneTask, createTask, updateTask };
+module.exports = { renderTasks, renderOneTask, createTask, updateTask, renderIsDone };
