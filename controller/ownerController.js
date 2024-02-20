@@ -47,18 +47,19 @@ async function renderNewOwner(req, res) {
   //format name before sending to db
   owner_first_name =
     owner_first_name[0].toUpperCase() + owner_first_name.slice(1).toLowerCase();
-  
+
   owner_last_name =
     owner_last_name[0].toUpperCase() + owner_last_name.slice(1).toLowerCase();
-
 
   //format the phone number as (XXX)XXX-XXXX
   owner_phone = owner_phone.replace(/[^0-9 ]/g, "");
 
   if (owner_phone.length > 10 || owner_phone.length < 10) {
-    throw new BadRequestError("Please enter a valid 10 digit phone number, no symbols or spaces");
-  }  
-  
+    throw new BadRequestError(
+      "Please enter a valid 10 digit phone number, no symbols or spaces",
+    );
+  }
+
   owner_phone =
     "(" +
     owner_phone.slice(0, 3) +
@@ -66,11 +67,9 @@ async function renderNewOwner(req, res) {
     owner_phone.slice(3, 6) +
     "-" +
     owner_phone.slice(6);
- 
 
   //format city name
   owner_city = owner_city[0].toUpperCase() + owner_city.slice(1).toLowerCase();
-
 
   if (
     !(namePattern.test(owner_first_name) && namePattern.test(owner_last_name))
@@ -142,17 +141,18 @@ async function renderUpdateOwner(req, res) {
   //format name before sending to db
   owner_first_name =
     owner_first_name[0].toUpperCase() + owner_first_name.slice(1).toLowerCase();
-  
+
   owner_last_name =
     owner_last_name[0].toUpperCase() + owner_last_name.slice(1).toLowerCase();
-
 
   //format the phone number as (XXX)XXX-XXXX
   owner_phone = owner_phone.replace(/[^0-9 ]/g, "");
 
   if (owner_phone.length > 10 || owner_phone.length < 10) {
-    throw new BadRequestError("Please enter a valid 10 digit phone number, no symbols or spaces");
-  }  
+    throw new BadRequestError(
+      "Please enter a valid 10 digit phone number, no symbols or spaces",
+    );
+  }
 
   owner_phone =
     "(" +
@@ -161,11 +161,9 @@ async function renderUpdateOwner(req, res) {
     owner_phone.slice(3, 6) +
     "-" +
     owner_phone.slice(6);
-  
 
   //format city name
   owner_city = owner_city[0].toUpperCase() + owner_city.slice(1).toLowerCase();
-
 
   if (
     !(namePattern.test(owner_first_name) && namePattern.test(owner_last_name))
