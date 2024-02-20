@@ -4,7 +4,7 @@ const { NotFoundError, InternalServerError, BadRequestError } = require('../util
 
 async function renderIssues(req, res) {
   const issues = await findAllIIssues();
-  res.status(200).json({ msg: 'Success', issues });
+  res.status(200).render('issue-main', { issues });
 };
 
 async function renderOneIssue(req, res) {
@@ -63,9 +63,10 @@ async function renderAddVendor(req, res) {
 
 async function findAllIIssues() {
   const issues = await Issue.findAll({
-    include: [{
-      model: Property,
-    }],
+    include: [
+      { model: Property },
+      { model: Task}
+    ],
     raw: true,
     nest: true,
   });
@@ -73,7 +74,7 @@ async function findAllIIssues() {
   if (!issues) {
     throw new NotFoundError('No issues found');
   }
-
+  console.log(issues);
   return issues;
 }
 

@@ -52,10 +52,6 @@ async function renderHome(req, res) {
 
   // this needs to be completed when we know what the homepage will look like
   res.status(200).render('homepage', { taskData });
-
-  // res.status(200).render('homepage', {
-  //   logged_in, taskData, userData
-  // });
 }
 
 
