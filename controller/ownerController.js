@@ -94,7 +94,7 @@ async function renderNewOwner(req, res) {
   const ownerData = await getAllOwners();
   for(x=0; x<ownerData.length; x++){
     if (owner_email === ownerData[x].owner_email){
-      throw new BadRequestError("A user with this email address already exists")
+      throw new BadRequestError("An owner with this email address already exists")
     } 
   }
 
