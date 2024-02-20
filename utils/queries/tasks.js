@@ -1,5 +1,5 @@
 const { Property, Issue, Task } = require("../../models");
-const { BadRequestError, InternalServerError } = require("../errors");
+const { InternalServerError } = require("../errors");
 
 async function getAllTasks() {
   const tasks = Task.findAll({
@@ -33,6 +33,20 @@ async function getTaskByID(id) {
   }
   // console.log(task);
   return task;
+}
+
+async function getTasksByIssueID(issue_id) {
+  const tasks = await Task.findAll({
+    where: {issue_id: issue_id},
+    raw: true,
+    nest: true
+  });
+
+  if (!tasks) {
+    throw new InternalServerError("Couldn't find tasks");
+  };
+  // console.log(tasks);
+  return tasks;
 }
 
 async function createTask(taskData) {
@@ -69,8 +83,8 @@ async function deleteTask(task_id) {
 module.exports = {
   getAllTasks,
   getTaskByID,
+  getTasksByIssueID,
   createTask,
   updateTask,
-  deleteTask,
-  
+  deleteTask,  
 }

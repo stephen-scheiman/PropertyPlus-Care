@@ -1,6 +1,7 @@
 
 const { Vendor, Issue, Property, Task } = require('../models');
 const { NotFoundError, InternalServerError, BadRequestError } = require('../utils/errors');
+const { getTasksByIssueID } = require('../utils/queries/tasks');
 
 async function renderIssues(req, res) {
   const issues = await findAllIIssues();
@@ -11,8 +12,9 @@ async function renderIssues(req, res) {
 async function renderOneIssue(req, res) {
   const { id: issue_id } = req.params;
   const issue = await findOneIssue(issue_id);
+  const tasks = await getTasksByIssueID(issue_id);
   console.log(issue);
-  res.status(200).render('issue-ID', { issue });
+  res.status(200).render('issue-ID', { issue, tasks });
 };
 
 async function renderNewIssue(req, res) {

@@ -7,13 +7,25 @@
     <h3>Description: {{issue.issue_description}}</h3>
     <p>Previous Actions:</p>
     <ul>
-      {{#each issue.tasks}}
+      {{#each tasks}}
       <li
-        hx-get="/tasks/{{this.task_id}}"
+        hx-get="/tasks/{{task_id}}"
         {{!-- hx-target will be itself, so no need to specify --}}
         {{!-- the swap will be innerHTML, also default --}}
         hx-push-url="true"
-      >Task: {{this.task_name}}</li>
+      >Task: {{task_name}}
+      {{#if is_done}}
+        <input type="button" value="Re-Open"
+        class="border-2 border-black rounded-lg px-2"
+        hx-patch="/tasks/{{task_id}}/isDone"
+        hx-swap="#main">
+      {{else}}
+        <input type="button" value="Completed"
+        class="border-2 border-black rounded-lg px-2"
+        hx-patch="/tasks/{{task_id}}/isDone"
+        hx-swap="#main">
+      {{/if}}
+      </li>
       {{/each}}
     </ul>
   </div>
