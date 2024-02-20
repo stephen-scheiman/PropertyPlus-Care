@@ -73,9 +73,9 @@ async function updateIsDone(task_id, is_done) {
   const task = await Task.update({is_done}, { where: { task_id }});
 
   if (!task) {
-    throw new InternalServerError(`Couldn't create task with data ${task_id}`);
+    throw new InternalServerError(`Couldn't update task isDone with data ${task_id}`);
   }
-  // console.log(taskDone);
+  console.log(task);
   return task;
 }
 
