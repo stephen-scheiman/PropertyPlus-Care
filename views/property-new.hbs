@@ -1,0 +1,27 @@
+<dialog open class="p-2 rounded-md">
+  <form class="flex flex-col">
+    <label for="propety_name">Property Name</label>
+    <input type="text" name="propety_name" id="propety_name">
+
+    <label for="property_street">Street Address</label>
+    <input type="text" name="property_street" id="property_street">
+
+    <label for="property_city">City</label>
+    <input type="email" name="property_city" id="property_city">
+
+    <label for="property_state">State</label>
+    <input type="text" name="property_state" id="property_state">
+
+    <label for="property_zip">Zipcode</label>
+    <input type="text" name="property_zip" id="property_zip">
+
+    <select name="owner_id" id="owner_id">
+      <option value="" selected>None</option>
+      {{#each owners}}
+        <option value="{{owner_id}}">{{owner_first_name}} {{owner_last_name}}</option>
+      {{/each}}
+    </select>
+
+    <button type="submit" class="my-5">Create Property</button>
+  </form>
+</dialog>

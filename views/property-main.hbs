@@ -1,20 +1,33 @@
 <main>
+  <button hx-get="/properties/new" hx-target="#newForm" class="my-5">Add New Property</button>
+  <div id="newForm"></div>
   <ul>
     {{#each properties}}
       <li>
         <h2>
           <a
             href="/properties/{{property_id}}"
-            hx-boost="true" hx-target="#property-{{property_id}}">
+            hx-boost="true"
+            hx-target="#main"
+            hx-push-url="true"
+          >
             {{property_name}}
           </a>
         </h2>
         <p>{{property_street}}</p>
         <p>{{property_city}}, {{property_state}} {{property_zip}}</p>
-        <p>{{owner.owner_first_name}} {{owner.owner_last_name}}</p>
+        <p hx-on:click="document.getElementById('owner_modal_{{owner_id}}').showModal()">{{owner.owner_first_name}} {{owner.owner_last_name}}</p>
+
         <div id="property-{{property_id}}"></div>
       </li>
       <br />
+      <dialog id="owner_modal_{{owner_id}}">
+        <div class="flex flex-col">
+          <h2>{{owner.owner_first_name}} {{owner.owner_last_name}}</h2>
+          <p>{{owner.owner_phone}}</p>
+          <p>{{owner.owner_email}}</p>
+        </div>
+      </dialog>
     {{/each}}
   </ul>
 </main>

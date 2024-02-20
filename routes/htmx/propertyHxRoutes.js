@@ -5,6 +5,12 @@ router.route('/')
   .get(c.renderProperties)
   .post(c.createProperty);
 
+router.route('/new')
+  .get(c.renderNewForm)
+
+router.route('/owners')
+  .get(c.renderSelectOwners)
+
 router.route('/:id')
   .get(c.renderOneProperty)
   .put(c.updateProperty)

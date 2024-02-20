@@ -1,49 +1,11 @@
-const { Property, Owner, Issue } = require('../models');
-const { BadRequestError, InternalServerError } = require('../utils/errors');
-const { findOwners } = require('../utils/db-queries/owner');
-// const { } = require('../utils/db-queries/property');
-
-async function renderProperties(req, res) {
-  const properties = await getAllProperties();
-  res.status(200).render('property-main', { properties });
-};
-
-async function renderOneProperty(req, res) {
-  const { id: property_id } = req.params;
-  const properties = await getPropertyByID(property_id);
-
-  if (req.headers['hx-request']) {
-    res.status(200).render('property-id', { properties, layout: false });
-  } else {
-    res.status(200).render('property-id', { properties });
-  }
-};
-
-async function renderSelectOwners(req, res) {
-  const owners = await findOwners();
-
-  if (req.headers['hx-request']) {
-    res.status(200).render('property-owners', { owners, layout: false });
-  } else {
-    res.status(200).redirect('/properties');
-  }
-};
-
-async function renderNewForm(req, res) {
-  const owners = await findOwners();
-
-  if (req.headers['hx-request']) {
-    res.status(200).render('property-new', { owners, layout: false });
-  } else {
-    res.status(200).redirect('/properties');
-  }
-};
+const { Property, Owner, Issue } = require('../../models');
 
 async function getAllProperties() {
   const propertyData = await Property.findAll({
-    include: [
-      { model: Owner },
-    ],
+    include: [{
+      model: Owner,
+      attributes: ["owner_first_name", "owner_last_name"],
+    }],
     raw: true,
     nest: true
   });
@@ -51,7 +13,7 @@ async function getAllProperties() {
   if (!propertyData) {
     throw new BadRequestError('Something went wrong');
   }
-  console.log(propertyData);
+
   return propertyData;
 };
 
@@ -142,14 +104,12 @@ async function deleteProperty(req, res) {
   }
 };
 
-// is this the correct export for all controller files?
+
 module.exports = {
-  renderProperties,
-  renderOneProperty,
+  getAllProperties,
+  getPropertyByID,
   createProperty,
   updateProperty,
   deleteProperty,
-  renderSelectOwners,
-  renderNewForm,
-
-};
+  
+}
