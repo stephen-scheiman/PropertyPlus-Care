@@ -7,7 +7,7 @@ async function getAllProperties() {
   const propertyData = Property.findAll({
     include: [{
       model: Owner,
-      attributes: ["owner_name",]
+      attributes: ["owner_first_name","owner_last_name"] //this was preventing getAllProperties from working - incorrecct column name "owner_name"
     }],
     raw: true,
     nest: true
@@ -67,18 +67,36 @@ async function createProperty(req, res) {
     throw new BadRequestError("Missing Data - Please complete all fields");
   }
 
-  // validate the proper state abbreviation
-  if (property_state.length > 2 || property_state.length < 2){
+  //validate proper street address
+  const streetPattern = /^[a-zA-Z0-9. ]+$/;
+  if (!streetPattern.test(property_street)) {
+    throw new BadRequestError("Please enter a valid street address");
+  }
+
+  //validate city name
+  //format city name
+  property_city = property_city[0].toUpperCase() + property_city.slice(1).toLowerCase();
+   //validate letters only
+   const namePattern = /^[a-zA-Z]+$/;
+  if (!namePattern.test(property_city)) {
+    throw new BadRequestError("Please enter a valid city name");
+  }
+
+  //validate two letter state
+  const statePattern = /^[a-zA-Z]{2}$/;
+  if (property_state.length > 2 || property_state.length < 2 || !statePattern.test(property_state)){
     throw new BadRequestError("Please use the proper, two letter state abbreviation");
   }
+
+  //validate zip is 5 digit number
+  const zipPattern = /^\d{5}$/;
+  if (!zipPattern.test(property_zip) ){
+    throw new BadRequestError("Please use a proper, five digit zip code");
+  }
+
   // convert state abbreviation to upper case
   property_state = property_state.toUpperCase();
 
-  // validate 5 digit, number only zip code
-  const zipCodePattern = /^\d{5}$/;
-  if (!zipCodePattern.test(property_zip) ){
-    throw new BadRequestError("Please use a proper, five digit zip code");
-  }
 
   const newProperty = await Property.create({
     property_name,

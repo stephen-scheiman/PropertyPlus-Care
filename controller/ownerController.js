@@ -47,11 +47,15 @@ async function renderNewOwner(req, res) {
   //format name before sending to db
   owner_first_name =
     owner_first_name[0].toUpperCase() + owner_first_name.slice(1).toLowerCase();
-  console.log(owner_first_name);
+  
   owner_last_name =
     owner_last_name[0].toUpperCase() + owner_last_name.slice(1).toLowerCase();
-  console.log(owner_last_name);
+
+
   //format the phone number as (XXX)XXX-XXXX
+  if (owner_phone.length > 10 || owner_phone.length < 10) {
+    throw new BadRequestError("Please enter a valid 10 digit phone number, no symbols or spaces");
+  }
   owner_phone = owner_phone.replace(/[^a-zA-Z0-9 ]/g, "");
   owner_phone =
     "(" +
@@ -60,23 +64,38 @@ async function renderNewOwner(req, res) {
     owner_phone.slice(3, 6) +
     "-" +
     owner_phone.slice(6);
-  console.log(owner_phone);
+ 
+
+  //format city name
+  owner_city = owner_city[0].toUpperCase() + owner_city.slice(1).toLowerCase();
+
 
   if (
-    !(
-      namePattern.test(owner_first_name) &&
-      namePattern.test(owner_last_name) 
-    )
+    !(namePattern.test(owner_first_name) && namePattern.test(owner_last_name))
   ) {
     throw new BadRequestError("Please enter your first and last name");
   }
 
-  if(!emailPattern.test(owner_email)){
+  if (!emailPattern.test(owner_email)) {
     throw new BadRequestError("Please enter a valid email address");
   }
 
-  if(!phonePattern.test(owner_phone)){
-    throw new BadRequestError("Please enter a valid 10 digit phone number");
+  if (!streetPattern.test(owner_street)) {
+    throw new BadRequestError("Please enter a valid street address");
+  }
+
+  if (!namePattern.test(owner_city)) {
+    throw new BadRequestError("Please enter a valid city name");
+  }
+
+  if (!statePattern.test(owner_state)) {
+    throw new BadRequestError(
+      "Please enter a valid 2 letter state abbreviation",
+    );
+  }
+
+  if (!zipPattern.test(owner_zip)) {
+    throw new BadRequestError("Please enter a valid 5 digit zip code");
   }
 
   const newOwner = await createOwner({
@@ -94,8 +113,8 @@ async function renderNewOwner(req, res) {
 }
 
 async function renderUpdateOwner(req, res) {
-  const {
-    owner_fist_name,
+  let {
+    owner_first_name,
     owner_last_name,
     owner_email,
     owner_phone,
@@ -106,8 +125,74 @@ async function renderUpdateOwner(req, res) {
   } = req.body;
   const id = req.params.id;
 
+  //validate letters only
+  const namePattern = /^[a-zA-Z]+$/;
+  //validate properly formed email
+  const emailPattern =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //validate proper street address
+  const streetPattern = /^[a-zA-Z0-9. ]+$/;
+  //validate two letter state
+  const statePattern = /^[a-zA-Z]{2}$/;
+  //validate zip is 5 digit number
+  const zipPattern = /^\d{5}$/;
+
+  //format name before sending to db
+  owner_first_name =
+    owner_first_name[0].toUpperCase() + owner_first_name.slice(1).toLowerCase();
+  
+  owner_last_name =
+    owner_last_name[0].toUpperCase() + owner_last_name.slice(1).toLowerCase();
+
+
+  //format the phone number as (XXX)XXX-XXXX
+  if (owner_phone.length > 10 || owner_phone.length < 10) {
+    throw new BadRequestError("Please enter a valid 10 digit phone number, no symbols or spaces");
+  }
+  owner_phone = owner_phone.replace(/[^a-zA-Z0-9 ]/g, "");
+  owner_phone =
+    "(" +
+    owner_phone.slice(0, 3) +
+    ")" +
+    owner_phone.slice(3, 6) +
+    "-" +
+    owner_phone.slice(6);
+  
+
+  //format city name
+  owner_city = owner_city[0].toUpperCase() + owner_city.slice(1).toLowerCase();
+
+
+  if (
+    !(namePattern.test(owner_first_name) && namePattern.test(owner_last_name))
+  ) {
+    throw new BadRequestError("Please enter your first and last name");
+  }
+
+  if (!emailPattern.test(owner_email)) {
+    throw new BadRequestError("Please enter a valid email address");
+  }
+
+  if (!streetPattern.test(owner_street)) {
+    throw new BadRequestError("Please enter a valid street address");
+  }
+
+  if (!namePattern.test(owner_city)) {
+    throw new BadRequestError("Please enter a valid city name");
+  }
+
+  if (!statePattern.test(owner_state)) {
+    throw new BadRequestError(
+      "Please enter a valid 2 letter state abbreviation",
+    );
+  }
+
+  if (!zipPattern.test(owner_zip)) {
+    throw new BadRequestError("Please enter a valid 5 digit zip code");
+  }
+
   const owner = await updateOwner(id, {
-    owner_fist_name,
+    owner_first_name,
     owner_last_name,
     owner_email,
     owner_phone,
