@@ -89,6 +89,14 @@ async function createVendor(req, res) {
     if (!emailPattern.test(vendor_email)) {
       throw new BadRequestError("Please enter a valid email address");
     }
+
+  //validate that the email is unique
+  const vendorData = await getAllVendors();
+  for(x=0; x<vendorData.length; x++){
+    if (vendor_email === vendorData[x].vendor_email){
+      throw new BadRequestError("A vendor with this email address already exists")
+    } 
+  }
   
   //format the phone number as (XXX)XXX-XXXX
   vendor_phone = vendor_phone.replace(/[^0-9 ]/g, "");
@@ -168,7 +176,16 @@ async function updateVendor(req, res) {
     if (!emailPattern.test(vendor_email)) {
       throw new BadRequestError("Please enter a valid email address");
     }
-  
+
+  //validate that the email is unique
+  // const vendData = await getAllVendors();
+  // for(x=0; x<vendData.length; x++){
+  //   if (vendor_email === vendData[x].vendor_email){
+  //     throw new BadRequestError("A user with this email address already exists")
+  //   } 
+  // }
+
+
   //format the phone number as (XXX)XXX-XXXX
   vendor_phone = vendor_phone.replace(/[^0-9 ]/g, "");
 

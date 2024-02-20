@@ -42,10 +42,16 @@ async function createTask(req, res) {
   }
 
   followUp_date = new Date(followUp_date);
- 
+
   if (isNaN(followUp_date)) {
     throw new BadRequestError(
       "Please enter a valid date in the form of MM/DD/YY",
+    );
+  }
+
+  if (task_name.length > 255) {
+    throw new BadRequestError(
+      "Please limit the task name to 255 characters or less",
     );
   }
 
@@ -70,9 +76,15 @@ async function updateTask(req, res) {
   let { task_name, status_update, followUp_date, is_done } = req.body;
 
   followUp_date = new Date(followUp_date);
- 
+
   if (isNaN(followUp_date)) {
     throw new BadRequestError("Please enter a valid date in the form MM/DD/YY");
+  }
+
+  if (task_name.length > 255) {
+    throw new BadRequestError(
+      "Please limit the task name to 255 characters or less",
+    );
   }
 
   const taskData = await Task.update(
