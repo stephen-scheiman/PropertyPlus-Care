@@ -7,3 +7,5 @@ router.route('/')
 
 router.route('/:id/isDone')
   .patch(c.renderIsDone);
+
+module.exports = router;
