@@ -1,25 +1,21 @@
-<main class="bg-[#085394]">
-  <h1 class="font-bold text-2xl my-8">Open Issues</h1>
-  <div id="pagediv">
-    {{#each issues}}
-      <div class="mx-auto px-4 my-2">
-        <h2
-          class="font-bold text-xl my-2"
-          hx-get="/issues/{{this.issue_id}}"
-          hx-swap="innerHTML"
-          hx-target="#main"
-          hx-push-url="true"
-        >{{this.issue_title}}</h2>
-        <h3
-          class="font-semibold text-lg"
-          hx-get="/properties/{{this.propery.property_id}}"
-          hx-swap="innerHTML"
-          hx-target="#main"
-          hx-push-url="true"
-        >Property: {{this.property.property_name}}</h3>
-        <p class="font-medium">Description: <span>{{this.issue_description}}</span></p>
-        <p class="font-medium">Next Follow-Up Date: <span>{{this.tasks.followUp_date}}</span></p>
-      </div>
-    {{/each}}
-  </div>  
+<main class="bg-[#085394] px-4">
+  <h1 class="font-bold text-2xl mt-8">{{issue.issue_title}}</h1>
+  <h2 class="font-semibold text-lg mt-5">Property: 
+    <span class="font-normal text-">{{issue.property.property_name}}</span>
+  </h2>
+  <div>
+    <h3>Description: {{issue.issue_description}}</h3>
+    <p>Previous Actions:</p>
+    <ul>
+      {{#each issue.tasks}}
+      <li
+        hx-get="/tasks/{{this.task_id}}"
+        {{!-- hx-target will be itself, so no need to specify --}}
+        {{!-- the swap will be innerHTML, also default --}}
+        hx-push-url="true"
+      >Task: {{this.task_name}}</li>
+      {{/each}}
+    </ul>
+  </div>
+  </main>
 </main>

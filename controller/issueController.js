@@ -4,13 +4,15 @@ const { NotFoundError, InternalServerError, BadRequestError } = require('../util
 
 async function renderIssues(req, res) {
   const issues = await findAllIIssues();
+  // console.log(issues);
   res.status(200).render('issue-main', { issues });
 };
 
 async function renderOneIssue(req, res) {
   const { id: issue_id } = req.params;
   const issue = await findOneIssue(issue_id);
-  res.status(200).json({ msg: 'Success', issue });
+  console.log(issue);
+  res.status(200).render('issue-ID', { issue });
 };
 
 async function renderNewIssue(req, res) {
@@ -92,7 +94,7 @@ async function findOneIssue(issue_id) {
   if (!issue) {
     throw new NotFoundError(`No issue found wtih id ${issue_id}`);
   }
-
+  
   return issue;
 }
 

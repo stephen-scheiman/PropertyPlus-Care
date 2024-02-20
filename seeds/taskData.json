@@ -38,5 +38,13 @@
     "is_done": "false",
     "issue_id": "5",
     "property_id": "5"
+  },
+  {
+    "task_name": "duplicate task",
+    "status_update": "Called Edward after lunch and he said it's too late to come back out today but will be back on Thursday 2/15/24",
+    "followUp_date": "2024-02-15",
+    "is_done": "false",
+    "issue_id": "1",
+    "property_id": "5"
   }
 ]
