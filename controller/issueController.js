@@ -13,7 +13,7 @@ async function renderOneIssue(req, res) {
   const { id: issue_id } = req.params;
   const issue = await findOneIssue(issue_id);
   const tasks = await getTasksByIssueID(issue_id);
-  console.log(issue);
+  // console.log(issue);
   res.status(200).render('issue-ID', { issue, tasks });
 };
 
@@ -64,6 +64,25 @@ async function renderAddVendor(req, res) {
   const result = await addVendorToIssue(issue_id, vendor_id);
   res.status(200).json({ msg: "Vendor added", result });
 };
+
+async function renderIsTaskDone(req, res) {
+  console.log(req.params);
+  console.log(req.body);
+  let task;
+  const { id } = req.params;
+
+  // There is no req.body - it's an empty array
+  const { isDone, issue_id } = req.body;
+  if (isDone === "Re-Open") {
+    task = await updateIsDone(id, false);
+  } else {
+    task = await updateIsDone(id, true);
+  }
+
+  const issue = await findOneIssue(issue_id);
+
+  res.status(200).render("issue-ID", { issue, task });
+}
 
 async function findAllIIssues() {
   const issues = await Issue.findAll({
@@ -150,4 +169,5 @@ module.exports = {
   renderNewIssue,
   renderOneIssue,
   renderUpdatedIssue,
+  renderIsTaskDone
 }
