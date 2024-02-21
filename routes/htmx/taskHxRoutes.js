@@ -5,7 +5,4 @@ router.route('/')
   .get(c.renderTasks)
   .get(c.renderOneTask);
 
-router.route('/:id/isDone')
-  .patch(c.renderIsDone);
-
 module.exports = router;
