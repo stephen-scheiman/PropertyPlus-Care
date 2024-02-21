@@ -10,20 +10,24 @@
       {{#each tasks}}
       <li
         hx-get="/tasks/{{task_id}}"
+        {{!-- hx-trigger="changed" --}}
+        {{!-- hx-trigger="change" --}}
         {{!-- hx-target will be itself, so no need to specify --}}
         {{!-- the swap will be innerHTML, also default --}}
-        hx-push-url="true"
+        {{!-- hx-push-url="true" --}}
       >Task: {{task_name}}
       {{#if is_done}}
         <input type="button" name="isDone" value="Re-Open"
         class="border-2 border-black rounded-lg px-2"
-        hx-patch="/tasks/{{task_id}}/isDone"
-        hx-swap="#main">
+        hx-patch="/issues/{{task_id}}/isDone"
+        hx-swap="#main"
+        >
       {{else}}
         <input type="button" name="isDone" value="Completed"
         class="border-2 border-black rounded-lg px-2"
-        hx-patch="/tasks/{{task_id}}/isDone"
-        hx-swap="#main">
+        hx-patch="/issues/{{task_id}}/isDone"
+        hx-swap="#main"
+        >
       {{/if}}
       </li>
       {{/each}}
