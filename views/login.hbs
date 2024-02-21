@@ -1,6 +1,6 @@
 <main class="flex flex-col m-auto">
   <h1 class=" text-black">Login</h1>
-  <form hx-post="/login" hx-target="#main">
+  <form hx-post="/login" hx-target="#main" hx-push-url="true">
     <label class=" text-black" for="user_email">Email</label>
     {{!-- <div class="w-full flex justify-center"> --}}
     <input type="email" name="user_email">
