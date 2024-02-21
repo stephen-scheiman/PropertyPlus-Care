@@ -1,5 +1,32 @@
 const { User } = require('../models');
 const { BadRequestError, NotFoundError } = require('../utils/errors');
+const { userLogin } = require('../utils/queries/users')
+const { getAllTasks } = require('../utils/queries/tasks')
+
+async function renderLoginForm(req, res) {
+  // If the user is already logged in, redirect the request to another route
+  if (req.session.logged_in) {
+    res.redirect('/');
+    return;
+  }
+  res.render('login');
+};
+
+async function renderLoggedInHome(req, res) {
+  const { user_email, user_password } = req.body;
+  console.log(user_email, user_password, "\n\n");
+  const p1 = userLogin({user_email, user_password});
+  const p2 = getAllTasks();
+
+  const [user, taskData] = await Promise.all([p1, p2]);
+  console.log(user, taskData, "\n\n");
+  req.session.save(() => {
+    req.session.loggedIn = true;
+    req.session.user_id = user.user_id;
+
+    res.status(200).render('homepage', {taskData})
+  })
+};
 
 async function createUser(req, res) {
   const { user_name, user_email, user_password } = req.body;
@@ -22,7 +49,7 @@ async function createUser(req, res) {
   });
 };
 
-async function userLogin(req, res) {
+async function userLogin1(req, res) {
   const { user_email, user_password } = req.body;
 
   const userData = await User.findOne({ where: {email: user_email}});
@@ -55,4 +82,10 @@ async function userLogout(req, res) {
   }
 };
 
-module.exports = { createUser, userLogin, userLogout };
+module.exports = { 
+  createUser,
+  userLogin,
+  userLogout,
+  renderLoginForm,
+  renderLoggedInHome  
+};
