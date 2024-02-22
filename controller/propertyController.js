@@ -1,5 +1,16 @@
 const { Property, Owner, Issue } = require("../models");
 const { BadRequestError, InternalServerError } = require("../utils/errors");
+const { findOwners } = require('../utils/queries/owners');
+
+// render data function
+async function renderProperties(req, res) {
+  const p1 = getAllProperties();
+  const p2 = findOwners();
+
+  const [properties, owners] = await Promise.all([p1, p2]);
+     res.status(200).render("property-main", {properties, owners});
+  // res.status(200).json({ properties });
+}
 
 /* for purposes of unit testing, separating sequelize request function
 from render data functions */
@@ -8,7 +19,6 @@ async function getAllProperties() {
     include: [
       {
         model: Owner,
-        attributes: ["owner_first_name", "owner_last_name"], //this was preventing getAllProperties from working - incorrecct column name "owner_name"
       },
     ],
     raw: true,
@@ -20,12 +30,6 @@ async function getAllProperties() {
   }
 
   return propertyData;
-}
-
-// render data function
-async function renderProperties(req, res) {
-  const properties = await getAllProperties();
-  res.status(200).json({ properties });
 }
 
 // sequelize request function
