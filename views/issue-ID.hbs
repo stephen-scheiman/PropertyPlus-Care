@@ -1,11 +1,11 @@
 <main class="bg-[#085394] px-4">
   <h1 class="font-bold text-2xl mt-8">{{issue.issue_title}}</h1>
   <h2 class="font-semibold text-lg mt-5">Property:
-    <span class="font-normal text-">{{issue.property.property_name}}</span>
+    <span class="font-normal text-base">{{issue.property.property_name}}</span>
   </h2>
   <div>
     <h3>Description: {{issue.issue_description}}</h3>
-    <p>Previous Actions:</p>
+    <p>Actions Taken:</p>
     <ul>
       {{#each tasks}}
       <li>
@@ -14,14 +14,14 @@
         <p>Follow-up Date: {{followUp_date}}</p>
           {{#if is_done}}
           <button name="isDone" value="Re-Open" 
-            class="border-2 border-black rounded-lg px-2"
+            class="border-2 border-slate-300 rounded-lg px-2 bg-emerald-800"
             hx-patch="/issues/{{issue_id}}/tasks/{{task_id}}/isDone"
             hx-target="main"
             hx-swap="outerHTML"
             >Re-Open</button>
           {{else}}
           <button name="isDone" value="Complete"
-            class="border-2 border-black rounded-lg px-2"
+            class="border-2 border-slate-300 rounded-lg px-2 bg-red-700"
             hx-patch="/issues/{{issue_id}}/tasks/{{task_id}}/isDone"
             hx-target="main"
             hx-swap="outerHTML"
@@ -30,6 +30,13 @@
       </li>
       {{/each}}
     </ul>
+    <button name="newTask" value=""
+      class="border-2 border-slate-300 rounded-lg px-2 bg-purple-900"
+      hx-get="/issues/{{issue_id}}/newTask"
+      hx-target="#newTaskDiv"
+      hx-swap="innerHTML"
+    >New Task</button>
+    <div id="newTaskDiv"></div>
   </div>
 </main>
 </main>

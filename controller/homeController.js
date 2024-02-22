@@ -2,14 +2,14 @@ const { Task, User, Property } = require('../models');
 const { Op } = require('sequelize');
 // const { BadRequestError } = require('../utils/errors/');
 
-async function userLogin(req, res) {
-  // If the user is already logged in, redirect the request to another route
-  if (req.session.logged_in) {
-    res.redirect('/');
-    return;
-  }
-  res.render('loginView');
-};
+// async function userLogin(req, res) {
+//   // If the user is already logged in, redirect the request to another route
+//   if (req.session.logged_in) {
+//     res.redirect('/');
+//     return;
+//   }
+//   res.render('loginView');
+// };
 
 async function findTasks() {
   const taskData = await Task.findAll({
@@ -54,8 +54,7 @@ async function renderHome(req, res) {
   res.status(200).render('homepage', { taskData });
 }
 
-
 module.exports = {
-  userLogin,
+  // userLogin,
   renderHome
 };
