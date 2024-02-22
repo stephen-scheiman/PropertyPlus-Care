@@ -1,7 +1,7 @@
 const { Vendor, Issue, Property, Task } = require('../../models');
-const { NotFoundError, BadRequestError, InternalServerError,  } = require('../errors/index');
+const { NotFoundError, BadRequestError, InternalServerError } = require('../errors/index');
 
-async function findAllIIssues() {
+async function findAllIssues() {
   const issues = await Issue.findAll({
     include: [
       { model: Property },
@@ -47,7 +47,7 @@ async function findOneIssue(issue_id) {
   });
 
   if (!issue) {
-    throw new NotFoundError(`No issue found with id ${issue_id}`);
+    throw new NotFoundError(`No issue found wtih id ${issue_id}`);
   }
   // console.log(issue);
   return issue;
@@ -100,11 +100,11 @@ async function addVendorToIssue(issue_id, vendor_id) {
 
 
 module.exports = {
-  findAllIIssues,
+  findAllIssues,
   findOneIssue,
   createIssue,
   updateIssue,
   deleteIssue,
   addVendorToIssue,
-
+  getIssuesByPropertyID
 }
