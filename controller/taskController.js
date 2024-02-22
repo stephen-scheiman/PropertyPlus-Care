@@ -3,7 +3,6 @@ const { BadRequestError, InternalServerError } = require("../utils/errors");
 const {
   getAllTasks,
   getTaskByID,
-  updateIsDone,
 } = require("../utils/queries/tasks");
 
 async function renderTasks(req, res) {
@@ -15,19 +14,6 @@ async function renderOneTask(req, res) {
   const { id: task_id } = req.params;
   const task = await getTaskByID(task_id);
   res.status(200).json({ task });
-}
-
-async function renderIsDone(req, res) {
-  let task;
-  const { id } = req.params;
-  const { isDone } = req.body;
-  if (isDone === "Re-Open") {
-    task = await updateIsDone(id, false);
-  } else {
-    task = await updateIsDone(id, true);
-  }
-
-  res.status(200).render("issue-ID", { task });
 }
 
 // create task function

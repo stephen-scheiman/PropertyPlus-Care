@@ -12,4 +12,7 @@ router.route('/:id')
   .put(c.renderUpdatedIssue)
   .delete(c.renderDeletedIssue);
 
+router.route('/:id/isDone')
+  .patch(c.renderIsTaskDone);
+
 module.exports = router;
