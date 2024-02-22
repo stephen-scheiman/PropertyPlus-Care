@@ -5,18 +5,17 @@ async function getAllProperties() {
   const properties = await Property.findAll({
     include: [{
       model: Owner,
-      attributes: ["owner_first_name","owner_last_name"]
     }],
-    raw: true,
-    nest: true
+    // raw: true,
+    // nest: true
   });
 
   if (!properties) {
     throw new NotFoundError(`Couldn't find properties`);
   }
 
-  // console.log(properties);
-  return properties;
+  // console.log(properties.map(e => e.toJSON()));
+  return properties.map(e => e.toJSON());
 };
 
 async function getPropertyByID(property_id) {
@@ -37,8 +36,8 @@ async function getPropertyByID(property_id) {
   if (!property) {
     throw new NotFoundError(`Couldn't find property with id ${property_id}`);
   }
-  console.log(property);
-  return property;
+  console.log(property.toJSON());
+  return property.toJSON();
 };
 
 async function createProperty(propertyData) {
