@@ -36,7 +36,7 @@ async function getPropertyByID(property_id) {
   if (!property) {
     throw new NotFoundError(`Couldn't find property with id ${property_id}`);
   }
-  console.log(property.toJSON());
+ // console.log(property.toJSON());
   return property.toJSON();
 };
 

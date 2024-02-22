@@ -18,8 +18,9 @@ async function findAllIssues() {
   return issues;
 };
 
-async function getIssuesByPropertyID() {
+async function getIssuesByPropertyID(property_id) {
   const issues = await Issue.findAll({
+    where: {property_id},
     include: [
       { model: Property },
       { model: Task}
@@ -31,7 +32,7 @@ async function getIssuesByPropertyID() {
   if (!issues) {
     throw new NotFoundError('No issues found');
   }
-  // console.log(issues);
+  //console.log(issues);
   return issues;
 };
 
