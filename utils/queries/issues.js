@@ -106,5 +106,5 @@ module.exports = {
   updateIssue,
   deleteIssue,
   addVendorToIssue,
-
+  getIssuesByPropertyID
 }
