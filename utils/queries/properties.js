@@ -19,17 +19,19 @@ async function getAllProperties() {
   return properties;
 };
 
-async function getPropertyByID(id) {
-  const property = await Property.findByPk(id, {
+async function getPropertyByID(property_id) {
+  const property = await Property.findByPk(property_id, {
     include: [
-      { model: Owner,
-        attributes: ["owner_first_name","owner_last_name"] },
+      { model: Owner },
       { model: Issue,
-        attributes: { exclude: ['createdAt', 'updatedAt']}
+        where: {
+          property_id
+        },
+        // attributes: { exclude: ['createdAt', 'updatedAt']}
       }
     ],
-    raw: true,
-    nest:true
+    // raw: true,
+    // nest:true
   });
 
   if (!property) {
