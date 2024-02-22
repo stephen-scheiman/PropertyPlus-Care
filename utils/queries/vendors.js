@@ -61,4 +61,4 @@ async function updateVendor(vendor_id, vendorData) {
   vendor;
 };
 
-module.exports = { renderVendors, renderOneVendor, createVendor, deleteVendor, updateVendor };
+module.exports = { createVendor, deleteVendor, updateVendor };

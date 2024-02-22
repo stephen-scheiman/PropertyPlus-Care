@@ -4,7 +4,8 @@ const { getAllTasks, getTaskByID } = require("../utils/queries/tasks");
 
 async function renderTasks(req, res) {
   const tasks = await getAllTasks();
-  res.status(200).json({ tasks });
+  // res.status(200).json({ tasks });
+  res.status(200).render('task-main', { tasks, layout: false });
 }
 
 async function renderOneTask(req, res) {

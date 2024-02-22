@@ -19,7 +19,24 @@
       </a>
     </header>
 
-    <div id="main">{{{body}}}</div>
+    <div class="flex">
+      <div class="w-[20%]">
+        <select
+          name="model"
+          hx-get="/aside"
+          hx-target="#aside"
+        >
+          <option value="task" selected="selected=">Tasks</option>
+          <option value="issues">Issues</option>
+          <option value="property">Properties</option>
+          <option value="vendor">Vendors</option>
+          <option value="owner">Owners</option>
+        </select>
+        <aside id="aside" hx-get="/tasks" hx-trigger="load" hx-target="this" ></aside>
+      </div>
+
+      <div id="main" class="w-[75%]">{{{body}}}</div>
+    </div>
 
     <footer
       class="fixed bottom-0 flex w-screen bg-slate-500 text-center align-bottom sm:hidden"

@@ -1,7 +1,7 @@
 const { Property, Owner, Issue } = require("../models");
 const { BadRequestError, InternalServerError } = require("../utils/errors");
 const { findOwners } = require('../utils/queries/owners');
-const { getPropertyByID } = require("../utils/queries/properties");
+const { getAllProperties, getPropertyByID } = require("../utils/queries/properties");
 
 // render data function
 async function renderProperties(req, res) {
@@ -23,7 +23,7 @@ async function renderOneProperty(req, res) {
 
 /* for purposes of unit testing, separating sequelize request function
 from render data functions */
-async function getAllProperties() {
+async function getAllProperties1() {
   const propertyData = Property.findAll({
     include: [
       {
@@ -102,7 +102,7 @@ async function createProperty(req, res) {
   for(x=0; x<propertyNames.length; x++){
     if (property_name === propertyNames[x].property_name){
       throw new BadRequestError("Please enter a unique property name")
-    } 
+    }
   }
 
   //validate proper street address
@@ -194,7 +194,7 @@ async function updateProperty(req, res) {
   // for(x=0; x<propertyNames.length; x++){
   //   if (property_name === propertyNames[x].property_name){
   //     throw new BadRequestError("Please enter a unique property name")
-  //   } 
+  //   }
   // }
 
   //validate proper street address

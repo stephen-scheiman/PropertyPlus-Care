@@ -16,15 +16,15 @@
           <button name="isDone" value="Re-Open" 
             class="border-2 border-slate-300 rounded-lg px-2 bg-emerald-800"
             hx-patch="/issues/{{issue_id}}/tasks/{{task_id}}/isDone"
-            hx-target="main"
-            hx-swap="outerHTML"
+            hx-target="#main"
+            hx-swap="innerHTML"
             >Re-Open</button>
           {{else}}
           <button name="isDone" value="Complete"
             class="border-2 border-slate-300 rounded-lg px-2 bg-red-700"
             hx-patch="/issues/{{issue_id}}/tasks/{{task_id}}/isDone"
-            hx-target="main"
-            hx-swap="outerHTML"
+            hx-target="#main"
+            hx-swap="innerHTML"
             >Mark Complete</button>
           {{/if}}
       </li>
