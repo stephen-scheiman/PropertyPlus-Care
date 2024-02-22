@@ -3,46 +3,10 @@ const { Op } = require('sequelize');
 const { findAllIssues } = require('../utils/queries/issues')
 const { getAllTasks } = require('../utils/queries/tasks')
 const { getAllProperties } = require('../utils/queries/properties')
-const { } = require('../utils/queries/vendors')
-const {findOwners } = require('../utils/queries/owners')
+const { findAllVendors } = require('../utils/queries/vendors')
+const { findOwners } = require('../utils/queries/owners')
 // const { BadRequestError } = require('../utils/errors/');
 
-async function userLogin(req, res) {
-  // If the user is already logged in, redirect the request to another route
-  if (req.session.logged_in) {
-    res.redirect('/');
-    return;
-  }
-  res.render('loginView');
-};
-
-async function findTasks() {
-  const taskData = await Task.findAll({
-    where: {
-      followUp_date: {
-        [Op.lte]: Date.now()
-      }
-    },
-    include: [{
-      model: Property,
-      attributes: ['property_id', 'property_name']
-    }],
-    // returning raw data - will test if this works
-    raw: true,
-    // telling it that the data returned will be nest
-    nest: true,
-  });
-  return taskData;
-};
-
-/**
- *
- * @param {number} id user ID
- * @returns User model object
- */
-async function getUser(id) {
-  return (await User.findByPk(id));
-};
 
 // homepage loads all current and past due Tasks
 async function renderHome(req, res) {
@@ -81,17 +45,60 @@ async function renderAside(req, res) {
     }
 
     case 'vendor': {
-      return res.status(200).render('issue-main', { layout: false });
+      const vendors = await findAllVendors();
+      console.log('here')
+      return res.status(200).render('vendor-main', { vendors, layout: false });
     }
 
     case 'owner': {
-      return res.status(200).render('issue-main', { layout: false });
+      const owners = await findOwners();
+      return res.status(200).render('owner-main', { owners, layout: false });
     }
 
     default:
       break;
   }
 }
+
+
+async function userLogin(req, res) {
+  // If the user is already logged in, redirect the request to another route
+  if (req.session.logged_in) {
+    res.redirect('/');
+    return;
+  }
+  res.render('loginView');
+};
+
+async function findTasks() {
+  const taskData = await Task.findAll({
+    where: {
+      followUp_date: {
+        [Op.lte]: Date.now()
+      }
+    },
+    include: [{
+      model: Property,
+      attributes: ['property_id', 'property_name']
+    }],
+    // returning raw data - will test if this works
+    raw: true,
+    // telling it that the data returned will be nest
+    nest: true,
+  });
+  return taskData;
+};
+
+/**
+ *
+ * @param {number} id user ID
+ * @returns User model object
+ */
+async function getUser(id) {
+  return (await User.findByPk(id));
+};
+
+
 
 
 module.exports = {
