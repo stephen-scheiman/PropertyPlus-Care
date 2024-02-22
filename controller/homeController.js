@@ -95,7 +95,6 @@ async function renderAside(req, res) {
 
 
 module.exports = {
-  userLogin,
   renderHome,
   renderAside
 };
