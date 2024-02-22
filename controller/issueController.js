@@ -2,7 +2,7 @@
 const { Vendor, Issue, Property, Task } = require('../models');
 const { NotFoundError, InternalServerError, BadRequestError } = require('../utils/errors');
 const { getTasksByIssueID, updateIsDone } = require('../utils/queries/tasks');
-const { findOneIssue, findAllIssues } = require('../utils/queries/issues');
+const { findOneIssue, findAllIssues, getIssuesByPropertyID } = require('../utils/queries/issues');
 
 async function renderIssues(req, res) {
   const issues = await findAllIssues();
@@ -16,6 +16,13 @@ async function renderOneIssue(req, res) {
   const tasks = await getTasksByIssueID(issue_id);
   // console.log(issue);
   res.status(200).render('issue-ID', { issue, tasks, layout: false });
+};
+
+async function renderOneIssueByProperty(req, res) {
+  const { id: property_id } = req.params;
+  const issue = await getIssuesByPropertyID(property_id);
+  console.log(issue);
+  res.status(200).render('issue-ID', { issue, layout: false });
 };
 
 async function renderNewIssue(req, res) {
@@ -168,5 +175,6 @@ module.exports = {
   renderNewIssue,
   renderOneIssue,
   renderUpdatedIssue,
-  renderIsTaskDone
+  renderIsTaskDone,
+  renderOneIssueByProperty
 }
