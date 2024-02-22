@@ -1,17 +1,18 @@
 <main>
-  <h2>{{property.property_name}}</h2>
-  <h3>{{property.property_street}}</h3>
+  <h2>Property: {{property.property_name}}</h2>
+  <h3>Address: {{property.property_street}}</h3>
   <h3>{{property.property_city}},
     {{property.property_state}}
     {{property.property_zip}}</h3>
-  <h3>{{property.owner.owner_first_name}}
+  <h3>Property Owner: {{property.owner.owner_first_name}}
     {{property.owner.owner_last_name}}</h3>
   <h3>{{property.owner.owner_phone}}</h3>
-  <ul>
+  <ol>
+    <h3>Issues:</h3>
     {{#each property.issues as |issue|}}
     <li>
         {{issue.issue_title}}
     </li>
     {{/each}}
-  </ul>
+  </ol>
 </main>
