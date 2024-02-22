@@ -1,9 +1,6 @@
 const { Task } = require("../models");
 const { BadRequestError, InternalServerError } = require("../utils/errors");
-const {
-  getAllTasks,
-  getTaskByID,
-} = require("../utils/queries/tasks");
+const { getAllTasks, getTaskByID } = require("../utils/queries/tasks");
 
 async function renderTasks(req, res) {
   const tasks = await getAllTasks();
@@ -13,7 +10,7 @@ async function renderTasks(req, res) {
 async function renderOneTask(req, res) {
   const { id: task_id } = req.params;
   const task = await getTaskByID(task_id);
-  res.status(200).json({ task });
+  res.status(200).render(("issue-ID", { task }));
 }
 
 // create task function
@@ -99,5 +96,4 @@ module.exports = {
   renderOneTask,
   createTask,
   updateTask,
-  renderIsDone,
 };

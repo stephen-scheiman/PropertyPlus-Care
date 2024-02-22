@@ -2,9 +2,10 @@
 const { Vendor, Issue, Property, Task } = require('../models');
 const { NotFoundError, InternalServerError, BadRequestError } = require('../utils/errors');
 const { getTasksByIssueID, updateIsDone } = require('../utils/queries/tasks');
+const { findOneIssue, findAllIssues } = require('../utils/queries/issues');
 
 async function renderIssues(req, res) {
-  const issues = await findAllIIssues();
+  const issues = await findAllIssues();
   // console.log(issues);
   res.status(200).render('issue-main', { issues });
 };
@@ -14,7 +15,7 @@ async function renderOneIssue(req, res) {
   const issue = await findOneIssue(issue_id);
   const tasks = await getTasksByIssueID(issue_id);
   // console.log(issue);
-  res.status(200).render('issue-ID', { issue, tasks });
+  res.status(200).render('issue-ID', { issue, tasks, layout: false });
 };
 
 async function renderNewIssue(req, res) {
@@ -66,100 +67,98 @@ async function renderAddVendor(req, res) {
 };
 
 async function renderIsTaskDone(req, res) {
-  console.log(req.params);
-  console.log(req.body);
+  const { issue_id, task_id } = req.params;
+  const { isDone } = req.body;
   let task;
-  const { id } = req.params;
 
-  // There is no req.body - it's an empty array
-  const { isDone, issue_id } = req.body;
   if (isDone === "Re-Open") {
-    task = await updateIsDone(id, false);
+    task = await updateIsDone(task_id, false);
   } else {
-    task = await updateIsDone(id, true);
+    task = await updateIsDone(task_id, true);
   }
 
   const issue = await findOneIssue(issue_id);
+  const tasks = await getTasksByIssueID(issue_id);
 
-  res.status(200).render("issue-ID", { issue, task });
+  res.status(200).render("issue-ID", { issue, tasks, layout: false});
 }
 
-async function findAllIIssues() {
-  const issues = await Issue.findAll({
-    include: [
-      { model: Property },
-      { model: Task}
-    ],
-    raw: true,
-    nest: true,
-  });
+// async function findAllIssues() {
+//   const issues = await Issue.findAll({
+//     include: [
+//       { model: Property },
+//       { model: Task}
+//     ],
+//     raw: true,
+//     nest: true,
+//   });
 
-  if (!issues) {
-    throw new NotFoundError('No issues found');
-  }
-  console.log(issues);
-  return issues;
-}
+//   if (!issues) {
+//     throw new NotFoundError('No issues found');
+//   }
+//   console.log(issues);
+//   return issues;
+// }
 
-async function findOneIssue(issue_id) {
-  const issue = await Issue.findByPk(issue_id, {
-    include: [
-      { model: Property, },
-      { model: Task, },
-      { model: Vendor, },
-    ],
-    raw: true,
-    nest: true,
-  });
+// async function findOneIssue(issue_id) {
+//   const issue = await Issue.findByPk(issue_id, {
+//     include: [
+//       { model: Property, },
+//       { model: Task, },
+//       { model: Vendor, },
+//     ],
+//     raw: true,
+//     nest: true,
+//   });
 
-  if (!issue) {
-    throw new NotFoundError(`No issue found wtih id ${issue_id}`);
-  }
+//   if (!issue) {
+//     throw new NotFoundError(`No issue found wtih id ${issue_id}`);
+//   }
   
-  return issue;
-}
+//   return issue;
+// }
 
-async function createIssue(issueData) {
-  const issue = await Issue.create(issueData);
+// async function createIssue(issueData) {
+//   const issue = await Issue.create(issueData);
 
-  if (!issue) {
-    throw new InternalServerError("Couldn't create an issue");
-  }
+//   if (!issue) {
+//     throw new InternalServerError("Couldn't create an issue");
+//   }
 
-  return issue.toJSON();
-}
+//   return issue.toJSON();
+// }
 
-async function updateIssue(issue_id, issueData) {
-  const issue = await Issue.update(issueData, {
-    where: { issue_id }
-  });
+// async function updateIssue(issue_id, issueData) {
+//   const issue = await Issue.update(issueData, {
+//     where: { issue_id }
+//   });
 
-  if (!issue) {
-    throw new BadRequestError(`Couldn't update issue with id ${issue_id}`);
-  }
+//   if (!issue) {
+//     throw new BadRequestError(`Couldn't update issue with id ${issue_id}`);
+//   }
 
-  return issue;
-}
+//   return issue;
+// }
 
-async function deleteIssue(issue_id) {
-  const issue = await Issue.destroy({ where: { issue_id } });
+// async function deleteIssue(issue_id) {
+//   const issue = await Issue.destroy({ where: { issue_id } });
 
-  if (!issue) {
-    throw new BadRequestError(`Couldn't delete issue with id ${issue_id}`);
-  }
-  return issue;
-}
+//   if (!issue) {
+//     throw new BadRequestError(`Couldn't delete issue with id ${issue_id}`);
+//   }
+//   return issue;
+// }
 
-async function addVendorToIssue(issue_id, vendor_id) {
-  const issue = await Issue.findByPk(issue_id);
+// async function addVendorToIssue(issue_id, vendor_id) {
+//   const issue = await Issue.findByPk(issue_id);
 
-  if (!issue) {
-    throw new BadRequestError(`No issue found with id ${issue_id}`);
-  }
+//   if (!issue) {
+//     throw new BadRequestError(`No issue found with id ${issue_id}`);
+//   }
 
-  const result = await issue.addVendor(vendor_id);
-  return result;
-}
+//   const result = await issue.addVendor(vendor_id);
+//   return result;
+// }
 
 
 module.exports = {
