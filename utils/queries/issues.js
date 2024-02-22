@@ -93,6 +93,15 @@ async function addVendorToIssue(issue_id, vendor_id) {
   return result;
 };
 
+async function updateIssueDone(issue_id, issue_isDone) {
+  const issue = await Issue.update({issue_isDone}, { where: { issue_id }});
+
+  if (!issue) {
+    throw new InternalServerError(`Couldn't update Issue isDone with data ${issue_id}`);
+  }
+  // console.log(issue);
+  return issue;
+}
 
 module.exports = {
   findAllIssues,
@@ -101,5 +110,6 @@ module.exports = {
   updateIssue,
   deleteIssue,
   addVendorToIssue,
-  getIssuesByPropertyID
+  getIssuesByPropertyID,
+  updateIssueDone
 }

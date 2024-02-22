@@ -3,6 +3,21 @@
   <h2 class="font-semibold text-lg mt-5">Property:
     <span class="font-normal text-base">{{issue.property.property_name}}</span>
   </h2>
+    {{#if issue.issue_isDone}}
+    <button name="issueDone" value="Re-Open"
+      class="border-2 border-slate-300 rounded-lg px-2 bg-emerald-800"
+      hx-patch="/issues/{{issue.issue_id}}/isDone"
+      hx-target="#main"
+      hx-swap="innerHTML"
+    >Re-Open</button>
+  {{else}}
+      <button name="issueDone" value="Complete"
+        class="border-2 border-slate-300 rounded-lg px-2 bg-red-700"
+        hx-patch="/issues/{{issue.issue_id}}/isDone"
+        hx-target="#main"
+        hx-swap="innerHTML"
+      >Mark Complete</button>
+  {{/if}}
   <div>
     <h3>Description: {{issue.issue_description}}</h3>
     <p>Actions Taken:</p>

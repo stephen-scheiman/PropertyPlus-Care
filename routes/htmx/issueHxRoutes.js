@@ -12,6 +12,9 @@ router.route('/:id')
   .put(c.renderUpdatedIssue)
   .delete(c.renderDeletedIssue);
 
+router.route('/:id/isDone')
+  .patch(c.renderIsIssueDone);
+
 router.route('/:issue_id/tasks/:task_id/isDone')
   .patch(c.renderIsTaskDone);
 
