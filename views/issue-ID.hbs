@@ -13,18 +13,18 @@
         <p>Note: {{status_update}}</p>
         <p>Follow-up Date: {{followUp_date}}</p>
           {{#if is_done}}
-          <button name="isDone" value="Re-Open" 
+          <button name="isDone" value="Re-Open"
             class="border-2 border-black rounded-lg px-2"
             hx-patch="/issues/{{issue_id}}/tasks/{{task_id}}/isDone"
-            hx-target="main"
-            hx-swap="outerHTML"
+            hx-target="#main"
+            hx-swap="innerHTML"
             >Re-Open</button>
           {{else}}
           <button name="isDone" value="Complete"
             class="border-2 border-black rounded-lg px-2"
             hx-patch="/issues/{{issue_id}}/tasks/{{task_id}}/isDone"
-            hx-target="main"
-            hx-swap="outerHTML"
+            hx-target="#main"
+            hx-swap="innerHTML"
             >Mark Complete</button>
           {{/if}}
       </li>

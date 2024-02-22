@@ -8,6 +8,7 @@ const issueHxRoutes = require('./issueHxRoutes.js');
 const taskHxRoutes = require('./taskHxRoutes.js');
 
 router.get('/', c.renderHome);
+router.get('/aside', c.renderAside)
 // router.get('/', withAuth, c.renderHome);
 router.use('/login', loginHxRoutes);
 router.use('/properties', propertyHxRoutes);

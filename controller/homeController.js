@@ -1,5 +1,10 @@
 const { Task, User, Property } = require('../models');
 const { Op } = require('sequelize');
+const { findAllIssues } = require('../utils/queries/issues')
+const { getAllTasks } = require('../utils/queries/tasks')
+const { getAllProperties } = require('../utils/queries/properties')
+const { } = require('../utils/queries/vendors')
+const {findOwners } = require('../utils/queries/owners')
 // const { BadRequestError } = require('../utils/errors/');
 
 async function userLogin(req, res) {
@@ -54,8 +59,43 @@ async function renderHome(req, res) {
   res.status(200).render('homepage', { taskData });
 }
 
+async function renderAside(req, res) {
+  const { model } = req.query;
+
+  console.log('\n\n', model, '\n\n');
+
+  switch (model) {
+    case 'task': {
+      const tasks = await getAllTasks();
+      return res.status(200).render('task-main', {tasks, layout: false});
+    }
+
+    case 'issues': {
+      const issues = await findAllIssues();
+      return res.status(200).render('issue-main', {  issues, layout: false });
+    }
+
+    case 'property': {
+      const properties = await getAllProperties();
+      return res.status(200).render('property-main', { properties, layout: false });
+    }
+
+    case 'vendor': {
+      return res.status(200).render('issue-main', { layout: false });
+    }
+
+    case 'owner': {
+      return res.status(200).render('issue-main', { layout: false });
+    }
+
+    default:
+      break;
+  }
+}
+
 
 module.exports = {
   userLogin,
-  renderHome
+  renderHome,
+  renderAside
 };
