@@ -1,0 +1,17 @@
+<main>
+  <h2>{{property.property_name}}</h2>
+  <h3>{{property.property_street}}</h3>
+  <h3>{{property.property_city}},
+    {{property.property_state}}
+    {{property.property_zip}}</h3>
+  <h3>{{property.owner.owner_first_name}}
+    {{property.owner.owner_last_name}}</h3>
+  <h3>{{property.owner.owner_phone}}</h3>
+  <ul>
+    {{#each issues as |issue|}}
+    <li>
+        {{issue.issue_id}}
+    </li>
+    {{/each}}
+  </ul>
+</main>
