@@ -2,7 +2,7 @@ const { Property, Owner, Issue } = require('../../models');
 const { InternalServerError, NotFoundError } = require('../errors');
 
 async function getAllProperties() {
-  const properties = Property.findAll({
+  const properties = await Property.findAll({
     include: [{
       model: Owner,
       attributes: ["owner_first_name","owner_last_name"]
@@ -20,9 +20,10 @@ async function getAllProperties() {
 };
 
 async function getPropertyByID(id) {
-  const property = Property.findByPk(id, {
+  const property = await Property.findByPk(id, {
     include: [
-      { model: Owner },
+      { model: Owner,
+        attributes: ["owner_first_name","owner_last_name"] },
       { model: Issue,
         attributes: { exclude: ['createdAt', 'updatedAt']}
       }
@@ -34,7 +35,7 @@ async function getPropertyByID(id) {
   if (!property) {
     throw new NotFoundError(`Couldn't find property with id ${property_id}`);
   }
-  // console.log(property);
+  console.log(property);
   return property;
 };
 

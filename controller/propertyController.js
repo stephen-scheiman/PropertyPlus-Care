@@ -1,6 +1,7 @@
 const { Property, Owner, Issue } = require("../models");
 const { BadRequestError, InternalServerError } = require("../utils/errors");
 const { findOwners } = require('../utils/queries/owners');
+const { getPropertyByID } = require("../utils/queries/properties");
 
 // render data function
 async function renderProperties(req, res) {
@@ -8,8 +9,16 @@ async function renderProperties(req, res) {
   const p2 = findOwners();
 
   const [properties, owners] = await Promise.all([p1, p2]);
-     res.status(200).render("property-main", {properties, owners});
+     res.status(200).render("property-main", { properties, owners });
   // res.status(200).json({ properties });
+}
+
+// render data function
+async function renderOneProperty(req, res) {
+  const { id: property_id } = req.params;
+  const property = await getPropertyByID(property_id);
+ // res.status(200).json({ properties });
+  res.status(200).render("property-id", { property, layout:false });
 }
 
 /* for purposes of unit testing, separating sequelize request function
@@ -33,7 +42,7 @@ async function getAllProperties() {
 }
 
 // sequelize request function
-async function getPropertyByID(id) {
+async function getPropertyByID1(id) {
   const propertyData = Property.findByPk(id, {
     include: [
       { model: Owner },
@@ -48,13 +57,6 @@ async function getPropertyByID(id) {
   }
 
   return propertyData;
-}
-
-// render data function
-async function renderOneProperty(req, res) {
-  const { id: property_id } = req.params;
-  const properties = await getPropertyByID(property_id);
-  res.status(200).json({ properties });
 }
 
 async function createProperty(req, res) {

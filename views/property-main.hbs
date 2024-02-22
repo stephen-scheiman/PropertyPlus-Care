@@ -3,7 +3,12 @@
   <h1>Properties</h1>
   <ul>
     {{#each properties}}
-    <li>
+    <li
+    
+    hx-get="/properties/{{property_id}}"
+    hx-target="#main"
+    hx-trigger="click"
+    >
       <h2>{{property_name}}</h2>
       <p>{{property_street}}</p>
       <p>{{property_city}}, {{property_state}} {{property_zip}}</p>
