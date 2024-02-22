@@ -105,7 +105,7 @@ async function renderIsTaskDone(req, res) {
   const issue = await findOneIssue(issue_id);
   const tasks = await getTasksByIssueID(issue_id);
 
-  res.status(200).render("issue-ID", { issue, tasks, layout: false});
+  res.status(200).set("HX-Trigger", "update-aside").render("issue-ID", { issue, tasks, layout: false});
 }
 
 // async function findAllIssues() {
