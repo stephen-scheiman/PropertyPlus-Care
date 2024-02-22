@@ -20,8 +20,7 @@ async function getIssuesByPropertyID(property_id) {
   const issues = await Issue.findAll({
     where: {property_id},
     include: [
-      { model: Property },
-      { model: Task}
+    { model: Property },
     ],
   });
 

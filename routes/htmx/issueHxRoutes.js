@@ -19,6 +19,6 @@ router.route('/:issue_id/tasks/:task_id/isDone')
   .patch(c.renderIsTaskDone);
 
 router.route('/property/:id')
-  .get(c.renderOneIssueByProperty)
+  .get(c.renderIssuesByProperty)
   
 module.exports = router;

@@ -18,7 +18,7 @@ async function renderOneIssue(req, res) {
   res.status(200).render('issue-ID', { issue, tasks, layout: false });
 };
 
-async function renderOneIssueByProperty(req, res) {
+async function renderIssuesByProperty(req, res) {
   const { id: property_id } = req.params;
   const issue = await getIssuesByPropertyID(property_id);
   console.log(issue);
@@ -194,6 +194,6 @@ module.exports = {
   renderOneIssue,
   renderUpdatedIssue,
   renderIsTaskDone,
-  renderOneIssueByProperty,
+  renderIssuesByProperty,
   renderIsIssueDone
 }
