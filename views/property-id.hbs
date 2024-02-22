@@ -8,9 +8,9 @@
     {{property.owner.owner_last_name}}</h3>
   <h3>{{property.owner.owner_phone}}</h3>
   <ul>
-    {{#each issues as |issue|}}
+    {{#each property.issues as |issue|}}
     <li>
-        {{issue.issue_id}}
+        {{issue.issue_title}}
     </li>
     {{/each}}
   </ul>
