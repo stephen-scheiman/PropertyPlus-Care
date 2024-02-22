@@ -7,15 +7,13 @@ async function findAllIssues() {
       { model: Property },
       { model: Task}
     ],
-    raw: true,
-    nest: true,
   });
 
   if (!issues) {
     throw new NotFoundError('No issues found');
   }
   // console.log(issues);
-  return issues;
+  return issues.map((e) => e.toJSON());
 };
 
 async function getIssuesByPropertyID(property_id) {
@@ -25,15 +23,13 @@ async function getIssuesByPropertyID(property_id) {
       { model: Property },
       { model: Task}
     ],
-    raw: true,
-    nest: true,
   });
 
   if (!issues) {
     throw new NotFoundError('No issues found');
   }
   //console.log(issues);
-  return issues;
+  return issues.map((e) => e.toJSON());
 };
 
 async function findOneIssue(issue_id) {
@@ -43,15 +39,13 @@ async function findOneIssue(issue_id) {
       { model: Task, },
       { model: Vendor, },
     ],
-    raw: true,
-    nest: true,
   });
 
   if (!issue) {
     throw new NotFoundError(`No issue found wtih id ${issue_id}`);
   }
   // console.log(issue);
-  return issue;
+  return issue.toJSON();
 };
 
 async function createIssue(issueData) {
