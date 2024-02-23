@@ -8,5 +8,7 @@ router.route('/')
 
 router.route('/:id')
   .get(c.renderOneProperty)
+  .patch(c.updateProperty)
+  .delete(c.deleteProperty)
 
 module.exports = router;

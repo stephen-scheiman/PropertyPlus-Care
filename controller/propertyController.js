@@ -164,7 +164,7 @@ async function updateProperty(req, res) {
     property_zip,
     owner_id,
   } = req.body;
-
+console.log(req.body);
   if (
     !(
       property_name &&
