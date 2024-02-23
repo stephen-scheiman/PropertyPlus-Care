@@ -52,6 +52,7 @@ async function getIssuesByPropertyID(property_id) {
     where: {property_id},
     include: [
     { model: Property },
+    { model: Task },
     ],
   });
 
