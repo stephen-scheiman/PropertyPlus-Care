@@ -16,11 +16,11 @@ async function renderHome(req, res) {
   // 3rd line of code awaits both promises before continuing.
   // Only works when the two promises are independent of each other.
   const p1 = getUser(user_id);
-  const p2 = findTasks();
-  const [userData, taskData] = await Promise.all([p1,p2]);
+  const p2 = findOpenTasks();
+  const [userData, tasks] = await Promise.all([p1,p2]);
 
   // this needs to be completed when we know what the homepage will look like
-  res.status(200).render('homepage', { taskData });
+  res.status(200).render('task-aside', { tasks });
 }
 
 async function renderAside(req, res) {
