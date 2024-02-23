@@ -25,6 +25,8 @@
           name="model"
           hx-get="/aside"
           hx-target="#aside"
+          hx-trigger="change, load, update-aside from:body"
+          hx-push-url="true"
           {{!-- hx-push-url="true" --}}
         >
           <option value="task" selected="selected=">Tasks</option>
@@ -33,7 +35,7 @@
           <option value="vendor">Vendors</option>
           <option value="owner">Owners</option>
         </select>
-        <aside id="aside" hx-get="/tasks" hx-trigger="load, update-aside from:body" hx-target="this" >{{{body}}}</aside>
+        <aside id="aside">{{{body}}}</aside>
       </div>
 
       <div id="main" class="w-[75%]"></div>
