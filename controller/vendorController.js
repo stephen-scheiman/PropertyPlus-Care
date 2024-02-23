@@ -7,7 +7,7 @@ const { findOpenIssues } = require('../utils/queries/issues');
 async function renderVendors(req, res) {
   const vendors = await findAllVendors();
   // res.status(200).json({ vendors });
-  res.status(200).render('vendor-main', { vendors });
+  res.status(200).render('vendor-aside', { vendors });
 }
 
 // render vendor by ID function

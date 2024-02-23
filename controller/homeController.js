@@ -31,28 +31,28 @@ async function renderAside(req, res) {
   switch (model) {
     case 'task': {
       const tasks = await findOpenTasks();
-      return res.status(200).render('task-main', {tasks, layout: false});
+      return res.status(200).render('task-aside', {tasks, layout: false});
     }
 
     case 'issues': {
       const issues = await findOpenIssues();
-      return res.status(200).render('issue-main', {  issues, layout: false });
+      return res.status(200).render('issue-aside', {  issues, layout: false });
     }
 
     case 'property': {
       const properties = await getAllProperties();
-      return res.status(200).render('property-main', { properties, layout: false });
+      return res.status(200).render('property-aside', { properties, layout: false });
     }
 
     case 'vendor': {
       const vendors = await findAllVendors();
       console.log('here')
-      return res.status(200).render('vendor-main', { vendors, layout: false });
+      return res.status(200).render('vendor-aside', { vendors, layout: false });
     }
 
     case 'owner': {
       const owners = await findOwners();
-      return res.status(200).render('owner-main', { owners, layout: false });
+      return res.status(200).render('owner-aside', { owners, layout: false });
     }
 
     default:

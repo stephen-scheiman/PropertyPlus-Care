@@ -7,7 +7,7 @@ const { findOneIssue, findAllIssues, findOpenIssues, findClosedIssues, getIssues
 async function renderOpenIssues(req, res) {
   const issues = await findOpenIssues();
   // console.log(issues);
-  res.status(200).render('issue-main', { issues });
+  res.status(200).render('issue-aside', { issues });
 };
 
 async function renderIssues(req, res) {
@@ -20,18 +20,18 @@ async function renderIssues(req, res) {
   switch (issueStatus) {
     case 'open': {
       const issues = await findOpenIssues();
-      return res.status(200).render('issue-main', { issues, layout: false });
+      return res.status(200).render('issue-aside', { issues, layout: false });
     }
 
     case 'closed': {
       const issues = await findClosedIssues();
-      return res.status(200).render('issue-main', { issues, layout: false });
+      return res.status(200).render('issue-aside', { issues, layout: false });
     }
 
     case 'all': {
       const issues = await findAllIssues();
       // console.log(issues);
-      res.status(200).render('issue-main', { issues, layout: false });
+      res.status(200).render('issue-aside', { issues, layout: false });
     }
 
     default:
