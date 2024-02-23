@@ -48,7 +48,7 @@ async function renderVendorNewIssue(req, res) {
 // }
 
 // sequelize get all vendors
-async function getAllVendors1() {
+async function getAllVendors() {
   const vendorData = Vendor.findAll({
     include: [{ model: Issue },
       {model: Property}],
