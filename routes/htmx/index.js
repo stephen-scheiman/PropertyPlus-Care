@@ -25,6 +25,6 @@ router.use('/properties', propertyHxRoutes);
 router.use('/issues', issueHxRoutes);
 router.use('/tasks', taskHxRoutes);
 router.use('/vendors', vendorHxRoutes);
-router.use('/owners', ownerHxRoutes);
+//router.use('/owners', ownerHxRoutes);
 
 module.exports = router;
