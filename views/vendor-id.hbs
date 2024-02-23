@@ -32,7 +32,7 @@
       class="text-gray-600"
       name="issue_id"
       hx-post="/vendors/{{vendor.vendor_id}}/issues"
-      hx-include=""
+      hx-target="#main"
     >
       <option value="" disabled selected hidden>Add Issue to Vendor</option>
       {{#each issues}}

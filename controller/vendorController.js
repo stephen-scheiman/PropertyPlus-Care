@@ -13,8 +13,9 @@ async function renderVendors(req, res) {
 // render vendor by ID function
 async function renderOneVendor(req, res) {
   const { id } = req.params;
-  const vendor = await findVendorByID(id);
-  const issues = await findOpenIssuesVendor(+id);
+  const p1 = findVendorByID(id);
+  const p2 = findOpenIssuesVendor(+id);
+  const [vendor, issues] = await Promise.all([p1, p2]);
   console.log(issues);
   res.status(200).render('vendor-id', { vendor, issues, layout: false });
 }
@@ -25,6 +26,12 @@ async function renderVendorNewIssue(req, res) {
 
   const result = await addIssueToVendor(vendor_id, issue_id);
   console.log(result);
+
+  const p1 = findVendorByID(vendor_id);
+  const p2 = findOpenIssuesVendor(+vendor_id);
+  const [vendor, issues] = await Promise.all([p1, p2]);
+
+  res.status(200).render('vendor-id', { vendor, issues, layout: false });
 }
 
 // // get vendor by ID
