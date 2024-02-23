@@ -11,7 +11,7 @@
     <h3>Property Issues:</h3>
     {{#each property.issues as |issue|}}
     <li
-    hx-get="/issues/property/{{property_id}}"
+    hx-get="/issues/{{issue_id}}"
     hx-target="#main"
     hx-trigger="click"
     >

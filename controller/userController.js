@@ -9,7 +9,7 @@ async function renderLoginForm(req, res) {
     res.redirect('/');
     return;
   }
-  res.render('login');
+  res.render('login', {layout: 'main-login'});
 };
 
 async function renderLoggedInHome(req, res) {
@@ -82,10 +82,10 @@ async function userLogout(req, res) {
   }
 };
 
-module.exports = { 
+module.exports = {
   createUser,
   userLogin,
   userLogout,
   renderLoginForm,
-  renderLoggedInHome  
+  renderLoggedInHome
 };
