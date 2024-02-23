@@ -1,13 +1,13 @@
 const { Vendor, Issue, Property } = require("../models");
 const { BadRequestError, InternalServerError } = require("../utils/errors");
-const { findAllVendors, findVendorByID, addIssueToVendor } = require('../utils/queries/vendors');
+const { findAllVendors, findVendorByID, addIssueToVendor, findVendorsByTrade } = require('../utils/queries/vendors');
 const { findOpenIssuesVendor } = require('../utils/queries/issues');
 
 // render vendor data function
 async function renderVendors(req, res) {
   const vendors = await findAllVendors();
   // res.status(200).json({ vendors });
-  res.status(200).render('vendor-aside', { vendors });
+  res.status(200).render('vendor-aside', { vendors, layout: false });
 }
 
 // render vendor by ID function
@@ -32,6 +32,16 @@ async function renderVendorNewIssue(req, res) {
   const [vendor, issues] = await Promise.all([p1, p2]);
 
   res.status(200).render('vendor-id', { vendor, issues, layout: false });
+}
+
+async function renderVendorsByTrade(req, res) {
+  const { vendor_trade } = req.query;
+
+  const vendors = vendor_trade === 'All' ? await findAllVendors() : await findVendorsByTrade(vendor_trade);
+
+  const renderSelect = req.headers['hx-trigger'] === 'selectOption';
+
+  res.status(200).render('vendor-aside', { vendors, renderSelect, layout: false });
 }
 
 // // get vendor by ID
@@ -243,5 +253,7 @@ module.exports = {
   renderVendors,
   renderOneVendor,
   renderVendorNewIssue,
-  createVendor
+  createVendor,
+  renderVendorsByTrade,
+
 };

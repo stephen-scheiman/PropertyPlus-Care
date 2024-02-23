@@ -12,10 +12,19 @@
   {{/each}}
 </ul>
 
-<select name="" id="selectOption" hx-oob-swap="true" hx-get="/vendors/trades">
-  <option value="Electrical">Electrical</option>
-  <option value="Flooring">Flooring</option>
-  <option value="Handyman">Handyman</option>
-  <option value="Plumbing">Plumbing</option>
-  <option value="Roofer">Roofer</option>
-</select>
+{{#unless renderSelect}}
+  <select
+    name="vendor_trade"
+    id="selectOption"
+    hx-swap-oob="true"
+    hx-get="/vendors/trades"
+    hx-target="#aside"
+  >
+    <option value="All">All Trades</option>
+    <option value="Electrical">Electrical</option>
+    <option value="Flooring">Flooring</option>
+    <option value="Handyman">Handyman</option>
+    <option value="Plumbing">Plumbing</option>
+    <option value="Roofer">Roofer</option>
+  </select>
+{{/unless}}

@@ -5,6 +5,9 @@ router.route('/')
   .get(c.renderVendors)
   .post(c.createVendor)
 
+router.route('/trades')
+  .get(c.renderVendorsByTrade)
+
 router.route('/:id')
   .get(c.renderOneVendor)
 

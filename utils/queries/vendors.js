@@ -29,6 +29,17 @@ async function findVendorByID(id) {
   return vendor.toJSON();
 }
 
+async function findVendorsByTrade(vendor_trade) {
+  const vendorsData = await Vendor.findAll({ where: { vendor_trade } });
+
+  if (!vendorsData) {
+    throw new InternalServerError(`No vendors found with trade ${vendor_trade}`);
+  }
+  // console.log(vendorsData); 
+  const vendors = vendorsData.map(e => e.toJSON());
+  return vendors;
+}
+
 async function createVendor(vendorData) {
   const vendor = await Vendor.create(vendorData);
 
@@ -77,6 +88,7 @@ async function addIssueToVendor(vendor_id, issue_id) {
 module.exports = {
   findAllVendors,
   findVendorByID,
+  findVendorsByTrade,
   createVendor,
   deleteVendor,
   updateVendor,

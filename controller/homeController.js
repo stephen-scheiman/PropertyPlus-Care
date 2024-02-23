@@ -46,7 +46,6 @@ async function renderAside(req, res) {
 
     case 'vendor': {
       const vendors = await findAllVendors();
-      console.log('here')
       return res.status(200).render('vendor-aside', { vendors, layout: false });
     }
 
