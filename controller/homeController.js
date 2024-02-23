@@ -102,7 +102,6 @@ async function getUser(id) {
 
 
 module.exports = {
-  userLogin,
   renderHome,
   renderAside
 };

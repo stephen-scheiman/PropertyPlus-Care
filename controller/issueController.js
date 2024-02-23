@@ -2,7 +2,7 @@
 const { Vendor, Issue, Property, Task } = require('../models');
 const { NotFoundError, InternalServerError, BadRequestError } = require('../utils/errors');
 const { getTasksByIssueID, updateIsDone } = require('../utils/queries/tasks');
-const { findOneIssue, findAllIssues, getIssuesByPropertyID } = require('../utils/queries/issues');
+const { findOneIssue, findAllIssues, getIssuesByPropertyID, updateIssueDone } = require('../utils/queries/issues');
 
 async function renderIssues(req, res) {
   const issues = await findAllIssues();
@@ -18,12 +18,30 @@ async function renderOneIssue(req, res) {
   res.status(200).render('issue-ID', { issue, tasks, layout: false });
 };
 
-async function renderOneIssueByProperty(req, res) {
+async function renderIssuesByProperty(req, res) {
   const { id: property_id } = req.params;
   const issue = await getIssuesByPropertyID(property_id);
   console.log(issue);
   res.status(200).render('issue-ID', { issue, layout: false });
 };
+
+async function renderIsIssueDone(req, res) {
+  const {id: issue_id } = req.params;
+  const { issueDone } = req.body;
+
+  let issueUpdate;
+
+  if (issueDone === "Re-Open") {
+    issueUpdate = await updateIssueDone(issue_id, false);
+  } else {
+    issueUpdate = await updateIssueDone(issue_id, true);
+  }
+
+  const issue = await findOneIssue(issue_id);
+  const tasks = await getTasksByIssueID(issue_id);
+
+  res.status(200).render("issue-ID", { issue, tasks, layout: false});
+}
 
 async function renderNewIssue(req, res) {
   const {
@@ -87,7 +105,7 @@ async function renderIsTaskDone(req, res) {
   const issue = await findOneIssue(issue_id);
   const tasks = await getTasksByIssueID(issue_id);
 
-  res.status(200).render("issue-ID", { issue, tasks, layout: false});
+  res.status(200).set("HX-Trigger", "update-aside").render("issue-ID", { issue, tasks, layout: false});
 }
 
 // async function findAllIssues() {
@@ -176,5 +194,6 @@ module.exports = {
   renderOneIssue,
   renderUpdatedIssue,
   renderIsTaskDone,
-  renderOneIssueByProperty
+  renderIssuesByProperty,
+  renderIsIssueDone
 }

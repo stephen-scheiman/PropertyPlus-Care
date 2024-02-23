@@ -12,10 +12,13 @@ router.route('/:id')
   .put(c.renderUpdatedIssue)
   .delete(c.renderDeletedIssue);
 
+router.route('/:id/isDone')
+  .patch(c.renderIsIssueDone);
+
 router.route('/:issue_id/tasks/:task_id/isDone')
   .patch(c.renderIsTaskDone);
 
 router.route('/property/:id')
-  .get(c.renderOneIssueByProperty)
+  .get(c.renderIssuesByProperty)
   
 module.exports = router;

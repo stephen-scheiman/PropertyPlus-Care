@@ -3,10 +3,12 @@
   <h1 class="mb-5 pt-5 font-bold text-4xl mx-4">Today's Tasks</h1>
   {{!-- <h2>{{userData.user_name}}</h2> // we don't need username here --}}
   {{#each tasks}}
+    {{#unless is_done}}
   <div class="border-4 border-zinc-400 rounded-lg m-4 p-2">
     <h2 class="font-semibold text-zinc-200">To Do: <span class="font-normal">{{this.task_name}}</span></h2>
     <h3 class="font-semibold text-zinc-200">Due Date: <span class="font-normal">{{this.followUp_date}}</span></h3>
     <h3 class="font-semibold text-zinc-200">Property: <span class="font-normal">{{this.property.property_name}}</span></h3>
   </div>
+    {{/unless}}
   {{/each}}
 </main>
