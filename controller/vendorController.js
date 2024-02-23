@@ -1,7 +1,7 @@
 const { Vendor, Issue, Property } = require("../models");
 const { BadRequestError, InternalServerError } = require("../utils/errors");
 const { findAllVendors, findVendorByID, addIssueToVendor } = require('../utils/queries/vendors');
-const { findOpenIssues } = require('../utils/queries/issues');
+const { findOpenIssuesVendor } = require('../utils/queries/issues');
 
 // render vendor data function
 async function renderVendors(req, res) {
@@ -14,15 +14,9 @@ async function renderVendors(req, res) {
 async function renderOneVendor(req, res) {
   const { id } = req.params;
   const vendor = await findVendorByID(id);
-  // res.status(200).json({ vendor });
-  // console.log(vendor);
-  res.status(200).render('vendor-id', { vendor, layout: false });
-}
-
-async function renderIssuesSelect(req, res) {
-  const { vendor_id } = req.query;
-  const issues = await findOpenIssues();
-  res.status(200).render('vendor-issues', { vendor_id, issues, layout: false });
+  const issues = await findOpenIssuesVendor(+id);
+  console.log(issues);
+  res.status(200).render('vendor-id', { vendor, issues, layout: false });
 }
 
 async function renderVendorNewIssue(req, res) {
@@ -32,7 +26,6 @@ async function renderVendorNewIssue(req, res) {
   const result = await addIssueToVendor(vendor_id, issue_id);
   console.log(result);
 }
-
 
 // // get vendor by ID
 // async function getVendorByID(id) {
@@ -242,7 +235,6 @@ async function updateVendor(req, res) {
 module.exports = {
   renderVendors,
   renderOneVendor,
-  renderIssuesSelect,
   renderVendorNewIssue,
   createVendor
 };
