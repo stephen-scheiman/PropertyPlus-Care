@@ -2,7 +2,7 @@
 const { Vendor, Issue, Property, Task } = require('../models');
 const { NotFoundError, InternalServerError, BadRequestError } = require('../utils/errors');
 const { findTasksByIssueID, updateIsDone } = require('../utils/queries/tasks');
-const { findOneIssue, findAllIssues, findOpenIssues, findClosedIssues, getIssuesByPropertyID, updateIssueDone, deleteIssue } = require('../utils/queries/issues');
+const { createIssue, findOneIssue, findAllIssues, findOpenIssues, findClosedIssues, getIssuesByPropertyID, updateIssueDone, deleteIssue } = require('../utils/queries/issues');
 
 async function renderOpenIssues(req, res) {
   const issues = await findOpenIssues();
