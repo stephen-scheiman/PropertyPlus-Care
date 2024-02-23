@@ -4,9 +4,39 @@
   <h3>{{property.property_city}},
     {{property.property_state}}
     {{property.property_zip}}</h3>
-  <h3>Property Owner: {{property.owner.owner_first_name}}
-    {{property.owner.owner_last_name}}</h3>
-  <h3>Owner Phone:{{property.owner.owner_phone}}</h3>
+  <h3>Property Property: {{property.property.property_first_name}}
+    {{property.property.property_last_name}}</h3>
+  <h3>Property Phone:{{property.property.property_phone}}</h3>
+  <button name="deleteProperty" value="Delete Property"
+    class="border-2 border-slate-300 rounded-lg px-2 bg-red-800"
+    hx-delete="/properties/{{property.property_id}}"
+    hx-target="#main"
+  >Delete</button>
+   <button name="updateProperty" value="Update Property"
+    class="border-2 border-slate-300 rounded-lg px-2 bg-emerald-800"
+    hx-on:click="document.getElementById('modal-property-update').showModal()"
+    hx-target="#main"
+  >Update</button>
+     <dialog class="p-5" id="modal-property-update">
+    <button
+      hx-on:click="document.getElementById('modal-property-update').close()"
+    >Close</button>
+    <form class="flex flex-col">
+      <label for="property_name">Property Name</label>
+      <input type="text" name="property_name" value="{{property.property_name}}" />
+      <label for="property_street">Property Street Address</label>
+      <input type="text" name="property_street" value="{{property.property_street}}" />
+      <label for="property_city">Property City</label>
+      <input type="text" name="property_city" value="{{property.property_city}}" />
+      <label for="property_state">Property State</label>
+      <input type="text" name="property_state" value="{{property.property_state}}" />
+      <label for="property_zip">Property Zip</label>
+      <input type="text" name="property_zip" value="{{property.property_zip}}" />
+      <label for="owner_id">Property Owner</label>
+      <input type="text" name="owner_id" value="{{property.owner_id}}" />
+      <button hx-patch="/properties/{{property.property_id}}" type="submit">Submit</button>
+    </form>
+  </dialog>
   <ol>
     <h3>Property Issues:</h3>
     {{#each property.issues as |issue|}}
