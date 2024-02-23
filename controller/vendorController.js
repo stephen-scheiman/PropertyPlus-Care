@@ -48,7 +48,7 @@ async function renderVendorNewIssue(req, res) {
 // }
 
 // sequelize get all vendors
-async function getAllVendors() {
+async function getAllVendors1() {
   const vendorData = Vendor.findAll({
     include: [{ model: Issue },
       {model: Property}],
@@ -108,7 +108,7 @@ async function createVendor(req, res) {
     }
 
   //validate that the email is unique
-  const vendorData = await getAllVendors();
+  const vendorData = await findAllVendors();
   for(x=0; x<vendorData.length; x++){
     if (vendor_email === vendorData[x].vendor_email){
       throw new BadRequestError("A vendor with this email address already exists")
