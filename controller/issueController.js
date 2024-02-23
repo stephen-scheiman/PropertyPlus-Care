@@ -107,10 +107,9 @@ async function renderUpdatedIssue(req, res) {
 
 async function renderDeletedIssue(req, res) {
   const issue_id = req.params.id;
-  console.log(issue_id);
 
   const issue = await deleteIssue(issue_id);
-  res.status(200).json({ msg: "Deleted", issue });
+  res.status(200).set("HX-Redirect", "/").end();
 };
 
 async function renderAddVendor(req, res) {
