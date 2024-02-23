@@ -1,0 +1,14 @@
+<select name="issue_id"
+
+>
+  <option value="" selected="selected">Add Issue to Vendor</option>
+  {{#each issues}}
+    <option
+      value="{{issue_id}}"
+      hx-post="/vendors/{{../vendor_id}}/issues"
+      hx-trigger="click"
+    >
+      {{issue_title}}
+    </option>
+  {{/each}}
+</select>

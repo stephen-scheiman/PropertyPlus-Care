@@ -1,0 +1,38 @@
+<main>
+  <h2>{{vendor.vendor_first_name}} {{vendor.vendor_last_name}}</h2>
+  <h3>{{vendor.vendor_trade}}</h3>
+  <h3>{{vendor.vendor_phone}}</h3>
+  <h3>{{vendor.vendor_email}}</h3>
+
+  <ul>
+    {{#each vendor.issues}}
+    <li
+      hx-get="/issues/{{issue_id}}"
+      hx-target="#main"
+      hx-push-url="true"
+    >
+      <h3 hx-target="closest li">{{issue_title}}</h3>
+      <p hx-target="closest li">{{issue-description}}</p>
+      {{#if issue_isDone}}
+      <p hx-target="closest li">Closed</p>
+      {{else}}
+      <p hx-target="closest li">Open</p>
+      {{/if}}
+      <p>{{property.property_name}}</p>
+    </li>
+    {{/each}}
+  </ul>
+
+  <div>
+      <button>Edit</button>
+      <button>Add New Vendor</button>
+      <button>Delete Vendor</button>
+      <select
+        name="vendor_id"
+        hx-get="/vendors/issues"
+        hx-trigger="load"
+        hx-swap="outerHTML">
+        <option value="{{vendor.vendor_id}}"></option>
+      </select>
+    </div>
+</main>

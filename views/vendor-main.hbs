@@ -1,0 +1,12 @@
+<ul>
+  {{#each vendors}}
+  <li
+    hx-get="/vendors/{{vendor_id}}"
+    hx-target="#main"
+    hx-push-url="true"
+  >
+    <h2 hx-target="closest li">{{vendor_first_name}} {{vendor_last_name}}</h2>
+    <h3 hx-target="closest li">Trade: {{vendor_trade}}</h3>
+  </li>
+  {{/each}}
+</ul>
