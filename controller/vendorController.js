@@ -244,5 +244,5 @@ module.exports = {
   renderOneVendor,
   renderIssuesSelect,
   renderVendorNewIssue,
-
+  createVendor
 };

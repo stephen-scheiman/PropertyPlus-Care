@@ -3,6 +3,7 @@ const c = require('../../controller/vendorController');
 
 router.route('/')
   .get(c.renderVendors)
+  .post(c.createVendor)
 
 router.route('/issues')
   .get(c.renderIssuesSelect)
