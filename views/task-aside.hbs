@@ -1,7 +1,7 @@
 <h1 class="mx-4 mb-5 pt-5 text-4xl font-bold">Today's Tasks</h1>
 {{#each tasks}}
   <div
-    class="m-4 rounded-lg border-4 border-zinc-400 p-2"
+    class="backdrop-blur-sm bg-white/30 m-4 p-2 text-white rounded"
     hx-get="/issues/{{issue_id}}"
     hx-target="#main"
     hx-push-url="true"

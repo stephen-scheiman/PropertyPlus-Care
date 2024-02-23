@@ -1,9 +1,9 @@
 
   <button hx-on:click="document.getElementById('modal-property').showModal()">Add New Property</button>
-  <h1>Properties</h1>
+  <h1 class="mx-4 mb-5 pt-5 text-4xl font-bold">Properties</h1>
   <ul>
     {{#each properties}}
-    <li
+    <li class="backdrop-blur-sm bg-white/30 m-4 p-2 text-white rounded"
     
     hx-get="/properties/{{property_id}}"
     hx-target="#main"
