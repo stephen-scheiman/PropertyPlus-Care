@@ -1,21 +1,36 @@
 const { Property, Issue, Task } = require("../../models");
 const { InternalServerError } = require("../errors");
 
-async function findAllTasks() {
-  const tasks = Task.findAll({
+// NOT SURE WE NEED THIS
+// async function findAllTasks() {
+//   const tasks = await Task.findAll({
+//     include: [
+//       { model: Property, attributes: ["property_name"] },
+//       { model: Issue, attributes: ["issue_title"] },
+//     ],
+//   });
+
+//   if (!tasks) {
+//     throw new InternalServerError("Couldn't find tasks");
+//   }
+//   console.log(tasks);
+//   return tasks.map((e) => e.toJSON());
+// }
+
+async function findOpenTasks() {
+  const tasks = await Task.findAll({
+    where: { is_done: false },
     include: [
-      { model: Property, attributes: ["property_name"]},
-      { model: Issue, attributes: ["issue_title"]},
+      { model: Property, attributes: ["property_name"] },
+      { model: Issue, attributes: ["issue_title"] },
     ],
-    raw: true,
-    nest: true,
   });
 
   if (!tasks) {
     throw new InternalServerError("Couldn't find tasks");
   }
   // console.log(tasks);
-  return tasks;
+  return tasks.map((e) => e.toJSON());
 }
 
 async function findTaskByID(id) {
@@ -37,7 +52,7 @@ async function findTaskByID(id) {
 
 async function findTasksByIssueID(issue_id) {
   const tasks = await Task.findAll({
-    where: {issue_id: issue_id},
+    where: { issue_id: issue_id },
     raw: true,
     nest: true
   });
@@ -70,12 +85,12 @@ async function updateTask(task_id, taskData) {
 }
 
 async function updateIsDone(task_id, is_done) {
-  const task = await Task.update({is_done}, { where: { task_id }});
+  const task = await Task.update({ is_done }, { where: { task_id } });
 
   if (!task) {
     throw new InternalServerError(`Couldn't update task isDone with data ${task_id}`);
   }
-  console.log(task);
+  // console.log(task);
   return task;
 }
 
@@ -91,11 +106,12 @@ async function deleteTask(task_id) {
 
 
 module.exports = {
-  findAllTasks,
+  // findAllTasks,
+  findOpenTasks,
   findTaskByID,
   findTasksByIssueID,
   createTask,
   updateTask,
-  deleteTask,  
+  deleteTask,
   updateIsDone
 }

@@ -1,7 +1,7 @@
 const { Task, User, Property } = require('../models');
 const { Op } = require('sequelize');
-const { findAllIssues } = require('../utils/queries/issues')
-const { findAllTasks } = require('../utils/queries/tasks')
+const { findOpenIssues } = require('../utils/queries/issues')
+const { findOpenTasks } = require('../utils/queries/tasks')
 const { getAllProperties } = require('../utils/queries/properties')
 const { findAllVendors } = require('../utils/queries/vendors')
 const { findOwners } = require('../utils/queries/owners')
@@ -30,12 +30,12 @@ async function renderAside(req, res) {
 
   switch (model) {
     case 'task': {
-      const tasks = await findAllTasks();
+      const tasks = await findOpenTasks();
       return res.status(200).render('task-main', {tasks, layout: false});
     }
 
     case 'issues': {
-      const issues = await findAllIssues();
+      const issues = await findOpenIssues();
       return res.status(200).render('issue-main', {  issues, layout: false });
     }
 
@@ -61,21 +61,22 @@ async function renderAside(req, res) {
 }
 
 
-async function userLogin(req, res) {
-  // If the user is already logged in, redirect the request to another route
-  if (req.session.logged_in) {
-    res.redirect('/');
-    return;
-  }
-  res.render('loginView');
-};
+// async function userLogin(req, res) {
+//   // If the user is already logged in, redirect the request to another route
+//   if (req.session.logged_in) {
+//     res.redirect('/');
+//     return;
+//   }
+//   res.render('loginView');
+// };
 
 async function findTasks() {
   const taskData = await Task.findAll({
     where: {
       followUp_date: {
         [Op.lte]: Date.now()
-      }
+      },
+      is_done: false,
     },
     include: [{
       model: Property,

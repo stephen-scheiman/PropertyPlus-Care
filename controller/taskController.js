@@ -1,22 +1,24 @@
 const { Task } = require("../models");
 const { BadRequestError, InternalServerError } = require("../utils/errors");
-const { findAllTasks, findOpenTasks, findTaskByID } = require("../utils/queries/tasks");
+const { findOpenTasks, findTaskByID } = require("../utils/queries/tasks");
 
-async function renderAllTasks(req, res) {
-  const tasks = await findAllTasks();
-  res.status(200).render('task-main', { tasks, layout: false });
-}
+// I DON"T THINK WE NEED THIS
+// async function renderAllTasks(req, res) {
+//   const tasks = await findAllTasks();
+//   res.status(200).render('task-main', { tasks, layout: false });
+// }
 
 async function renderOpenTasks(req, res) {
   const tasks = await findOpenTasks(req, res);
   res.status(200).render('task-main', { tasks, layout: false });
 }
 
-async function renderOneTask(req, res) {
-  const { id: task_id } = req.params;
-  const task = await findTaskByID(task_id);
-  res.status(200).render(("issue-ID", { task }));
-}
+// WE MAY NOT NEED THIS RENDER ONE TASK
+// async function renderOneTask(req, res) {
+//   const { id: task_id } = req.params;
+//   const task = await findTaskByID(task_id);
+//   res.status(200).render(("issue-ID", { task }));
+// }
 
 // create task function
 async function createTask(req, res) {
@@ -97,9 +99,9 @@ async function updateTask(req, res) {
 }
 
 module.exports = {
-  renderAllTasks,
+  // renderAllTasks,
   renderOpenTasks,
-  renderOneTask,
+  // renderOneTask,
   createTask,
   updateTask,
 };
