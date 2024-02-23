@@ -61,14 +61,14 @@ async function updateVendor(vendor_id, vendorData) {
   vendor;
 };
 
-async function addIssueToVendor(issue_id, vendor_id) {
-  const issue = await Issue.findByPk(issue_id);
+async function addIssueToVendor(vendor_id, issue_id) {
+  const vendor = await Vendor.findByPk(vendor_id);
 
-  if (!issue) {
+  if (!vendor) {
     throw new BadRequestError(`No issue found with id ${issue_id}`);
   }
 
-  const result = await issue.addVendor(vendor_id);
+  const result = await vendor.addIssue(issue_id);
 
   // console.log(result);
   return result;

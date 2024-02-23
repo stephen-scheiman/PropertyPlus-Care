@@ -33,10 +33,10 @@
           <option value="vendor">Vendors</option>
           <option value="owner">Owners</option>
         </select>
-        <aside id="aside" hx-get="/tasks" hx-trigger="load, update-aside from:body" hx-target="this" ></aside>
+        <aside id="aside" hx-get="/tasks" hx-trigger="load, update-aside from:body" hx-target="this" >{{{body}}}</aside>
       </div>
 
-      <div id="main" class="w-[75%]">{{{body}}}</div>
+      <div id="main" class="w-[75%]"></div>
     </div>
 
     <footer

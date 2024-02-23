@@ -1,7 +1,7 @@
 const { Vendor, Issue, Property } = require("../models");
 const { BadRequestError, InternalServerError } = require("../utils/errors");
 const { findAllVendors, findVendorByID, addIssueToVendor } = require('../utils/queries/vendors');
-const { findAllIssues } = require('../utils/queries/issues');
+const { findOpenIssues } = require('../utils/queries/issues');
 
 // render vendor data function
 async function renderVendors(req, res) {
@@ -21,15 +21,16 @@ async function renderOneVendor(req, res) {
 
 async function renderIssuesSelect(req, res) {
   const { vendor_id } = req.query;
-  const issues = await findAllIssues();
+  const issues = await findOpenIssues();
   res.status(200).render('vendor-issues', { vendor_id, issues, layout: false });
 }
 
 async function renderVendorNewIssue(req, res) {
-  // const { issueSelect } = req.query;
-  console.log(req.query)
-  console.log(req.params)
-  // const result = await
+  const { id: vendor_id } = req.params;
+  const { issue_id } = req.body;
+
+  const result = await addIssueToVendor(vendor_id, issue_id);
+  console.log(result);
 }
 
 
