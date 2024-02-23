@@ -4,6 +4,7 @@
     class="m-4 rounded-lg border-4 border-zinc-400 p-2"
     hx-get="/issues/{{issue_id}}"
     hx-target="#main"
+    hx-push-url="true"
   >
     <h2 class="font-semibold text-zinc-200">To Do:
       <span class="font-normal">{{this.task_name}}</span></h2>
