@@ -1,7 +1,7 @@
 const { User } = require('../models');
 const { BadRequestError, NotFoundError } = require('../utils/errors');
 const { userLogin } = require('../utils/queries/users')
-const { getAllTasks } = require('../utils/queries/tasks')
+const { findOpenTasks } = require('../utils/queries/tasks')
 
 async function renderLoginForm(req, res) {
   // If the user is already logged in, redirect the request to another route
@@ -16,7 +16,7 @@ async function renderLoggedInHome(req, res) {
   const { user_email, user_password } = req.body;
   console.log(user_email, user_password, "\n\n");
   const p1 = userLogin({user_email, user_password});
-  const p2 = getAllTasks();
+  const p2 = findOpenTasks();
 
   const [user, taskData] = await Promise.all([p1, p2]);
   console.log(user, taskData, "\n\n");
