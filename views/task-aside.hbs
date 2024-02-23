@@ -1,11 +1,21 @@
-
-  <h1 class="mb-5 pt-5 font-bold text-4xl mx-4">Today's Tasks</h1>
-  {{#each tasks}}
-  <div class="border-4 border-zinc-400 rounded-lg m-4 p-2">
-    <h2 class="font-semibold text-zinc-200">To Do: <span class="font-normal">{{this.task_name}}</span></h2>
-    <h3 class="font-semibold text-zinc-200">Due Date: <span class="font-normal">{{this.followUp_date}}</span></h3>
-    <h3 class="font-semibold text-zinc-200">Property: 
+<h1 class="mx-4 mb-5 pt-5 text-4xl font-bold">Today's Tasks</h1>
+{{#each tasks}}
+  <div
+    class="m-4 rounded-lg border-4 border-zinc-400 p-2"
+    hx-get="/issues/{{issue_id}}"
+    hx-target="#main"
+    hx-push-url="true"
+  >
+    <h2 class="font-semibold text-zinc-200">To Do:
+      <span class="font-normal">{{this.task_name}}</span></h2>
+    <h3 class="font-semibold text-zinc-200">Issue:
+      <span class="font-normal">{{this.issue.issue_title}}</span>
+    </h3>
+    <h3 class="font-semibold text-zinc-200">Property:
       <span class="font-normal">{{this.property.property_name}}</span>
     </h3>
+    <h3 class="font-semibold text-zinc-200">Due Date:
+      <span class="font-normal">{{this.followUp_date}}</span>
+    </h3>
   </div>
-  {{/each}}
+{{/each}}

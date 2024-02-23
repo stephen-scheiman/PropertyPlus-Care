@@ -11,13 +11,18 @@
       hx-swap="innerHTML"
     >Re-Open</button>
   {{else}}
-      <button name="issueDone" value="Complete"
-        class="border-2 border-slate-300 rounded-lg px-2 bg-red-700"
-        hx-patch="/issues/{{issue.issue_id}}/isDone"
-        hx-target="#main"
-        hx-swap="innerHTML"
-      >Mark Complete</button>
+    <button name="issueDone" value="Complete"
+      class="border-2 border-slate-300 rounded-lg px-2 bg-red-700"
+      hx-patch="/issues/{{issue.issue_id}}/isDone"
+      hx-target="#main"
+      hx-swap="innerHTML"
+    >Mark Complete</button>
   {{/if}}
+  <button name="deleteIssue" value="{{issue.issue_id}}"
+    class="border-2 border-slate-300 rounded-lg px-2 bg-purple-900"
+    hx-confirm="Are you sure you want to delete this issue? This action cannot be undone."
+    hx-delete="/issues/{{issue.issue_id}}"
+  >Delete Issue</button>
   <div>
     <h3>Description: {{issue.issue_description}}</h3>
     <p>Actions Taken:</p>
@@ -45,13 +50,19 @@
       </li>
       {{/each}}
     </ul>
-    <button name="newTask" value=""
+    <button name="newTask" value="?"
       class="border-2 border-slate-300 rounded-lg px-2 bg-purple-900"
-      hx-get="/issues/{{issue_id}}/newTask"
+      hx-post="/issues/{{issue_id}}/newTask"
       hx-target="#newTaskDiv"
       hx-swap="innerHTML"
     >New Task</button>
-    <div id="newTaskDiv"></div>
+    <button name="assignVendor" value="?"
+      class="border-2 border-slate-300 rounded-lg px-2 bg-purple-900"
+      hx-patch="/issues/{{issue_id}}/assign-vendor"
+      hx-target="??"
+      hx-swap="??"
+    >Assign Vendor</button>
   </div>
+  <div id="newTaskDiv"></div>
 </main>
 </main>

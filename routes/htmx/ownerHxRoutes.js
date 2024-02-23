@@ -2,15 +2,12 @@ const router = require('express').Router();
 const c = require('../../controller/ownerController');
 
 router.route('/')
-  .get(c.renderAllOwners);
-//   .post(c.renderNewOwner);
+  .get(c.renderAllOwners)
+  .post(c.renderNewOwner);
 
-// // enter additional routes above the /id route as needed
-// router.route('/whichIssues')
-//   .get(c.renderIssues);
 
-// router.route('/:id')
-//   .get(c.renderOneIssue)
+router.route('/:id')
+  .get(c.renderOneOwner);
 //   .put(c.renderUpdatedIssue)
 //   .delete(c.renderDeletedIssue);
 
@@ -23,4 +20,4 @@ router.route('/')
 // router.route('/property/:id')
 //   .get(c.renderIssuesByProperty)
   
-// module.exports = router;
+module.exports = router;

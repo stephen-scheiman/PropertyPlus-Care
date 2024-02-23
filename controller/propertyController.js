@@ -18,7 +18,7 @@ async function renderOneProperty(req, res) {
   const { id: property_id } = req.params;
   const property = await getPropertyByID(property_id);
  // res.status(200).json({ properties });
-  res.status(200).render("property-id", { property, layout:false });
+  res.status(200).render("property-id", { property, layout: false });
 }
 
 /* for purposes of unit testing, separating sequelize request function

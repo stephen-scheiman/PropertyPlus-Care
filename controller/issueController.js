@@ -2,7 +2,7 @@
 const { Vendor, Issue, Property, Task } = require('../models');
 const { NotFoundError, InternalServerError, BadRequestError } = require('../utils/errors');
 const { findTasksByIssueID, updateIsDone } = require('../utils/queries/tasks');
-const { findOneIssue, findAllIssues, findOpenIssues, findClosedIssues, getIssuesByPropertyID, updateIssueDone } = require('../utils/queries/issues');
+const { findOneIssue, findAllIssues, findOpenIssues, findClosedIssues, getIssuesByPropertyID, updateIssueDone, deleteIssue } = require('../utils/queries/issues');
 
 async function renderOpenIssues(req, res) {
   const issues = await findOpenIssues();
@@ -69,7 +69,7 @@ async function renderIsIssueDone(req, res) {
   const issue = await findOneIssue(issue_id);
   const tasks = await findTasksByIssueID(issue_id);
 
-  res.status(200).render("issue-ID", { issue, tasks, layout: false });
+  res.status(200).set("HX-Trigger", "update-aside").render("issue-ID", { issue, tasks, layout: false });
 }
 
 async function renderNewIssue(req, res) {
@@ -109,7 +109,7 @@ async function renderDeletedIssue(req, res) {
   const issue_id = req.params.id;
 
   const issue = await deleteIssue(issue_id);
-  res.status(200).json({ msg: "Deleted", issue });
+  res.status(200).set("HX-Redirect", "/").end();
 };
 
 async function renderAddVendor(req, res) {
