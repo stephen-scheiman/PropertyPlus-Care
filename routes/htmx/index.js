@@ -6,6 +6,7 @@ const loginHxRoutes = require("./loginHxRoutes.js");
 const propertyHxRoutes = require('./propertyHxRoutes.js');
 const issueHxRoutes = require('./issueHxRoutes.js');
 const taskHxRoutes = require('./taskHxRoutes.js');
+const vendorHxRoutes = require('./vendorHxRoutes.js');
 
 router.get('/', c.renderHome);
 router.get('/aside', c.renderAside)
@@ -14,5 +15,6 @@ router.use('/login', loginHxRoutes);
 router.use('/properties', propertyHxRoutes);
 router.use('/issues', issueHxRoutes);
 router.use('/tasks', taskHxRoutes);
+router.use('/vendors', vendorHxRoutes);
 
 module.exports = router;
