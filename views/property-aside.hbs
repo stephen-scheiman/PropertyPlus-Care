@@ -37,7 +37,7 @@
       <select name="owner_id">
         <option selected="Selected">None</option>
         {{#each owners}}
-        <option value="{{owner_id}}">{{owner_first_name}} {{owner_last_name}}</option>
+        <option value="{{owner.owner_id}}">{{owner.owner_first_name}} {{owner.owner_last_name}}</option>
         {{/each}}
         <option>+ Create New Owner</option>
       </select>

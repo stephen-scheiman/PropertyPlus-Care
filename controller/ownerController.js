@@ -4,18 +4,20 @@ const {
   NotFoundError,
   BadRequestError,
 } = require("../utils/errors");
+const { findOwners, findOwnerById } = require("../utils/queries/owners");
 
 async function renderAllOwners(req, res) {
   const owners = await findOwners();
+  console.log(owners);
   res.status(200).json({ owners });
 }
 
 async function renderOneOwner(req, res) {
   const { id: owner_id } = req.params;
-
   const owner = await findOwnerById(owner_id);
-
-  res.status(200).json({ owner });
+  console.log(owner);
+  //res.status(200).json({ owner });
+  res.status(200).render("owner-id", { owner, layout:false });
 }
 
 // Recreated by SBS to feed this data to the email uniqueness check below....
@@ -92,10 +94,12 @@ async function renderNewOwner(req, res) {
 
   //validate that the email is unique
   const ownerData = await getAllOwners();
-  for(x=0; x<ownerData.length; x++){
-    if (owner_email === ownerData[x].owner_email){
-      throw new BadRequestError("An owner with this email address already exists")
-    } 
+  for (x = 0; x < ownerData.length; x++) {
+    if (owner_email === ownerData[x].owner_email) {
+      throw new BadRequestError(
+        "An owner with this email address already exists",
+      );
+    }
   }
 
   if (!streetPattern.test(owner_street)) {
@@ -191,7 +195,7 @@ async function renderUpdateOwner(req, res) {
   if (!emailPattern.test(owner_email)) {
     throw new BadRequestError("Please enter a valid email address");
   }
-  
+
   // validate that the email is unique
   //
   // Commenting out for now until we discuss update validation
@@ -200,7 +204,7 @@ async function renderUpdateOwner(req, res) {
   // for(x=0; x<ownerData.length; x++){
   //   if (owner_email === ownerData[x].owner_email){
   //     throw new BadRequestError("A user with this email address already exists")
-  //   } 
+  //   }
   // }
 
   if (!streetPattern.test(owner_street)) {
@@ -241,7 +245,7 @@ async function renderDeleteOwner(req, res) {
   res.status(200).json({ msg: "Deleted", owner });
 }
 
-async function findOwners() {
+async function findOwners1() {
   const owners = await Owner.findAll({
     raw: true,
     nest: true,
@@ -253,7 +257,7 @@ async function findOwners() {
   return owners;
 }
 
-async function findOwnerById(id) {
+async function findOwnerById1(id) {
   const owner = await Owner.findByPk(id, {
     include: [
       {
