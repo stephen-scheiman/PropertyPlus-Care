@@ -2,10 +2,12 @@ const router = require('express').Router();
 const c = require('../../controller/issueController');
 
 router.route('/')
-  .get(c.renderIssues)
+  .get(c.renderOpenIssues)
   .post(c.renderNewIssue);
 
 // enter additional routes above the /id route as needed
+router.route('/whichIssues')
+  .get(c.renderIssues);
 
 router.route('/:id')
   .get(c.renderOneIssue)

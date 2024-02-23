@@ -2,12 +2,41 @@
 const { Vendor, Issue, Property, Task } = require('../models');
 const { NotFoundError, InternalServerError, BadRequestError } = require('../utils/errors');
 const { getTasksByIssueID, updateIsDone } = require('../utils/queries/tasks');
-const { findOneIssue, findAllIssues, getIssuesByPropertyID, updateIssueDone } = require('../utils/queries/issues');
+const { findOneIssue, findAllIssues, findOpenIssues, findClosedIssues, getIssuesByPropertyID, updateIssueDone } = require('../utils/queries/issues');
 
-async function renderIssues(req, res) {
-  const issues = await findAllIssues();
+async function renderOpenIssues(req, res) {
+  const issues = await findOpenIssues();
   // console.log(issues);
   res.status(200).render('issue-main', { issues });
+};
+
+async function renderIssues(req, res) {
+  const { issueStatus } = req.query;
+
+  console.log('-----------------');
+  console.log('\n\n', issueStatus, '\n\n');
+  console.log('-----------------');
+
+  switch (issueStatus) {
+    case 'open': {
+      const issues = await findOpenIssues();
+      return res.status(200).render('issue-main', { issues, layout: false });
+    }
+
+    case 'closed': {
+      const issues = await findClosedIssues();
+      return res.status(200).render('issue-main', { issues, layout: false });
+    }
+
+    case 'all': {
+      const issues = await findAllIssues();
+      // console.log(issues);
+      res.status(200).render('issue-main', { issues, layout: false });
+    }
+
+    default:
+      break;
+  }
 };
 
 async function renderOneIssue(req, res) {
@@ -26,7 +55,7 @@ async function renderIssuesByProperty(req, res) {
 };
 
 async function renderIsIssueDone(req, res) {
-  const {id: issue_id } = req.params;
+  const { id: issue_id } = req.params;
   const { issueDone } = req.body;
 
   let issueUpdate;
@@ -40,7 +69,7 @@ async function renderIsIssueDone(req, res) {
   const issue = await findOneIssue(issue_id);
   const tasks = await getTasksByIssueID(issue_id);
 
-  res.status(200).render("issue-ID", { issue, tasks, layout: false});
+  res.status(200).render("issue-ID", { issue, tasks, layout: false });
 }
 
 async function renderNewIssue(req, res) {
@@ -105,14 +134,14 @@ async function renderIsTaskDone(req, res) {
   const issue = await findOneIssue(issue_id);
   const tasks = await getTasksByIssueID(issue_id);
 
-  res.status(200).set("HX-Trigger", "update-aside").render("issue-ID", { issue, tasks, layout: false});
+  res.status(200).set("HX-Trigger", "update-aside").render("issue-ID", { issue, tasks, layout: false });
 }
 
 // async function findAllIssues() {
 //   const issues = await Issue.findAll({
 //     include: [
-//       { model: Property },
-//       { model: Task}
+//       { issueStatus: Property },
+//       { issueStatus: Task}
 //     ],
 //     raw: true,
 //     nest: true,
@@ -128,9 +157,9 @@ async function renderIsTaskDone(req, res) {
 // async function findOneIssue(issue_id) {
 //   const issue = await Issue.findByPk(issue_id, {
 //     include: [
-//       { model: Property, },
-//       { model: Task, },
-//       { model: Vendor, },
+//       { issueStatus: Property, },
+//       { issueStatus: Task, },
+//       { issueStatus: Vendor, },
 //     ],
 //     raw: true,
 //     nest: true,
@@ -139,7 +168,7 @@ async function renderIsTaskDone(req, res) {
 //   if (!issue) {
 //     throw new NotFoundError(`No issue found wtih id ${issue_id}`);
 //   }
-  
+
 //   return issue;
 // }
 
@@ -187,6 +216,7 @@ async function renderIsTaskDone(req, res) {
 
 
 module.exports = {
+  renderOpenIssues,
   renderAddVendor,
   renderDeletedIssue,
   renderIssues,

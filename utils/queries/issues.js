@@ -16,6 +16,37 @@ async function findAllIssues() {
   return issues.map((e) => e.toJSON());
 };
 
+async function findOpenIssues() {
+  const issues = await Issue.findAll({
+    where: { issue_isDone: false },
+    include: [
+      { model: Property },
+      { model: Task}
+    ],
+  });
+
+  if (!issues) {
+    throw new NotFoundError('No issues found');
+  }
+  // console.log(issues);
+  return issues.map((e) => e.toJSON());
+}
+
+async function findClosedIssues() {
+  const issues = await Issue.findAll({
+    where: { issue_isDone: true},
+    include: [
+      { model: Property },
+      { model: Task}
+    ],
+  });
+  if (!issues) {
+    throw new NotFoundError('No issues found');
+  }
+  // console.log(issues);
+  return issues.map((e) => e.toJSON());
+}
+
 async function getIssuesByPropertyID(property_id) {
   const issues = await Issue.findAll({
     where: {property_id},
@@ -104,6 +135,8 @@ async function updateIssueDone(issue_id, issue_isDone) {
 
 module.exports = {
   findAllIssues,
+  findOpenIssues,
+  findClosedIssues,
   findOneIssue,
   createIssue,
   updateIssue,
