@@ -1,18 +1,19 @@
 const { Vendor, Issue, Property, Task } = require('../../models');
 const { NotFoundError, BadRequestError, InternalServerError } = require('../errors/index');
+const { Op } = require('sequelize');
 
 async function findAllIssues() {
   const issues = await Issue.findAll({
     include: [
       { model: Property },
-      { model: Task}
+      { model: Task },
     ],
   });
 
   if (!issues) {
     throw new NotFoundError('No issues found');
   }
-  // console.log(issues);
+  // console.log(issues.map((e) => e.toJSON()));
   return issues.map((e) => e.toJSON());
 };
 
@@ -46,6 +47,20 @@ async function findClosedIssues() {
   // console.log(issues);
   return issues.map((e) => e.toJSON());
 }
+
+async function findOpenIssuesVendor(id) {
+  const issuesData = await Issue.findAll({
+    where: { issue_isDone: false, },
+    include: [{ model: Vendor, attributes:['vendor_id']}]
+  })
+
+  const issues = issuesData.map(e => e.toJSON());
+  // console.log(issues);
+  console.log(id);
+  console.log(issues.filter(issue => !issue.Vendors.some(vendor => vendor.vendor_id === id)));
+  return issues.filter(issue => !issue.Vendors.some(vendor => vendor.vendor_id === id));
+}
+findOpenIssuesVendor(1);
 
 async function getIssuesByPropertyID(property_id) {
   const issues = await Issue.findAll({
@@ -118,7 +133,7 @@ async function addVendorToIssue(issue_id, vendor_id) {
   if (!issue) {
     throw new BadRequestError(`No issue found with id ${issue_id}`);
   }
-  
+
   const result = await issue.addVendor(vendor_id);
 
   // console.log(result);
@@ -145,5 +160,6 @@ module.exports = {
   deleteIssue,
   addVendorToIssue,
   getIssuesByPropertyID,
-  updateIssueDone
+  updateIssueDone,
+  findOpenIssuesVendor,
 }
