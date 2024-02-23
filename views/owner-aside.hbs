@@ -39,29 +39,4 @@
       <button hx-post="/owners" type="submit">Submit</button>
     </form>
   </dialog>
-
-    <dialog class="p-5" id="modal-owner-update">
-    <button
-      hx-on:click="document.getElementById('modal-owner-update').close()"
-    >Close</button>
-    <form class="flex flex-col">
-      <label for="owner_first_name">Owner First Name</label>
-      <input type="text" name="owner_first_name" />
-      <label for="owner_last_name">Owner Last Name</label>
-      <input type="text" name="owner_last_name" />
-      <label for="owner_street">Owner Street Address</label>
-      <input type="text" name="owner_street" />
-      <label for="owner_city">Owner City</label>
-      <input type="text" name="owner_city" />
-      <label for="owner_state">Owner State</label>
-      <input type="text" name="owner_state" />
-      <label for="owner_zip">Owner Zip</label>
-      <input type="text" name="owner_zip" />
-      <label for="owner_email">Owner Email Address</label>
-      <input type="text" name="owner_email" />
-      <label for="owner_phone">Owner Phone Number</label>
-      <input type="text" name="owner_phone" />
-      <button hx-patch="/owners/{{owners.owner.0.owner_id}}" type="submit">Submit</button>
-    </form>
-  </dialog>
 </main>
