@@ -10,4 +10,9 @@
     hx-delete="/owners/{{owner.owner_id}}"
     hx-target="#main"
   >Delete</button>
+   <button name="updateOwner" value="Update Owner"
+    class="border-2 border-slate-300 rounded-lg px-2 bg-emerald-800"
+    hx-on:click="document.getElementById('modal-owner-update').showModal()"
+    hx-target="#main"
+  >Update</button>
 </main>
