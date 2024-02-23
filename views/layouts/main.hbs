@@ -13,7 +13,7 @@
     <script src="/js/htmx.min.js"></script>
   </head>
   <body class="bg-blue-900 text-slate-300 bg-[url('/img/bg.jpeg')] bg-cover bg-no-repeat">
-    
+
     <header class="fixed right-0 max-h-10 max-w-10 sm:hidden">
       <a href="./help.hbs">
         <img src="/img/questionmark.png" alt="question mark" />
@@ -36,6 +36,7 @@
           <option value="owner">Owners</option>
         </select>
         <aside class="overflow-auto max-h-[80vh]" id="aside">{{{body}}}</aside>
+        <div id="selectOption"></div>
       </div>
 
       <div id="main" class="w-[75%] mt-16"></div>
