@@ -10,7 +10,7 @@ const { findOpenTasks, findTaskByID } = require("../utils/queries/tasks");
 
 async function renderOpenTasks(req, res) {
   const tasks = await findOpenTasks(req, res);
-  res.status(200).render('task-main', { tasks, layout: false });
+  res.status(200).render('task-aside', { tasks, layout: false });
 }
 
 // WE MAY NOT NEED THIS RENDER ONE TASK

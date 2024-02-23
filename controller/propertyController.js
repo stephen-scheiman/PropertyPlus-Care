@@ -9,7 +9,7 @@ async function renderProperties(req, res) {
   const p2 = findOwners();
 
   const [properties, owners] = await Promise.all([p1, p2]);
-     res.status(200).render("property-main", { properties, owners });
+     res.status(200).render("property-aside", { properties, owners });
   // res.status(200).json({ properties });
 }
 
