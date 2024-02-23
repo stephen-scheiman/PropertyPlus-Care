@@ -5,4 +5,9 @@
     {{owner.owner_state}}
     {{owner.owner_zip}}</h3>
   <h3>Owner Phone:{{owner.owner_phone}}</h3>
+  <button name="deleteOwner" value="Delete Owner"
+    class="border-2 border-slate-300 rounded-lg px-2 bg-red-800"
+    hx-delete="/owners/{{owner.owner_id}}"
+    hx-target="#main"
+  >Delete</button>
 </main>

@@ -7,9 +7,9 @@ router.route('/')
 
 
 router.route('/:id')
-  .get(c.renderOneOwner);
+  .get(c.renderOneOwner)
 //   .put(c.renderUpdatedIssue)
-//   .delete(c.renderDeletedIssue);
+  .delete(c.renderDeleteOwner);
 
 // router.route('/:id/isDone')
 //   .patch(c.renderIsIssueDone);

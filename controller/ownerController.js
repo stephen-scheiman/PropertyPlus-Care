@@ -131,7 +131,8 @@ async function renderNewOwner(req, res) {
     owner_zip,
   });
 
-  res.status(200).json({ msg: "created", newOwner });
+  //res.status(200).json({ msg: "created", newOwner });
+  res.status(200).json('Owner created successfully!');
 }
 
 async function renderUpdateOwner(req, res) {
