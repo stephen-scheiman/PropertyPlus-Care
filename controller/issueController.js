@@ -106,6 +106,8 @@ async function renderUpdatedIssue(req, res) {
 };
 
 async function renderDeletedIssue(req, res) {
+  console.log(req.params);
+  console.log(req.query);
   const issue_id = req.params.id;
 
   const issue = await deleteIssue(issue_id);

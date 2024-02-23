@@ -102,6 +102,7 @@ async function updateIssue(issue_id, issueData) {
 };
 
 async function deleteIssue(issue_id) {
+  console.log(issue_id);
   const issue = await Issue.destroy({ where: { issue_id } });
 
   if (!issue) {
