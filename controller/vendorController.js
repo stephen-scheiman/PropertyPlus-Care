@@ -1,13 +1,56 @@
-const { Vendor, Issue } = require("../models");
+const { Vendor, Issue, Property } = require("../models");
 const { BadRequestError, InternalServerError } = require("../utils/errors");
+const { findAllVendors, findVendorByID, addIssueToVendor } = require('../utils/queries/vendors');
+const { findAllIssues } = require('../utils/queries/issues');
 
-/* for purposes of unit testing, separating sequelize request function
-from render data functions */
+// render vendor data function
+async function renderVendors(req, res) {
+  const vendors = await findAllVendors();
+  // res.status(200).json({ vendors });
+  res.status(200).render('vendor-main', { vendors });
+}
+
+// render vendor by ID function
+async function renderOneVendor(req, res) {
+  const { id } = req.params;
+  const vendor = await findVendorByID(id);
+  // res.status(200).json({ vendor });
+  // console.log(vendor);
+  res.status(200).render('vendor-id', { vendor, layout: false });
+}
+
+async function renderIssuesSelect(req, res) {
+  const { vendor_id } = req.query;
+  const issues = await findAllIssues();
+  res.status(200).render('vendor-issues', { vendor_id, issues, layout: false });
+}
+
+async function renderVendorNewIssue(req, res) {
+  // const { issueSelect } = req.query;
+  console.log(req.query)
+  console.log(req.params)
+  // const result = await
+}
+
+
+// // get vendor by ID
+// async function getVendorByID(id) {
+//   const vendorData = Vendor.findByPk(id, {
+//     include: [{ model: Issue }],
+//   });
+
+//   if (!vendorData) {
+//     throw new BadRequestError("Something went wrong");
+//   }
+
+//   return vendorData;
+// }
 
 // sequelize get all vendors
-async function getAllVendors() {
+async function getAllVendors1() {
   const vendorData = Vendor.findAll({
-    include: [{ model: Issue }],
+    include: [{ model: Issue },
+      {model: Property}],
     raw: true,
     // nest: true,
   });
@@ -17,33 +60,6 @@ async function getAllVendors() {
   }
 
   return vendorData;
-}
-
-// render vendor data function
-async function renderVendors(req, res) {
-  const vendors = await getAllVendors();
-  res.status(200).json({ vendors });
-}
-
-// get vendor by ID
-async function getVendorByID(id) {
-  const vendorData = Vendor.findByPk(id, {
-    include: [{ model: Issue }],
-    raw: true,
-  });
-
-  if (!vendorData) {
-    throw new BadRequestError("Something went wrong");
-  }
-
-  return vendorData;
-}
-
-// render vendor by ID function
-async function renderOneVendor(req, res) {
-  const { id: vendor_id } = req.params;
-  const vendor = await getVendorByID(vendor_id);
-  res.status(200).json({ vendor });
 }
 
 //create new vendor
@@ -95,9 +111,9 @@ async function createVendor(req, res) {
   for(x=0; x<vendorData.length; x++){
     if (vendor_email === vendorData[x].vendor_email){
       throw new BadRequestError("A vendor with this email address already exists")
-    } 
+    }
   }
-  
+
   //format the phone number as (XXX)XXX-XXXX
   vendor_phone = vendor_phone.replace(/[^0-9 ]/g, "");
 
@@ -182,7 +198,7 @@ async function updateVendor(req, res) {
   // for(x=0; x<vendData.length; x++){
   //   if (vendor_email === vendData[x].vendor_email){
   //     throw new BadRequestError("A user with this email address already exists")
-  //   } 
+  //   }
   // }
 
 
@@ -222,4 +238,10 @@ async function updateVendor(req, res) {
   }
 };
 
-module.exports = { renderVendors, renderOneVendor, createVendor, deleteVendor, updateVendor };
+module.exports = {
+  renderVendors,
+  renderOneVendor,
+  renderIssuesSelect,
+  renderVendorNewIssue,
+
+};
