@@ -1,0 +1,41 @@
+<main>
+  <button hx-on:click="document.getElementById('modal-owner').showModal()">Add New Owner</button>
+  <h1>Owners</h1>
+  <ul>
+    {{#each owners as |owner|}}
+    <li
+    hx-get="/owners/{{owner_id}}"
+    hx-target="#main"
+    hx-trigger="click"
+    >
+      <h2>{{owner_first_name}} {{owner_last_name}}</h2>
+      <p>{{owner_phone}}</p>
+      <p>{{owner_email}}</p>
+    {{/each}}
+  </ul>
+  <dialog class="p-5" id="modal-owner">
+    <button hx-on:click="document.getElementById('modal-owner').close()">Close</button>
+    <form class="flex flex-col">
+      <label for="owner_first_name">Owner First Name</label>
+      <input type="text" name="owner_first_name">
+      <label for="owner_last_name">Owner Last Name</label>
+      <input type="text" name="owner_last_name">
+      <label for="owner_street">Owner Street Address</label>
+      <input type="text" name="owner_street">
+      <label for="owner_city">Owner City</label>
+      <input type="text" name="owner_city">
+      <label for="owner_state">Owner State</label>
+      <input type="text" name="owner_state">
+      <label for="owner_zip">Owner Zip</label>
+      <input type="text" name="owner_zip">
+      {{!-- <select name="owner_id">
+        <option selected="Selected">None</option>
+        {{#each owners}}
+        <option value="{{owner_id}}">{{owner_first_name}} {{owner_last_name}}</option>
+        {{/each}}
+        <option>+ Create New Owner</option>
+      </select>
+      <button type="submit">Submit</button> --}}
+    </form>
+  </dialog>
+</main>

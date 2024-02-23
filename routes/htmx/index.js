@@ -8,6 +8,7 @@ const propertyHxRoutes = require('./propertyHxRoutes.js');
 const issueHxRoutes = require('./issueHxRoutes.js');
 const taskHxRoutes = require('./taskHxRoutes.js');
 const vendorHxRoutes = require('./vendorHxRoutes.js');
+const ownerHxRoutes = require('./ownerHxRoutes.js');
 
 
 
@@ -24,5 +25,6 @@ router.use('/properties', propertyHxRoutes);
 router.use('/issues', issueHxRoutes);
 router.use('/tasks', taskHxRoutes);
 router.use('/vendors', vendorHxRoutes);
+//router.use('/owners', ownerHxRoutes);
 
 module.exports = router;
