@@ -1,7 +1,7 @@
 const { Property, Issue, Task } = require("../../models");
 const { InternalServerError } = require("../errors");
 
-async function getAllTasks() {
+async function findAllTasks() {
   const tasks = Task.findAll({
     include: [
       { model: Property, attributes: ["property_name"]},
@@ -18,7 +18,7 @@ async function getAllTasks() {
   return tasks;
 }
 
-async function getTaskByID(id) {
+async function findTaskByID(id) {
   const task = Task.findByPk(id, {
     include: [
       { model: Property, attributes: ["property_name"] },
@@ -35,7 +35,7 @@ async function getTaskByID(id) {
   return task;
 }
 
-async function getTasksByIssueID(issue_id) {
+async function findTasksByIssueID(issue_id) {
   const tasks = await Task.findAll({
     where: {issue_id: issue_id},
     raw: true,
@@ -91,9 +91,9 @@ async function deleteTask(task_id) {
 
 
 module.exports = {
-  getAllTasks,
-  getTaskByID,
-  getTasksByIssueID,
+  findAllTasks,
+  findTaskByID,
+  findTasksByIssueID,
   createTask,
   updateTask,
   deleteTask,  

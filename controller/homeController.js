@@ -1,7 +1,7 @@
 const { Task, User, Property } = require('../models');
 const { Op } = require('sequelize');
 const { findAllIssues } = require('../utils/queries/issues')
-const { getAllTasks } = require('../utils/queries/tasks')
+const { findAllTasks } = require('../utils/queries/tasks')
 const { getAllProperties } = require('../utils/queries/properties')
 const { } = require('../utils/queries/vendors')
 const {findOwners } = require('../utils/queries/owners')
@@ -66,7 +66,7 @@ async function renderAside(req, res) {
 
   switch (model) {
     case 'task': {
-      const tasks = await getAllTasks();
+      const tasks = await findAllTasks();
       return res.status(200).render('task-main', {tasks, layout: false});
     }
 

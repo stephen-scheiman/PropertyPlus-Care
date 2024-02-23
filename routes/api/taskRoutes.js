@@ -16,7 +16,7 @@ const c = require('../../controller/taskController');
   - only to be used if user accidentally created it wrong or something (not MVP: add admin level permission)
   - make sure that somewhere there is a "are you sure you want to delete" check*/
   router.route('/')
-    .get(c.renderTasks)
+    .get(c.renderAllTasks)
     .post(c.createTask);
 
   router.route('/:id')
