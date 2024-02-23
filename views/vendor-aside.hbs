@@ -1,12 +1,21 @@
 <ul>
   {{#each vendors}}
-  <li class="backdrop-blur-sm bg-white/30 m-4 p-2 text-white rounded"
-    hx-get="/vendors/{{vendor_id}}"
-    hx-target="#main"
-    hx-push-url="true"
-  >
-    <h2 hx-target="closest li">{{vendor_first_name}} {{vendor_last_name}}</h2>
-    <h3 hx-target="closest li">Trade: {{vendor_trade}}</h3>
-  </li>
+    <li
+      class="m-4 rounded bg-white/30 p-2 text-white backdrop-blur-sm"
+      hx-get="/vendors/{{vendor_id}}"
+      hx-target="#main"
+      hx-push-url="true"
+    >
+      <h2 hx-target="closest li">{{vendor_first_name}} {{vendor_last_name}}</h2>
+      <h3 hx-target="closest li">Trade: {{vendor_trade}}</h3>
+    </li>
   {{/each}}
 </ul>
+
+<select name="" id="selectOption" hx-oob-swap="true" hx-get="/vendors/trades">
+  <option value="Electrical">Electrical</option>
+  <option value="Flooring">Flooring</option>
+  <option value="Handyman">Handyman</option>
+  <option value="Plumbing">Plumbing</option>
+  <option value="Roofer">Roofer</option>
+</select>
