@@ -1,32 +1,32 @@
-const { Vendor, Issue } = require("../../models");
+const { Vendor, Issue, Property } = require("../../models");
 const { BadRequestError, InternalServerError } = require("../errors");
 
 
-async function getAllVendors() {
-  const vendors = Vendor.findAll({
+async function findAllVendors() {
+  const vendors = await Vendor.findAll({
     include: [{ model: Issue }],
-    raw: true,
-    nest: true,
   });
 
   if (!vendors) {
     throw new InternalServerError("Couldn't find vendors");
   }
   // console.log(vendors);
-  return vendors;
+  return vendors.map(e => e.toJSON());
 }
 
-async function getVendorByID(id) {
-  const vendor = Vendor.findByPk(id, {
-    include: [{ model: Issue }],
-    raw: true,
+async function findVendorByID(id) {
+  const vendor = await Vendor.findByPk(id, {
+    include: [{
+      model: Issue,
+      include: [{model: Property}]
+    }],
   });
 
   if (!vendor) {
     throw new InternalServerError(`Couldn't find vendor with id ${id}`);
   }
   // console.log(vendor);
-  return vendor;
+  return vendor.toJSON();
 }
 
 async function createVendor(vendorData) {
@@ -61,4 +61,24 @@ async function updateVendor(vendor_id, vendorData) {
   vendor;
 };
 
-module.exports = { createVendor, deleteVendor, updateVendor };
+async function addIssueToVendor(issue_id, vendor_id) {
+  const issue = await Issue.findByPk(issue_id);
+
+  if (!issue) {
+    throw new BadRequestError(`No issue found with id ${issue_id}`);
+  }
+
+  const result = await issue.addVendor(vendor_id);
+
+  // console.log(result);
+  return result;
+};
+
+module.exports = {
+  findAllVendors,
+  findVendorByID,
+  createVendor,
+  deleteVendor,
+  updateVendor,
+  addIssueToVendor,
+};
