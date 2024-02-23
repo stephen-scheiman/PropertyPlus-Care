@@ -8,10 +8,14 @@
   >
     <h2 class="font-semibold text-zinc-200">To Do:
       <span class="font-normal">{{this.task_name}}</span></h2>
-    <h3 class="font-semibold text-zinc-200">Due Date:
-      <span class="font-normal">{{this.followUp_date}}</span></h3>
+    <h3 class="font-semibold text-zinc-200">Issue:
+      <span class="font-normal">{{this.issue.issue_title}}</span>
+    </h3>
     <h3 class="font-semibold text-zinc-200">Property:
       <span class="font-normal">{{this.property.property_name}}</span>
+    </h3>
+    <h3 class="font-semibold text-zinc-200">Due Date:
+      <span class="font-normal">{{this.followUp_date}}</span>
     </h3>
   </div>
 {{/each}}
