@@ -1,6 +1,4 @@
 function pageRedirect(req, res, next) {
-  console.log('\n\n', req.headers);
-
   if (req.headers['hx-request']) {
     return next();
   }

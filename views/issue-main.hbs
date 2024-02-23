@@ -24,7 +24,7 @@
         >{{this.issue_title}}</h2>
         <h3
           class="font-semibold text-lg"
-          hx-get="/properties/{{this.propery.property_id}}"
+          hx-get="/properties/{{this.property_id}}"
           hx-swap="innerHTML"
           hx-target="#main"
           hx-push-url="true"
@@ -33,5 +33,5 @@
         <p class="font-medium">Next Follow-Up Date: <span>{{this.tasks.followUp_date}}</span></p>
       </div>
     {{/each}}
-  </div>  
+  </div>
 </main>
