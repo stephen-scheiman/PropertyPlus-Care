@@ -1,7 +1,7 @@
 
 const { Vendor, Issue, Property, Task } = require('../models');
 const { NotFoundError, InternalServerError, BadRequestError } = require('../utils/errors');
-const { getTasksByIssueID, updateIsDone } = require('../utils/queries/tasks');
+const { findTasksByIssueID, updateIsDone } = require('../utils/queries/tasks');
 const { findOneIssue, findAllIssues, findOpenIssues, findClosedIssues, getIssuesByPropertyID, updateIssueDone } = require('../utils/queries/issues');
 
 async function renderOpenIssues(req, res) {
@@ -42,7 +42,7 @@ async function renderIssues(req, res) {
 async function renderOneIssue(req, res) {
   const { id: issue_id } = req.params;
   const issue = await findOneIssue(issue_id);
-  const tasks = await getTasksByIssueID(issue_id);
+  const tasks = await findTasksByIssueID(issue_id);
   // console.log(issue);
   res.status(200).render('issue-ID', { issue, tasks, layout: false });
 };
@@ -67,7 +67,7 @@ async function renderIsIssueDone(req, res) {
   }
 
   const issue = await findOneIssue(issue_id);
-  const tasks = await getTasksByIssueID(issue_id);
+  const tasks = await findTasksByIssueID(issue_id);
 
   res.status(200).render("issue-ID", { issue, tasks, layout: false });
 }
@@ -132,7 +132,7 @@ async function renderIsTaskDone(req, res) {
   }
 
   const issue = await findOneIssue(issue_id);
-  const tasks = await getTasksByIssueID(issue_id);
+  const tasks = await findTasksByIssueID(issue_id);
 
   res.status(200).set("HX-Trigger", "update-aside").render("issue-ID", { issue, tasks, layout: false });
 }
