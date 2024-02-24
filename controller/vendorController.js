@@ -45,7 +45,7 @@ async function renderVendorsByTrade(req, res) {
 }
 
 async function renderNewVendorForm(req, res) {
-  res.status(200).render('vendor-new-form', { layout: false });
+  res.status(200).render('vendor-form-new', { layout: false });
 }
 
 async function renderNewVendorsList(req, res) {
