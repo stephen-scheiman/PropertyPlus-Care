@@ -1,7 +1,7 @@
 const { Vendor, Issue, Property } = require("../models");
 const { BadRequestError, InternalServerError } = require("../utils/errors");
 const { findAllVendors, findVendorByID, addIssueToVendor, findVendorsByTrade, createVendor, updateVendor } = require('../utils/queries/vendors');
-const { findOpenIssuesVendor } = require('../utils/queries/issues');
+const { findOpenIssuesVendor, findOpenIssues } = require('../utils/queries/issues');
 
 // render vendor data function
 async function renderVendors(req, res) {
@@ -13,10 +13,11 @@ async function renderVendors(req, res) {
 // render vendor by ID function
 async function renderOneVendor(req, res) {
   const { id } = req.params;
+
   const p1 = findVendorByID(id);
   const p2 = findOpenIssuesVendor(+id);
   const [vendor, issues] = await Promise.all([p1, p2]);
-  console.log(issues);
+
   res.status(200).render('vendor-id', { vendor, issues, layout: false });
 }
 
@@ -25,7 +26,6 @@ async function renderVendorNewIssue(req, res) {
   const { issue_id } = req.body;
 
   const result = await addIssueToVendor(vendor_id, issue_id);
-  console.log(result);
 
   const p1 = findVendorByID(vendor_id);
   const p2 = findOpenIssuesVendor(+vendor_id);
@@ -112,18 +112,19 @@ async function renderNewVendorsList(req, res) {
     "-" +
     vendor_phone.slice(6);
 
-  const result = await createVendor({
+  const p1 = createVendor({
     vendor_first_name,
     vendor_last_name,
     vendor_trade,
     vendor_email,
     vendor_phone,
   });
+  const p2 = findOpenIssues();
 
-  console.log(result);
+  const [result, issues] = await Promise.all([p1, p2]);
   const vendor = result.toJSON();
 
-  res.status(200).set('hx-trigger', 'update-list').render('vendor-id', { vendor, layout: false });
+  res.status(200).set('hx-trigger', 'update-list').render('vendor-id', { vendor, issues, layout: false });
 }
 
 async function renderEditVendorForm(req, res) {
