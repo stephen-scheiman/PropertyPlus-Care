@@ -1,3 +1,5 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <main>
   <h2>Owner: {{owner.owner_first_name}} {{owner.owner_last_name}}</h2>
   <h3>Address: {{owner.owner_street}}</h3>
@@ -6,9 +8,15 @@
     {{owner.owner_zip}}</h3>
   <h3>Owner Phone:{{owner.owner_phone}}</h3>
   <button name="deleteOwner" value="Delete Owner"
-    class="border-2 border-slate-300 rounded-lg px-2 bg-red-800"
+    class="border-2 border-slate-300 rounded-lg px-2 bg-red-700"
     hx-delete="/owners/{{owner.owner_id}}"
     hx-target="#main"
+    hx-trigger='confirmed'
+        onClick="Swal.fire({title: 'Confirm', text:'Are you sure you want to delete his owner?'}).then(function(result){
+            if(result.isConfirmed){
+              htmx.trigger(this, 'confirmed');  
+            } 
+        })"
   >Delete</button>
    <button name="updateOwner" value="Update Owner"
     class="border-2 border-slate-300 rounded-lg px-2 bg-emerald-800"
