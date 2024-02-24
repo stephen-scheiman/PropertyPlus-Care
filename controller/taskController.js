@@ -1,6 +1,7 @@
 const { Task } = require("../models");
 const { BadRequestError, InternalServerError } = require("../utils/errors");
-const { findOpenTasks, findTaskByID } = require("../utils/queries/tasks");
+const { findOpenTasks, createTask, findTasksByIssueID, findTaskByID } = require("../utils/queries/tasks");
+const { findOneIssue } = require("../utils/queries/issues");
 
 // I DON"T THINK WE NEED THIS
 // async function renderAllTasks(req, res) {
@@ -20,8 +21,27 @@ async function renderOpenTasks(req, res) {
 //   res.status(200).render(("issue-ID", { task }));
 // }
 
+async function renderNewTaskForm(req, res) {
+  // console.log(req.params);
+  // console.log(req.body);
+  console.log(req.query);
+
+  const { newTask } = req.query;
+  console.log(newTask);
+  console.log(typeof newTask);
+  const ids = newTask.split(" ");
+  console.log(ids);
+  const issue_id = ids[0];
+  const property_id = ids[1];
+
+  res.status(200).render('new-task-form', { issue_id, property_id, layout: false });
+}
+
 // create task function
-async function createTask(req, res) {
+async function renderNewTask(req, res) {
+  // console.log(req.params);
+  console.log(req.body);
+  
   let { task_name, status_update, followUp_date, property_id, issue_id } =
     req.body;
 
@@ -45,19 +65,15 @@ async function createTask(req, res) {
     );
   }
 
-  const newTask = await Task.create({
-    task_name,
-    status_update,
-    followUp_date,
-    property_id,
-    issue_id,
-  });
+  const newTask = await createTask({ task_name, status_update, followUp_date, property_id, issue_id });
 
-  if (!newTask) {
-    throw new InternalServerError("New Task creation failed.");
-  } else {
-    res.status(200).json({ msg: "New Task succesfully created!" });
-  }
+  const p1 = findOneIssue(issue_id);
+  const p2 = findTasksByIssueID(issue_id);
+  const [issue, tasks] = await Promise.all([p1, p2]);
+
+  res.status(200).set('hx-trigger', 'update-list').render("issue-ID", { issue, tasks, layout: false });
+
+  // res.status(200).set('hx-trigger', 'update-list').render('issue-id', { layout: false });
 }
 
 //update task function
@@ -102,6 +118,7 @@ module.exports = {
   // renderAllTasks,
   renderOpenTasks,
   // renderOneTask,
-  createTask,
+  renderNewTaskForm,
+  renderNewTask,
   updateTask,
 };

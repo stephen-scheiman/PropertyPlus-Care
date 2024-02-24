@@ -47,21 +47,26 @@
             hx-swap="innerHTML"
             >Mark Complete</button>
           {{/if}}
+          <button name="deleteTask" value="{{task_id}}"
+            class="border-2 border-slate-300 rounded-lg px-2 bg-purple-900"
+            hx-confirm="Are you sure you want to delete this task? This action cannot be undone."
+            hx-delete="/tasks/{{task_id}}"
+          >Delete Task</button>
       </li>
       {{/each}}
     </ul>
-    <button name="newTask" value="?"
+    <button name="newTask" value="{{issue.issue_id}} {{issue.property_id}}"
       class="border-2 border-slate-300 rounded-lg px-2 bg-purple-900"
-      hx-post="/issues/{{issue_id}}/newTask"
+      hx-get="/tasks/new"
       hx-target="#newTaskDiv"
       hx-swap="innerHTML"
     >New Task</button>
-    <button name="assignVendor" value="?"
+    {{!-- <button name="assignVendor" value="?"
       class="border-2 border-slate-300 rounded-lg px-2 bg-purple-900"
       hx-patch="/issues/{{issue_id}}/assign-vendor"
       hx-target="??"
       hx-swap="??"
-    >Assign Vendor</button>
+    >Assign Vendor</button> --}}
   </div>
   <div id="newTaskDiv"></div>
 </main>

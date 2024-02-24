@@ -1,0 +1,19 @@
+<form class="flex flex-col text-gray-600" 
+  hx-post="/tasks/new"
+{{!-- /issues/{{issue_id}}/property/{{property_id}}/tasks/new --}}
+  hx-target="#main">
+
+  <label for="task_name">Task:</label>
+  <input type="text" name="task_name" />
+
+  <label for="status_update">Status Update:</label>
+  <input type="text" name="status_update" />
+
+  <label for="followUp_date">Follow-up Date:</label>
+  <input type="text" name="followUp_date" />
+
+  <input type="input" name="issue_id" value="{{issue_id}}" hidden />
+  <input type="input" name="property_id" value="{{property_id}}" hidden />
+
+  <button class="my-5" type="submit">Save Task</button>
+</form>
