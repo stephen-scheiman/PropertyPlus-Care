@@ -17,6 +17,8 @@
   {{/each}}
 </ul>
 
+<button hx-get="/vendors/new" hx-target="#main">Add New Vendor</button>
+
 {{#unless renderSelect}}
   <select
     name="vendor_trade"

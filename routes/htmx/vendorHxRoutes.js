@@ -13,10 +13,11 @@ router.route('/new')
 
 router.route('/:id')
   .get(c.renderOneVendor)
+  .delete(c.renderDeletedVendor)
 
 router.route('/:id/edit')
   .get(c.renderEditVendorForm)
-  .post(c.renderUpdatedVendor)
+  .patch(c.renderUpdatedVendor)
 
 router.route('/:id/issues')
   .post(c.renderVendorNewIssue)
