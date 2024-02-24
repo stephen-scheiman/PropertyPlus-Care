@@ -59,12 +59,14 @@
       />
       <label class="mt-3" for="owner_id">Property Owner:</label>
       <input type="text" name="owner_id" value="{{property.owner_id}}" />
-       <button
+    
+       {{!-- <button
         class="rounded-lg border-2 border-slate-300 bg-red-400 px-2 mt-3"
         hx-confirm="Are you sure you want to cancel? All changes will be lost."
         type="cancel"
          hx-on:click="document.getElementById('property-update').classList = 'hidden' "
-      ><h3>Cancel</h3></button>
+      ><h3>Cancel</h3></button> --}}
+      
       <button
         class="rounded-lg border-2 border-slate-300 bg-green-400 px-2 mt-3"
         hx-patch="/properties/{{property.property_id}}"
