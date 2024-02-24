@@ -1,22 +1,6 @@
 const { Property, Issue, Task } = require("../../models");
 const { InternalServerError } = require("../errors");
 
-// NOT SURE WE NEED THIS
-// async function findAllTasks() {
-//   const tasks = await Task.findAll({
-//     include: [
-//       { model: Property, attributes: ["property_name"] },
-//       { model: Issue, attributes: ["issue_title"] },
-//     ],
-//   });
-
-//   if (!tasks) {
-//     throw new InternalServerError("Couldn't find tasks");
-//   }
-//   console.log(tasks);
-//   return tasks.map((e) => e.toJSON());
-// }
-
 async function findOpenTasks() {
   const tasks = await Task.findAll({
     where: { is_done: false },
@@ -32,23 +16,6 @@ async function findOpenTasks() {
   // console.log(tasks);
   return tasks.map((e) => e.toJSON());
 }
-
-// async function findTaskByID(id) {
-//   const task = Task.findByPk(id, {
-//     include: [
-//       { model: Property, attributes: ["property_name"] },
-//       { model: Issue, attributes: ["issue_title"] },
-//     ],
-//     raw: true,
-//     nest: true,
-//   });
-
-//   if (!task) {
-//     throw new InternalServerError(`Couldn't find task with id ${id}`);
-//   }
-//   // console.log(task);
-//   return task;
-// }
 
 async function findTasksByIssueID(issue_id) {
   const tasks = await Task.findAll({
@@ -69,16 +36,6 @@ async function createTask(taskData) {
 
   if (!task) {
     throw new InternalServerError(`New Task creation failed. ${taskData}`);
-  }
-  // console.log(task);
-  return task;
-}
-
-async function updateTask(task_id, taskData) {
-  const task = await Task.update(taskData, { where: { task_id } });
-
-  if (!task[0]) {
-    throw new InternalServerError("Update task failed");
   }
   // console.log(task);
   return task;
@@ -105,6 +62,45 @@ async function deleteTask(task_id) {
   return task;
 };
 
+// NOT SURE WE NEED THIS
+// async function findAllTasks() {
+//   const tasks = await Task.findAll({
+//     include: [
+//       { model: Property, attributes: ["property_name"] },
+//       { model: Issue, attributes: ["issue_title"] },
+//     ],
+//   });
+//   if (!tasks) {
+//     throw new InternalServerError("Couldn't find tasks");
+//   }
+//   console.log(tasks);
+//   return tasks.map((e) => e.toJSON());
+// }
+
+// async function findTaskByID(id) {
+//   const task = Task.findByPk(id, {
+//     include: [
+//       { model: Property, attributes: ["property_name"] },
+//       { model: Issue, attributes: ["issue_title"] },
+//     ],
+//     raw: true,
+//     nest: true,
+//   });
+//   if (!task) {
+//     throw new InternalServerError(`Couldn't find task with id ${id}`);
+//   }
+//   // console.log(task);
+//   return task;
+// }
+
+// async function updateTask(task_id, taskData) {
+//   const task = await Task.update(taskData, { where: { task_id } });
+//   if (!task[0]) {
+//     throw new InternalServerError("Update task failed");
+//   }
+//   // console.log(task);
+//   return task;
+// }
 
 module.exports = {
   // findAllTasks,
@@ -112,7 +108,7 @@ module.exports = {
   // findTaskByID,
   findTasksByIssueID,
   createTask,
-  updateTask,
+  // updateTask,
   deleteTask,
   updateIsDone
 }
