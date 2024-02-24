@@ -80,8 +80,10 @@ async function renderIsIssueDone(req, res) {
     issueUpdate = await updateIssueDone(issue_id, true);
   }
 
-  const issue = await findOneIssue(issue_id);
-  const tasks = await findTasksByIssueID(issue_id);
+  const p1 = findOneIssue(issue_id);
+  const p2 = await findTasksByIssueID(issue_id);
+
+  const [issue, tasks] = await Promise.all([p1, p2]);
 
   res
     .status(200)
@@ -119,7 +121,6 @@ async function renderDeletedIssue(req, res) {
 
   const issue = await deleteIssue(issue_id);
   res.status(200).send('');
-  // res.status(200).set("HX-Redirect", "/").end();
 }
 
 async function renderAddVendor(req, res) {
