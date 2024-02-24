@@ -35,7 +35,7 @@ async function findVendorsByTrade(vendor_trade) {
   if (!vendorsData) {
     throw new InternalServerError(`No vendors found with trade ${vendor_trade}`);
   }
-  // console.log(vendorsData); 
+  // console.log(vendorsData);
   const vendors = vendorsData.map(e => e.toJSON());
   return vendors;
 }
@@ -69,7 +69,7 @@ async function updateVendor(vendor_id, vendorData) {
     throw new InternalServerError(`Update vendor failed id ${vendor_id}`);
   }
   // console.log(vendor);
-  vendor;
+  return vendor;
 };
 
 async function addIssueToVendor(vendor_id, issue_id) {

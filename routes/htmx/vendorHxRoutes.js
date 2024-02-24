@@ -14,6 +14,10 @@ router.route('/new')
 router.route('/:id')
   .get(c.renderOneVendor)
 
+router.route('/:id/edit')
+  .get(c.renderEditVendorForm)
+  .post(c.renderUpdatedVendor)
+
 router.route('/:id/issues')
   .post(c.renderVendorNewIssue)
 

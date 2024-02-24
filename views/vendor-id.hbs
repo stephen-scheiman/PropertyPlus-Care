@@ -1,11 +1,13 @@
 <main class="m-4 rounded bg-white/30 px-4 text-white backdrop-blur-md">
-  <h2>{{vendor.vendor_first_name}} {{vendor.vendor_last_name}}</h2>
-  <h3>{{vendor.vendor_trade}}</h3>
-  <h3>{{vendor.vendor_phone}}</h3>
-  <h3>{{vendor.vendor_email}}</h3>
+  <h2>Vendor Information: </h2>
+  <div id="vendorInfo" hx-get="/vendors/{{vendor.vendor_id}}/edit" hx-swap="outerHTML">
+    <div><label>{{vendor.vendor_first_name}}</label> <label>{{vendor.vendor_last_name}}</label></div>
+    <div><label>{{vendor.vendor_trade}}</label></div>
+    <div><label>{{vendor.vendor_phone}}</label></div>
+    <div><label>{{vendor.vendor_email}}</label></div>
+  </div>
 
   <div class="my-5">
-    <button hx-patch="/vendors/{{vendor.vendor_id}}">Edit</button>
     <button hx-get="/vendors/new" hx-target="#main">Add New Vendor</button>
     <button>Delete Vendor</button>
     <select
