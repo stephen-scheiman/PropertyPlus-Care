@@ -20,15 +20,6 @@ async function renderOneOwner(req, res) {
   res.status(200).render("owner-id", { owner, layout:false });
 }
 
-// Recreated by SBS to feed this data to the email uniqueness check below....
-async function getAllOwners() {
-  const ownerData = Owner.findAll();
-  if (!ownerData) {
-    throw new BadRequestError("Something went wrong");
-  }
-  return ownerData;
-}
-
 async function renderNewOwner(req, res) {
   console.log(req.body);
   let {
@@ -93,7 +84,7 @@ async function renderNewOwner(req, res) {
   }
 
   //validate that the email is unique
-  const ownerData = await getAllOwners();
+  const ownerData = await findOwners();
   for (x = 0; x < ownerData.length; x++) {
     if (owner_email === ownerData[x].owner_email) {
       throw new BadRequestError(
@@ -198,9 +189,9 @@ async function renderUpdateOwner(req, res) {
   }
 
   // validate that the email is unique
-  //
+  
   // Commenting out for now until we discuss update validation
-  //
+  
   // const ownerData = await getAllOwners();
   // for(x=0; x<ownerData.length; x++){
   //   if (owner_email === ownerData[x].owner_email){
@@ -244,33 +235,6 @@ async function renderDeleteOwner(req, res) {
   const { id: owner_id } = req.params;
   const owner = await deleteOwner(owner_id);
   res.status(200).json({ msg: "Deleted", owner });
-}
-
-async function findOwners1() {
-  const owners = await Owner.findAll({
-    raw: true,
-    nest: true,
-  });
-
-  if (!owners) {
-    throw new NotFoundError("No owners found");
-  }
-  return owners;
-}
-
-async function findOwnerById1(id) {
-  const owner = await Owner.findByPk(id, {
-    include: [
-      {
-        model: Property,
-      },
-    ],
-  });
-
-  if (!owner) {
-    throw new BadRequestError("No owner found");
-  }
-  return owner.toJSON();
 }
 
 async function createOwner(newOwnerData) {
