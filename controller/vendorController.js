@@ -1,6 +1,5 @@
-const { Vendor, Issue, Property } = require("../models");
-const { BadRequestError, InternalServerError } = require("../utils/errors");
-const { findAllVendors, findVendorByID, addIssueToVendor, findVendorsByTrade, createVendor, updateVendor, deleteVendor } = require('../utils/queries/vendors');
+const { BadRequestError } = require("../utils/errors");
+const { findAllVendors, findVendorByID, addIssueToVendor, findVendorsByTrade, createVendor, updateVendor, deleteVendor, searchVendors } = require('../utils/queries/vendors');
 const { findOpenIssuesVendor, findOpenIssues } = require('../utils/queries/issues');
 
 // render vendor data function
@@ -25,7 +24,7 @@ async function renderVendorNewIssue(req, res) {
   const { id: vendor_id } = req.params;
   const { issue_id } = req.body;
 
-  const result = await addIssueToVendor(vendor_id, issue_id);
+  await addIssueToVendor(vendor_id, issue_id);
 
   const p1 = findVendorByID(vendor_id);
   const p2 = findOpenIssuesVendor(+vendor_id);
@@ -39,9 +38,9 @@ async function renderVendorsByTrade(req, res) {
 
   const vendors = vendor_trade === 'All' ? await findAllVendors() : await findVendorsByTrade(vendor_trade);
 
-  const renderSelect = req.headers['hx-trigger'] === 'selectOption';
+  const isOob = req.headers['hx-trigger'] === 'selectOption' || req.headers['hx-trigger'] === 'searchBar';
 
-  res.status(200).render('vendor-aside', { vendors, renderSelect, layout: false });
+  res.status(200).render('vendor-aside', { vendors, isOob, layout: false });
 }
 
 async function renderNewVendorForm(req, res) {
@@ -206,11 +205,19 @@ async function renderUpdatedVendor(req, res) {
 
 async function renderDeletedVendor(req, res) {
   const { id } = req.params;
-  const result = await deleteVendor(id);
+  await deleteVendor(id);
 
   res.status(200).set('hx-trigger', 'update-list').send('');
 }
 
+async function renderVendorSearch(req, res) {
+  const { search } = req.body;
+  const vendors = await searchVendors(search.toLowerCase());
+
+  const isOob = req.headers['hx-trigger'] === 'selectOption' || req.headers['hx-trigger'] === 'searchBar';
+
+  res.status(200).render('vendor-aside', { vendors, isOob, layout: false });
+}
 
 module.exports = {
   renderVendors,
@@ -222,4 +229,5 @@ module.exports = {
   renderUpdatedVendor,
   renderEditVendorForm,
   renderDeletedVendor,
+  renderVendorSearch,
 };

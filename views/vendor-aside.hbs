@@ -1,5 +1,5 @@
 <ul
-  id="ownersList"
+  id="vendorsList"
   hx-trigger="update-list from:body"
   hx-get="/vendors"
   hx-target="#aside"
@@ -19,7 +19,7 @@
 
 <button hx-get="/vendors/new" hx-target="#main">Add New Vendor</button>
 
-{{#unless renderSelect}}
+{{#unless isOob}}
   <select
     name="vendor_trade"
     id="selectOption"
@@ -35,4 +35,16 @@
     <option value="Plumbing">Plumbing</option>
     <option value="Roofer">Roofer</option>
   </select>
+
+  <input
+  type="search"
+  id="searchBar"
+  class="text-gray-600"
+  name="search"
+  placeholder="Vendor name"
+  hx-swap-oob="true"
+  hx-post="/vendors"
+  hx-target="#aside"
+  hx-trigger="input changed delay:500ms, search"
+/>
 {{/unless}}

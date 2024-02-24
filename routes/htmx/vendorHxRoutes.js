@@ -3,6 +3,7 @@ const c = require('../../controller/vendorController');
 
 router.route('/')
   .get(c.renderVendors)
+  .post(c.renderVendorSearch)
 
 router.route('/trades')
   .get(c.renderVendorsByTrade)
