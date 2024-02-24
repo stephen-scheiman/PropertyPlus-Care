@@ -1,5 +1,3 @@
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <main>
   <h2>Property: {{property.property_name}}</h2>
   <h3>Address: {{property.property_street}}</h3>
@@ -16,12 +14,7 @@
     class="rounded-lg border-2 border-slate-300 bg-red-700 px-2"
     hx-delete="/properties/{{property.property_id}}"
     hx-target="#main"
-    hx-trigger="confirmed"
-    onClick="Swal.fire({title: 'Confirm', text:'Are you sure you want to delete his owner?'}).then(function(result){
-        if(result.isConfirmed){
-          htmx.trigger(this, 'confirmed');  
-        } 
-        })"
+    hx-confirm="Are you sure you want to delete this property? This action cannot be undone."
   >Delete</button>
   
   <button
