@@ -16,5 +16,9 @@
   <input type="input" name="issue_id" value="{{issue_id}}" hidden />
   <input type="input" name="property_id" value="{{property_id}}" hidden />
 
-  <button class="my-5" type="submit">Save Task</button>
+  <button class="my-5 border-2 border-slate-300 rounded-lg px-2 bg-purple-900 text-white" type="submit">Save Task</button>
 </form>
+<button class="border-2 border-slate-300 rounded-lg px-2"
+  hx-get="/issues/{{issue_id}}"
+  hx-target="#main"
+>Cancel New Task</button>
