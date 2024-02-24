@@ -4,6 +4,23 @@
   <h3>{{vendor.vendor_phone}}</h3>
   <h3>{{vendor.vendor_email}}</h3>
 
+  <div class="my-5">
+    <button>Edit</button>
+    <button>Add New Vendor</button>
+    <button>Delete Vendor</button>
+    <select
+      class="text-gray-600"
+      name="issue_id"
+      hx-post="/vendors/{{vendor.vendor_id}}/issues"
+      hx-target="#main"
+    >
+      <option value="" disabled selected hidden>Add Issue to Vendor</option>
+      {{#each issues}}
+        <option value="{{issue_id}}">{{issue_title}}</option>
+      {{/each}}
+    </select>
+  </div>
+
   <ul>
     {{#each vendor.issues}}
       <li
@@ -23,21 +40,4 @@
       </li>
     {{/each}}
   </ul>
-
-  <div class="">
-    <button>Edit</button>
-    <button>Add New Vendor</button>
-    <button>Delete Vendor</button>
-    <select
-      class="text-gray-600"
-      name="issue_id"
-      hx-post="/vendors/{{vendor.vendor_id}}/issues"
-      hx-target="#main"
-    >
-      <option value="" disabled selected hidden>Add Issue to Vendor</option>
-      {{#each issues}}
-        <option value="{{issue_id}}">{{issue_title}}</option>
-      {{/each}}
-    </select>
-  </div>
-</main>x
+</main>
