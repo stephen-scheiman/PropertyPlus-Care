@@ -1,6 +1,5 @@
-const { Task } = require("../models");
-const { BadRequestError, InternalServerError } = require("../utils/errors");
-const { findOpenTasks, createTask, findTasksByIssueID, findTaskByID } = require("../utils/queries/tasks");
+const { BadRequestError } = require("../utils/errors");
+const { findOpenTasks, createTask, findTasksByIssueID } = require("../utils/queries/tasks");
 const { findOneIssue } = require("../utils/queries/issues");
 
 // I DON"T THINK WE NEED THIS
@@ -22,26 +21,18 @@ async function renderOpenTasks(req, res) {
 // }
 
 async function renderNewTaskForm(req, res) {
-  // console.log(req.params);
-  // console.log(req.body);
-  console.log(req.query);
-
+  // separating out issue_id and property_id values and assign to variables
   const { newTask } = req.query;
-  console.log(newTask);
-  console.log(typeof newTask);
   const ids = newTask.split(" ");
-  console.log(ids);
   const issue_id = ids[0];
   const property_id = ids[1];
 
+  // send issue_id and property_id values to form for later use
   res.status(200).render('new-task-form', { issue_id, property_id, layout: false });
 }
 
 // create task function
 async function renderNewTask(req, res) {
-  // console.log(req.params);
-  console.log(req.body);
-  
   let { task_name, status_update, followUp_date, property_id, issue_id } =
     req.body;
 
@@ -71,48 +62,46 @@ async function renderNewTask(req, res) {
   const p2 = findTasksByIssueID(issue_id);
   const [issue, tasks] = await Promise.all([p1, p2]);
 
-  res.status(200).set('hx-trigger', 'update-list').render("issue-ID", { issue, tasks, layout: false });
-
-  // res.status(200).set('hx-trigger', 'update-list').render('issue-id', { layout: false });
+  res.status(200).set('HX-Trigger', 'update-aside').render("issue-ID", { issue, tasks, layout: false });
 }
 
 //update task function
-async function updateTask(req, res) {
-  const task_id = req.params.id;
-  let { task_name, status_update, followUp_date, is_done } = req.body;
+// async function updateTask(req, res) {
+//   const task_id = req.params.id;
+//   let { task_name, status_update, followUp_date, is_done } = req.body;
 
-  followUp_date = new Date(followUp_date);
+//   followUp_date = new Date(followUp_date);
 
-  if (isNaN(followUp_date)) {
-    throw new BadRequestError("Please enter a valid date in the form MM/DD/YY");
-  }
+//   if (isNaN(followUp_date)) {
+//     throw new BadRequestError("Please enter a valid date in the form MM/DD/YY");
+//   }
 
-  if (task_name.length > 255) {
-    throw new BadRequestError(
-      "Please limit the task name to 255 characters or less",
-    );
-  }
+//   if (task_name.length > 255) {
+//     throw new BadRequestError(
+//       "Please limit the task name to 255 characters or less",
+//     );
+//   }
 
-  const taskData = await Task.update(
-    {
-      task_name,
-      status_update,
-      followUp_date,
-      is_done,
-    },
-    {
-      where: {
-        task_id,
-      },
-    },
-  );
+//   const taskData = await Task.update(
+//     {
+//       task_name,
+//       status_update,
+//       followUp_date,
+//       is_done,
+//     },
+//     {
+//       where: {
+//         task_id,
+//       },
+//     },
+//   );
 
-  if (!taskData[0]) {
-    throw new BadRequestError("Update task failed");
-  } else {
-    res.status(200).json({ msg: `Update task ID: ${task_id} succeeded` });
-  }
-}
+//   if (!taskData[0]) {
+//     throw new BadRequestError("Update task failed");
+//   } else {
+//     res.status(200).json({ msg: `Update task ID: ${task_id} succeeded` });
+//   }
+// }
 
 module.exports = {
   // renderAllTasks,
@@ -120,5 +109,5 @@ module.exports = {
   // renderOneTask,
   renderNewTaskForm,
   renderNewTask,
-  updateTask,
+  // updateTask,
 };
