@@ -55,6 +55,7 @@
       <label for="owner_phone">Owner Phone Number</label>
       <input type="text" name="owner_phone" value="{{owner.owner_phone}}" />
       <button
+        class="rounded-lg border-2 border-slate-300 bg-emerald-800 px-2"
         hx-patch="/owners/{{owner.owner_id}}"
         type="submit"
         hx-on:click="document.getElementById('owner-update').classList = 'hidden' "
