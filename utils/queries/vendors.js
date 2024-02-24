@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const { Vendor, Issue, Property } = require("../../models");
 const { BadRequestError, InternalServerError } = require("../errors");
 
@@ -85,6 +86,21 @@ async function addIssueToVendor(vendor_id, issue_id) {
   return result;
 };
 
+async function searchVendors(search) {
+  const result = await Vendor.findAll({
+    where: {
+      [Op.or]: [
+        { vendor_first_name: { [Op.like]: `%${search}%` } },
+        { vendor_last_name: { [Op.like]: `%${search}%` } },
+      ]
+    }
+  });
+
+  const vendors = result.map(e => e.toJSON());
+
+  return vendors;
+}
+
 module.exports = {
   findAllVendors,
   findVendorByID,
@@ -93,4 +109,5 @@ module.exports = {
   deleteVendor,
   updateVendor,
   addIssueToVendor,
+  searchVendors,
 };

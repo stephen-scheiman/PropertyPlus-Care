@@ -1,15 +1,23 @@
 <main class="m-4 rounded bg-white/30 px-4 text-white backdrop-blur-md">
   <h2>Vendor Information: </h2>
-  <div id="vendorInfo" hx-get="/vendors/{{vendor.vendor_id}}/edit" hx-swap="outerHTML">
-    <div><label>{{vendor.vendor_first_name}}</label> <label>{{vendor.vendor_last_name}}</label></div>
+  <div
+    id="vendorInfo"
+    hx-get="/vendors/{{vendor.vendor_id}}/edit"
+    hx-swap="outerHTML"
+  >
+    <div><label>{{vendor.vendor_first_name}}</label>
+      <label>{{vendor.vendor_last_name}}</label></div>
     <div><label>{{vendor.vendor_trade}}</label></div>
     <div><label>{{vendor.vendor_phone}}</label></div>
     <div><label>{{vendor.vendor_email}}</label></div>
   </div>
 
   <div class="my-5">
-    <button hx-get="/vendors/new" hx-target="#main">Add New Vendor</button>
-    <button>Delete Vendor</button>
+    <button
+      hx-delete="/vendors/{{vendor.vendor_id}}"
+      hx-target="#main"
+      hx-confirm="Are you sure you want to delete this vendor? This action cannot be undone."
+    >Delete Vendor</button>
     <select
       class="text-gray-600"
       name="issue_id"
@@ -23,7 +31,7 @@
     </select>
   </div>
 
-  <ul>
+  <ul class="inline-block font-semibold pt-3 pb-3">Assigned Issues:
     {{#each vendor.issues}}
       <li
         class="border-2 border-black"

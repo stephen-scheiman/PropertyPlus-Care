@@ -1,21 +1,24 @@
 <h1 class="mx-4 mb-5 pt-5 text-4xl font-bold">Today's Tasks</h1>
 {{#each tasks}}
   <div
-    class="backdrop-blur-sm bg-white/30 m-4 p-2 text-white rounded"
+    class="backdrop-blur-sm bg-white/30 m-4 p-2 text-white rounded cursor-pointer"
     hx-get="/issues/{{issue_id}}"
     hx-target="#main"
     hx-push-url="true"
   >
-    <h2 class="font-semibold text-zinc-200">To Do:
+    <h2 class="font-semibold">To Do:
       <span class="font-normal">{{this.task_name}}</span></h2>
-    <h3 class="font-semibold text-zinc-200">Issue:
+    <h3 class="font-semibold">Issue:
       <span class="font-normal">{{this.issue.issue_title}}</span>
     </h3>
-    <h3 class="font-semibold text-zinc-200">Property:
+    <h3 class="font-semibold">Property:
       <span class="font-normal">{{this.property.property_name}}</span>
     </h3>
-    <h3 class="font-semibold text-zinc-200">Due Date:
+    <h3 class="font-semibold">Due Date:
       <span class="font-normal">{{this.followUp_date}}</span>
     </h3>
   </div>
 {{/each}}
+
+<div hx-swap-oob="true" id="selectOption"></div>
+<div hx-swap-oob="true" id="searchBar"></div>

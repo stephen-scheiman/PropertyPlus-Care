@@ -1,5 +1,5 @@
 const { User } = require('../../models');
-const { BadRequestError, NotFoundError } = require('../errors');
+const { BadRequestError, NotFoundError, InternalServerError } = require('../errors');
 
 async function userLogin(userData) {
 
@@ -18,7 +18,19 @@ async function userLogin(userData) {
   return user;
 };
 
+async function createUser(userData) {
+  const user = await User.create(userData);
+
+  if (!user) {
+    throw new InternalServerError(`Couldn't create new user with ${userData}`);
+  }
+  console.log(user);
+  return user.toJSON();
+};
+
+
 module.exports = {
   userLogin,
+  createUser,
 
 }

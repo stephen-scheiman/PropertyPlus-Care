@@ -7,3 +7,7 @@
   width: 15px;
   justify-content: space-around;
 }
+
+.visible {
+  display: flex;
+}

@@ -10,25 +10,28 @@
       crossorigin="anonymous"
     />
     <title>PropertyPlus Care</title>
+    <link rel="icon" type="image/x-icon" href="/public/img/favicon.png">
     <script src="/js/htmx.min.js"></script>
   </head>
-  <body class="bg-blue-900 text-slate-300 bg-[url('/img/bg.jpeg')] bg-cover bg-no-repeat">
-
-    <header class="fixed right-0 max-h-10 max-w-10 sm:hidden">
-      <a href="./help.hbs">
-        <img src="/img/questionmark.png" alt="question mark" />
+  <body class="text-white bg-[url('/img/bg.jpeg')] bg-cover bg-no-repeat">
+    
+    <header class="fixed inline right-0 max-h-10 max-w-10 p-3 mr-4">
+      <a href="./">
+        <i class="fa-regular fa-user"></i>
+        Account
       </a>
     </header>
 
     <div class="flex w-[95%] m-auto justify-around">
       <div class="w-[20%]">
-        <select class="text-gray-600 mt-5"
+        <select class="text-gray-400 mt-5"
           name="model"
           hx-get="/aside"
           hx-target="#aside"
-          hx-trigger="change, update-aside from:body"
+          hx-trigger="click, change, update-aside from:body"
           hx-push-url="true"
         >
+        {{!-- <h1>Navigate:</h1> --}}
           <option value="task" selected="selected=">Tasks</option>
           <option value="issues">Issues</option>
           <option value="property">Properties</option>
@@ -36,11 +39,12 @@
           <option value="owner">Owners</option>
         </select>
         <div id="selectOption"></div>
+        <div id="searchBar"></div>
         <aside class="overflow-auto max-h-[80vh]" id="aside">{{{body}}}</aside>
 
       </div>
 
-      <div id="main" class="w-[75%] mt-16"></div>
+      <div id="main" class="w-[75%] mt-16 max-h-[80vh]"></div>
     </div>
 
     <footer

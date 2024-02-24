@@ -1,26 +1,31 @@
+<h1 class="mx-4 mb-5 pt-5 text-4xl font-bold">Vendors</h1>
 <ul
-  id="ownersList"
+  id="vendorsList"
   hx-trigger="update-list from:body"
   hx-get="/vendors"
   hx-target="#aside"
 >
   {{#each vendors}}
     <li
-      class="m-4 rounded bg-white/30 p-2 text-white backdrop-blur-sm"
-      hx-get="/vendors/{{vendor_id}}"
-      hx-target="#main"
+      class="m-4 rounded bg-white/30 p-2 text-white backdrop-blur-sm cursor-pointer"
+      hx-boost="true"
       hx-push-url="true"
     >
-      <h2 hx-target="closest li">{{vendor_first_name}} {{vendor_last_name}}</h2>
-      <h3 hx-target="closest li">Trade: {{vendor_trade}}</h3>
+      <a href="/vendors/{{vendor_id}}" hx-target="#main">
+        <h2 hx-target="closest li">{{vendor_first_name}} {{vendor_last_name}}</h2>
+        <h3 hx-target="closest li">Trade: {{vendor_trade}}</h3>
+      </a>
     </li>
   {{/each}}
 </ul>
 
-{{#unless renderSelect}}
+<button hx-get="/vendors/new" hx-target="#main">Add New Vendor</button>
+
+{{#unless isOob}}
   <select
     name="vendor_trade"
     id="selectOption"
+    class="text-gray-600"
     hx-swap-oob="true"
     hx-get="/vendors/trades"
     hx-target="#aside"
@@ -32,4 +37,16 @@
     <option value="Plumbing">Plumbing</option>
     <option value="Roofer">Roofer</option>
   </select>
+
+  <input
+  type="search"
+  id="searchBar"
+  class="text-gray-600"
+  name="search"
+  placeholder="search vendor's name"
+  hx-swap-oob="true"
+  hx-post="/vendors"
+  hx-target="#aside"
+  hx-trigger="input changed delay:300ms, search"
+/>
 {{/unless}}

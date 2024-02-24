@@ -1,6 +1,6 @@
-  <form class="flex flex-col text-gray-600" hx-post="/vendors/{{vendor.vendor_id}}/edit" hx-target="#main">
+  <form class="flex flex-col text-gray-600" hx-patch="/vendors/{{vendor.vendor_id}}/edit" hx-target="#main">
     <div>
-      <input type="text" name="vendor_first_name" value="{{vendor.vendor_first_name}}"/>
+      <input type="text" name="vendor_first_name" value="{{vendor.vendor_first_name}}" autofocus/>
       <input type="text" name="vendor_last_name" value="{{vendor.vendor_last_name}}"/>
     </div>
 

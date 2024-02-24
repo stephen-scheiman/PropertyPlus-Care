@@ -1,7 +1,7 @@
 <main class="m-4 rounded bg-white/30 px-4 text-white backdrop-blur-md">
   <form class="flex flex-col text-gray-600" hx-post="/vendors/new" hx-target="#main">
     <label for="vendor_first_name">First Name:</label>
-    <input type="text" name="vendor_first_name" />
+    <input type="text" name="vendor_first_name" autofocus/>
 
     <label for="vendor_last_name">Last Name:</label>
     <input type="text" name="vendor_last_name" />
@@ -22,7 +22,7 @@
     <label for="vendor_phone">Phone Number:</label>
     <input type="text" name="vendor_phone" />
 
-    <button class="my-5" type="submit">Create Owner</button>
+    <button class="my-5" type="submit">Create Vendor</button>
   </form>
 
 </main>

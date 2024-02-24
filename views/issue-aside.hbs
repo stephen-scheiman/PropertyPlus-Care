@@ -6,7 +6,7 @@
 
   <div id="issuesList">
     {{#each issues}}
-      <div class="backdrop-blur-sm bg-white/30 m-4 p-2 text-white rounded">
+      <div class="backdrop-blur-sm bg-white/30 m-4 p-2 text-white rounded cursor-pointer">
         <h2
           class="font-bold text-xl my-2"
           hx-get="/issues/{{this.issue_id}}"
