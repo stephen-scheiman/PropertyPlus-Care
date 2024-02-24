@@ -53,8 +53,10 @@ async function renderIssues(req, res) {
 
 async function renderOneIssue(req, res) {
   const { id: issue_id } = req.params;
-  const issue = await findOneIssue(issue_id);
-  const tasks = await findTasksByIssueID(issue_id);
+  
+  const p1 = findOneIssue(issue_id);
+  const p2 = findTasksByIssueID(issue_id);
+  const [issue, tasks] = await Promise.all([p1, p2]);
   // console.log(issue);
   res.status(200).render("issue-ID", { issue, tasks, layout: false });
 }
@@ -116,7 +118,8 @@ async function renderDeletedIssue(req, res) {
   const issue_id = req.params.id;
 
   const issue = await deleteIssue(issue_id);
-  res.status(200).set("HX-Redirect", "/").end();
+  res.status(200).send('');
+  // res.status(200).set("HX-Redirect", "/").end();
 }
 
 async function renderAddVendor(req, res) {
