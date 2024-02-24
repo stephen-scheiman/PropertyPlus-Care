@@ -3,10 +3,13 @@ const c = require('../../controller/vendorController');
 
 router.route('/')
   .get(c.renderVendors)
-  .post(c.createVendor)
 
 router.route('/trades')
   .get(c.renderVendorsByTrade)
+
+router.route('/new')
+  .get(c.renderNewVendorForm)
+  .post(c.renderNewVendorsList)
 
 router.route('/:id')
   .get(c.renderOneVendor)

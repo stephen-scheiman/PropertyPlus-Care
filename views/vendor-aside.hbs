@@ -1,4 +1,9 @@
-<ul>
+<ul
+  id="ownersList"
+  hx-trigger="new-owner from:body"
+  hx-get="/vendors"
+  hx-target="#aside"
+>
   {{#each vendors}}
     <li
       class="m-4 rounded bg-white/30 p-2 text-white backdrop-blur-sm"

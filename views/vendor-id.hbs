@@ -5,8 +5,8 @@
   <h3>{{vendor.vendor_email}}</h3>
 
   <div class="my-5">
-    <button>Edit</button>
-    <button>Add New Vendor</button>
+    <button hx-patch="/vendors/{{vendor.vendor_id}}">Edit</button>
+    <button hx-get="/vendors/new" hx-target="#main">Add New Vendor</button>
     <button>Delete Vendor</button>
     <select
       class="text-gray-600"
