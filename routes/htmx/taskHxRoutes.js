@@ -2,12 +2,10 @@ const router = require('express').Router();
 const c = require('../../controller/taskController');
 
 router.route('/')
-  .get(c.renderOpenTasks)
-  // .get(c.renderOneTask)
-  // .post(c.renderNewTask);
+  .get(c.renderOpenTasks);
 
 router.route('/new')
   .get(c.renderNewTaskForm)
-  .post(c.renderNewTask)
+  .post(c.renderNewTask);
 
 module.exports = router;
