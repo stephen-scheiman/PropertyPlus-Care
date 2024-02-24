@@ -1,5 +1,7 @@
+const e = require("express");
 const { Property, Issue, Task } = require("../../models");
 const { InternalServerError } = require("../errors");
+const { Op } = require('sequelize');
 
 // NOT SURE WE NEED THIS
 // async function findAllTasks() {
@@ -64,6 +66,24 @@ async function findTasksByIssueID(issue_id) {
   return tasks;
 }
 
+async function findOpenTasksByDueDate() {
+  const taskData = await Task.findAll({
+    where: {
+      [Op.and]: [
+        { followUp_date: { [Op.lte]: Date.now() } },
+        { is_done: false }
+      ]
+    },
+    include: [{
+      model: Property,
+      attributes: ['property_id', 'property_name']
+    }],
+  });
+
+  const tasks = taskData.map(e => e.toJSON());
+  return tasks;
+}
+
 async function createTask(taskData) {
   const task = await Task.create(taskData);
 
@@ -114,5 +134,6 @@ module.exports = {
   createTask,
   updateTask,
   deleteTask,
-  updateIsDone
+  updateIsDone,
+  findOpenTasksByDueDate,
 }
