@@ -7,31 +7,41 @@
     {{owner.owner_state}}
     {{owner.owner_zip}}</h3>
   <h3>Owner Phone:{{owner.owner_phone}}</h3>
-  <button name="deleteOwner" value="Delete Owner"
-    class="border-2 border-slate-300 rounded-lg px-2 bg-red-700"
+  <button
+    name="deleteOwner"
+    value="Delete Owner"
+    class="rounded-lg border-2 border-slate-300 bg-red-700 px-2"
     hx-delete="/owners/{{owner.owner_id}}"
     hx-target="#main"
-    hx-trigger='confirmed'
-        onClick="Swal.fire({title: 'Confirm', text:'Are you sure you want to delete his owner?'}).then(function(result){
+    hx-trigger="confirmed"
+    onClick="Swal.fire({title: 'Confirm', text:'Are you sure you want to delete his owner?'}).then(function(result){
             if(result.isConfirmed){
               htmx.trigger(this, 'confirmed');  
             } 
         })"
   >Delete</button>
-   <button name="updateOwner" value="Update Owner"
-    class="border-2 border-slate-300 rounded-lg px-2 bg-emerald-800"
-    hx-on:click="document.getElementById('modal-owner-update').showModal()"
+
+  <button
+    name="updateOwner"
+    value="Update Owner"
+    class="rounded-lg border-2 border-slate-300 bg-emerald-800 px-2"
+    hx-on:click="document.getElementById('owner-update').classList = 'visible', 'p-5' "
     hx-target="#main"
   >Update</button>
-     <dialog class="p-5" id="modal-owner-update">
-    <button
-      hx-on:click="document.getElementById('modal-owner-update').close()"
-    >Close</button>
+  <div id="owner-update" class="hidden" class="p-5">
     <form class="flex flex-col">
       <label for="owner_first_name">Owner First Name</label>
-      <input type="text" name="owner_first_name" value="{{owner.owner_first_name}}" />
+      <input
+        type="text"
+        name="owner_first_name"
+        value="{{owner.owner_first_name}}"
+      />
       <label for="owner_last_name">Owner Last Name</label>
-      <input type="text" name="owner_last_name" value="{{owner.owner_last_name}}" />
+      <input
+        type="text"
+        name="owner_last_name"
+        value="{{owner.owner_last_name}}"
+      />
       <label for="owner_street">Owner Street Address</label>
       <input type="text" name="owner_street" value="{{owner.owner_street}}" />
       <label for="owner_city">Owner City</label>
@@ -43,8 +53,12 @@
       <label for="owner_email">Owner Email Address</label>
       <input type="text" name="owner_email" value="{{owner.owner_email}}" />
       <label for="owner_phone">Owner Phone Number</label>
-      <input type="text" name="owner_phone"value="{{owner.owner_phone}}" />
-      <button hx-patch="/owners/{{owner.owner_id}}" type="submit">Submit</button>
+      <input type="text" name="owner_phone" value="{{owner.owner_phone}}" />
+      <button
+        hx-patch="/owners/{{owner.owner_id}}"
+        type="submit"
+        hx-on:click="document.getElementById('owner-update').classList = 'hidden' "
+      >Submit</button>
     </form>
-  </dialog>
+  </div>
 </main>

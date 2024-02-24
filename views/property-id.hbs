@@ -23,6 +23,7 @@
         } 
         })"
   >Delete</button>
+  
   <button
     name="updateProperty"
     value="Update Property"
@@ -68,6 +69,7 @@
         class="rounded-lg border-2 border-slate-300 bg-emerald-800 px-2"
         hx-patch="/properties/{{property.property_id}}"
         type="submit"
+         hx-on:click="document.getElementById('property-update').classList = 'hidden' "
       ><h3>Submit</h3></button>
     </form>
   </div>
