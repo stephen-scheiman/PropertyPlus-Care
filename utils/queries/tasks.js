@@ -33,22 +33,22 @@ async function findOpenTasks() {
   return tasks.map((e) => e.toJSON());
 }
 
-async function findTaskByID(id) {
-  const task = Task.findByPk(id, {
-    include: [
-      { model: Property, attributes: ["property_name"] },
-      { model: Issue, attributes: ["issue_title"] },
-    ],
-    raw: true,
-    nest: true,
-  });
+// async function findTaskByID(id) {
+//   const task = Task.findByPk(id, {
+//     include: [
+//       { model: Property, attributes: ["property_name"] },
+//       { model: Issue, attributes: ["issue_title"] },
+//     ],
+//     raw: true,
+//     nest: true,
+//   });
 
-  if (!task) {
-    throw new InternalServerError(`Couldn't find task with id ${id}`);
-  }
-  // console.log(task);
-  return task;
-}
+//   if (!task) {
+//     throw new InternalServerError(`Couldn't find task with id ${id}`);
+//   }
+//   // console.log(task);
+//   return task;
+// }
 
 async function findTasksByIssueID(issue_id) {
   const tasks = await Task.findAll({
@@ -68,7 +68,7 @@ async function createTask(taskData) {
   const task = await Task.create(taskData);
 
   if (!task) {
-    throw new InternalServerError(`Couldn't create task with data ${taskData}`);
+    throw new InternalServerError(`New Task creation failed. ${taskData}`);
   }
   // console.log(task);
   return task;
@@ -95,6 +95,7 @@ async function updateIsDone(task_id, is_done) {
 }
 
 async function deleteTask(task_id) {
+  // console.log(task_id);
   const task = await Task.destroy({ where: { task_id } });
 
   if (!task) {
@@ -108,7 +109,7 @@ async function deleteTask(task_id) {
 module.exports = {
   // findAllTasks,
   findOpenTasks,
-  findTaskByID,
+  // findTaskByID,
   findTasksByIssueID,
   createTask,
   updateTask,

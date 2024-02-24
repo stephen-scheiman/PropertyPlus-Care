@@ -47,22 +47,30 @@
             hx-swap="innerHTML"
             >Mark Complete</button>
           {{/if}}
+          <button name="deleteTask" value="{{task_id}}"
+            class="border-2 border-slate-300 rounded-lg px-2 bg-purple-900"
+            hx-confirm="Are you sure you want to delete this task? This action cannot be undone."
+            hx-delete="/issues/{{issue_id}}/tasks/{{task_id}}"
+            hx-target="#main"
+          >Delete Task</button>
       </li>
       {{/each}}
     </ul>
-    <button name="newTask" value="?"
+    {{!-- sending issue-id and property_id values to renderNewTaskForm via the button value attribute --}}
+    <button name="newTask" value="{{issue.issue_id}} {{issue.property_id}}"
       class="border-2 border-white rounded-lg px-2 bg-blue-400"
-      hx-post="/issues/{{issue_id}}/newTask"
+      hx-get="/tasks/new"
       hx-target="#newTaskDiv"
       hx-swap="innerHTML"
     >New Task</button>
-    <button name="assignVendor" value="?"
-      class="border-2 border-white rounded-lg px-2 bg-blue-400"
+    {{!-- <button name="assignVendor" value="?"
+      class="border-2 border-slate-300 rounded-lg px-2 bg-purple-900"
       hx-patch="/issues/{{issue_id}}/assign-vendor"
       hx-target="??"
       hx-swap="??"
-    >Assign Vendor</button>
+    >Assign Vendor</button> --}}
   </div>
+  {{!-- This is where the New Task Form will appear --}}
   <div id="newTaskDiv"></div>
 </main>
 </main>
