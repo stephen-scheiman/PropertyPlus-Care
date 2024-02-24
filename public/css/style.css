@@ -544,6 +544,10 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.visible {
+  visibility: visible;
+}
+
 .fixed {
   position: fixed;
 }
@@ -693,10 +697,6 @@ video {
   justify-content: space-around;
 }
 
-.gap-2 {
-  gap: 0.5rem;
-}
-
 .overflow-auto {
   overflow: auto;
 }
@@ -760,11 +760,6 @@ video {
 .bg-red-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(185 28 28 / var(--tw-bg-opacity));
-}
-
-.bg-red-800 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(153 27 27 / var(--tw-bg-opacity));
 }
 
 .bg-slate-500 {
@@ -982,6 +977,10 @@ video {
   height: 15px;
   width: 15px;
   justify-content: space-around;
+}
+
+.visible {
+  display: flex;
 }
 
 .hover\:bg-blue-600:hover {
