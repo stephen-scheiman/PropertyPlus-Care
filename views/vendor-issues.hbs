@@ -1,9 +1,9 @@
-<select
+<select class="text-gray-400"
   name="issue_id"
   hx-post="/vendors/{{vendor_id}}/issues"
   hx-include=""
 >
-  <option value="" selected="selected">Add Issue to Vendor</option>
+  <option value="" selected="selected">Assign Existing Issue to Vendor</option>
   {{#each issues}}
     <option value="{{issue_id}}">{{issue_title}}</option>
   {{/each}}

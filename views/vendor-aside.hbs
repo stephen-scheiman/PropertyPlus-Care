@@ -1,6 +1,7 @@
+<h1 class="mx-4 mb-5 pt-5 text-4xl font-bold">Vendors</h1>
 <ul>
   {{#each vendors}}
-  <li class="backdrop-blur-sm bg-white/30 m-4 p-2 text-white rounded"
+  <li class="backdrop-blur-sm bg-white/30 m-4 p-2 text-white rounded cursor-pointer"
     hx-get="/vendors/{{vendor_id}}"
     hx-target="#main"
     hx-push-url="true"

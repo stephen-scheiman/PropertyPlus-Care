@@ -1,12 +1,14 @@
-<main>
-  <h2>{{vendor.vendor_first_name}} {{vendor.vendor_last_name}}</h2>
-  <h3>{{vendor.vendor_trade}}</h3>
-  <h3>{{vendor.vendor_phone}}</h3>
-  <h3>{{vendor.vendor_email}}</h3>
+<main class="backdrop-blur-md bg-white/30 text-white rounded">
+<div class="mx-4 mb-5 pt-5 pb-5">
+  <h1 class="text-4xl mb-5 font-bold">Vendor Details</h1>
+  <h2 class="inline-block font-semibold">Vendor Name: </h2><p class="inline"> {{vendor.vendor_first_name}} {{vendor.vendor_last_name}}</p><br>
+  <h3 class="inline-block font-semibold">Vendor Trade: </h3><p class="inline"> {{vendor.vendor_trade}}</p><br>
+  <h3 class="inline-block font-semibold">Vendor Phone: </h3><p class="inline"> {{vendor.vendor_phone}}</p><br>
+  <h3 class="inline-block font-semibold">Vendor Email: </h3><p class="inline"> {{vendor.vendor_email}}</p><br>
 
-  <ul>
+  <ul class="inline-block font-semibold pt-3 pb-3">Assigned Issues:
     {{#each vendor.issues}}
-    <li
+    <li class="font-normal italic cursor-pointer"
       hx-get="/issues/{{issue_id}}"
       hx-target="#main"
       hx-push-url="true"
@@ -22,9 +24,8 @@
     </li>
     {{/each}}
   </ul>
-
   <div>
-      <button>Edit</button>
+      <button>Edit Vendor</button>
       <button>Add New Vendor</button>
       <button>Delete Vendor</button>
       <select
@@ -35,4 +36,5 @@
         <option value="{{vendor.vendor_id}}"></option>
       </select>
     </div>
+</div>
 </main>
