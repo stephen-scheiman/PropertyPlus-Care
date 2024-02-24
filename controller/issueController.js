@@ -1,10 +1,4 @@
-const { Vendor, Issue, Property, Task } = require("../models");
-const {
-  NotFoundError,
-  InternalServerError,
-  BadRequestError,
-} = require("../utils/errors");
-const { findTasksByIssueID, updateIsDone } = require("../utils/queries/tasks");
+const { findTasksByIssueID, updateIsDone, deleteTask } = require("../utils/queries/tasks");
 const {
   createIssue,
   findOneIssue,
@@ -25,9 +19,9 @@ async function renderOpenIssues(req, res) {
 async function renderIssues(req, res) {
   const { issueStatus } = req.query;
 
-  console.log("-----------------");
-  console.log("\n\n", issueStatus, "\n\n");
-  console.log("-----------------");
+  // console.log("-----------------");
+  // console.log("\n\n", issueStatus, "\n\n");
+  // console.log("-----------------");
 
   switch (issueStatus) {
     case "open": {
@@ -53,8 +47,10 @@ async function renderIssues(req, res) {
 
 async function renderOneIssue(req, res) {
   const { id: issue_id } = req.params;
-  const issue = await findOneIssue(issue_id);
-  const tasks = await findTasksByIssueID(issue_id);
+  
+  const p1 = findOneIssue(issue_id);
+  const p2 = findTasksByIssueID(issue_id);
+  const [issue, tasks] = await Promise.all([p1, p2]);
   // console.log(issue);
   res.status(200).render("issue-ID", { issue, tasks, layout: false });
 }
@@ -62,7 +58,7 @@ async function renderOneIssue(req, res) {
 async function renderIssuesByProperty(req, res) {
   const { id: property_id } = req.params;
   const issue = await getIssuesByPropertyID(property_id);
-  console.log(issue);
+  // console.log(issue);
   res.status(200).render("issue-ID", { issue, layout: false });
 }
 
@@ -78,8 +74,10 @@ async function renderIsIssueDone(req, res) {
     issueUpdate = await updateIssueDone(issue_id, true);
   }
 
-  const issue = await findOneIssue(issue_id);
-  const tasks = await findTasksByIssueID(issue_id);
+  const p1 = findOneIssue(issue_id);
+  const p2 = await findTasksByIssueID(issue_id);
+
+  const [issue, tasks] = await Promise.all([p1, p2]);
 
   res
     .status(200)
@@ -116,7 +114,7 @@ async function renderDeletedIssue(req, res) {
   const issue_id = req.params.id;
 
   const issue = await deleteIssue(issue_id);
-  res.status(200).set("HX-Redirect", "/").end();
+  res.status(200).send('');
 }
 
 async function renderAddVendor(req, res) {
@@ -147,82 +145,21 @@ async function renderIsTaskDone(req, res) {
     .render("issue-ID", { issue, tasks, layout: false });
 }
 
-// async function findAllIssues() {
-//   const issues = await Issue.findAll({
-//     include: [
-//       { issueStatus: Property },
-//       { issueStatus: Task}
-//     ],
-//     raw: true,
-//     nest: true,
-//   });
+async function renderDeletedTask(req, res) {
+  const { issue_id, task_id } = req.params;
 
-//   if (!issues) {
-//     throw new NotFoundError('No issues found');
-//   }
-//   console.log(issues);
-//   return issues;
-// }
+  const deletedTask = await deleteTask(task_id);
 
-// async function findOneIssue(issue_id) {
-//   const issue = await Issue.findByPk(issue_id, {
-//     include: [
-//       { issueStatus: Property, },
-//       { issueStatus: Task, },
-//       { issueStatus: Vendor, },
-//     ],
-//     raw: true,
-//     nest: true,
-//   });
+  const p1 = findOneIssue(issue_id);
+  const p2 = await findTasksByIssueID(issue_id);
 
-//   if (!issue) {
-//     throw new NotFoundError(`No issue found wtih id ${issue_id}`);
-//   }
+  const [issue, tasks] = await Promise.all([p1, p2]);
 
-//   return issue;
-// }
-
-// async function createIssue(issueData) {
-//   const issue = await Issue.create(issueData);
-
-//   if (!issue) {
-//     throw new InternalServerError("Couldn't create an issue");
-//   }
-
-//   return issue.toJSON();
-// }
-
-// async function updateIssue(issue_id, issueData) {
-//   const issue = await Issue.update(issueData, {
-//     where: { issue_id }
-//   });
-
-//   if (!issue) {
-//     throw new BadRequestError(`Couldn't update issue with id ${issue_id}`);
-//   }
-
-//   return issue;
-// }
-
-// async function deleteIssue(issue_id) {
-//   const issue = await Issue.destroy({ where: { issue_id } });
-
-//   if (!issue) {
-//     throw new BadRequestError(`Couldn't delete issue with id ${issue_id}`);
-//   }
-//   return issue;
-// }
-
-// async function addVendorToIssue(issue_id, vendor_id) {
-//   const issue = await Issue.findByPk(issue_id);
-
-//   if (!issue) {
-//     throw new BadRequestError(`No issue found with id ${issue_id}`);
-//   }
-
-//   const result = await issue.addVendor(vendor_id);
-//   return result;
-// }
+  res
+    .status(200)
+    .set("HX-Trigger", "update-aside")
+    .render("issue-ID", { issue, tasks, layout: false });
+}
 
 module.exports = {
   renderOpenIssues,
@@ -233,6 +170,7 @@ module.exports = {
   renderOneIssue,
   renderUpdatedIssue,
   renderIsTaskDone,
+  renderDeletedTask,
   renderIssuesByProperty,
   renderIsIssueDone,
 };
