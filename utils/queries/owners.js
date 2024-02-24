@@ -1,4 +1,9 @@
 const { Owner, Property } = require("../../models");
+const {
+  InternalServerError,
+  NotFoundError,
+  BadRequestError,
+} = require("../errors");
 
 async function findOwners() {
   const owners = await Owner.findAll({

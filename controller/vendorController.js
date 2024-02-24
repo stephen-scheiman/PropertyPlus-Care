@@ -1,70 +1,53 @@
-const { Vendor, Issue, Property } = require("../models");
-const { BadRequestError, InternalServerError } = require("../utils/errors");
-const { findAllVendors, findVendorByID, addIssueToVendor } = require('../utils/queries/vendors');
-const { findOpenIssues } = require('../utils/queries/issues');
+const { BadRequestError } = require("../utils/errors");
+const { findAllVendors, findVendorByID, addIssueToVendor, findVendorsByTrade, createVendor, updateVendor, deleteVendor, searchVendors } = require('../utils/queries/vendors');
+const { findOpenIssuesVendor, findOpenIssues } = require('../utils/queries/issues');
 
 // render vendor data function
 async function renderVendors(req, res) {
   const vendors = await findAllVendors();
   // res.status(200).json({ vendors });
-  res.status(200).render('vendor-aside', { vendors });
+  res.status(200).render('vendor-aside', { vendors, layout: false });
 }
 
 // render vendor by ID function
 async function renderOneVendor(req, res) {
   const { id } = req.params;
-  const vendor = await findVendorByID(id);
-  // res.status(200).json({ vendor });
-  // console.log(vendor);
-  res.status(200).render('vendor-id', { vendor, layout: false });
-}
 
-async function renderIssuesSelect(req, res) {
-  const { vendor_id } = req.query;
-  const issues = await findOpenIssues();
-  res.status(200).render('vendor-issues', { vendor_id, issues, layout: false });
+  const p1 = findVendorByID(id);
+  const p2 = findOpenIssuesVendor(+id);
+  const [vendor, issues] = await Promise.all([p1, p2]);
+
+  res.status(200).render('vendor-id', { vendor, issues, layout: false });
 }
 
 async function renderVendorNewIssue(req, res) {
   const { id: vendor_id } = req.params;
   const { issue_id } = req.body;
 
-  const result = await addIssueToVendor(vendor_id, issue_id);
-  console.log(result);
+  await addIssueToVendor(vendor_id, issue_id);
+
+  const p1 = findVendorByID(vendor_id);
+  const p2 = findOpenIssuesVendor(+vendor_id);
+  const [vendor, issues] = await Promise.all([p1, p2]);
+
+  res.status(200).render('vendor-id', { vendor, issues, layout: false });
 }
 
+async function renderVendorsByTrade(req, res) {
+  const { vendor_trade } = req.query;
 
-// // get vendor by ID
-// async function getVendorByID(id) {
-//   const vendorData = Vendor.findByPk(id, {
-//     include: [{ model: Issue }],
-//   });
+  const vendors = vendor_trade === 'All' ? await findAllVendors() : await findVendorsByTrade(vendor_trade);
 
-//   if (!vendorData) {
-//     throw new BadRequestError("Something went wrong");
-//   }
+  const isOob = req.headers['hx-trigger'] === 'selectOption' || req.headers['hx-trigger'] === 'searchBar';
 
-//   return vendorData;
-// }
-
-// sequelize get all vendors
-async function getAllVendors1() {
-  const vendorData = Vendor.findAll({
-    include: [{ model: Issue },
-      {model: Property}],
-    raw: true,
-    // nest: true,
-  });
-
-  if (!vendorData) {
-    throw new BadRequestError("Something went wrong");
-  }
-
-  return vendorData;
+  res.status(200).render('vendor-aside', { vendors, isOob, layout: false });
 }
 
-//create new vendor
-async function createVendor(req, res) {
+async function renderNewVendorForm(req, res) {
+  res.status(200).render('vendor-form-new', { layout: false });
+}
+
+async function renderNewVendorsList(req, res) {
   let {
     vendor_first_name,
     vendor_last_name,
@@ -85,34 +68,32 @@ async function createVendor(req, res) {
     throw new BadRequestError("Missing Data - Please complete all fields");
   }
 
-  //validate letters only
-  const namePattern = /^[a-zA-Z]+$/;
-  if (
-    !(namePattern.test(vendor_first_name) && namePattern.test(vendor_last_name))
-  ) {
-    throw new BadRequestError("Please enter the vendor's first and last name");
-  }
+   //validate letters only
+   const namePattern = /^[a-zA-Z]+$/;
+   if (!(namePattern.test(vendor_first_name) && namePattern.test(vendor_last_name))) {
+     throw new BadRequestError("Please enter the vendor's first and last name");
+   }
 
   //format vendor name before sending to db
   vendor_first_name =
-  vendor_first_name[0].toUpperCase() + vendor_first_name.slice(1).toLowerCase();
+    vendor_first_name[0].toUpperCase() + vendor_first_name.slice(1).toLowerCase();
 
   vendor_last_name =
-  vendor_last_name[0].toUpperCase() + vendor_last_name.slice(1).toLowerCase();
+    vendor_last_name[0].toUpperCase() + vendor_last_name.slice(1).toLowerCase();
 
   //validate email formatting
   const emailPattern =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!emailPattern.test(vendor_email)) {
-      throw new BadRequestError("Please enter a valid email address");
-    }
+  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (!emailPattern.test(vendor_email)) {
+    throw new BadRequestError("Please enter a valid email address");
+  }
 
   //validate that the email is unique
-  const vendorData = await getAllVendors();
+  const vendorData = await findAllVendors();
   for(x=0; x<vendorData.length; x++){
-    if (vendor_email === vendorData[x].vendor_email){
-      throw new BadRequestError("A vendor with this email address already exists")
-    }
+  if (vendor_email === vendorData[x].vendor_email){
+    throw new BadRequestError("A vendor with this email address already exists")
+  }
   }
 
   //format the phone number as (XXX)XXX-XXXX
@@ -130,41 +111,30 @@ async function createVendor(req, res) {
     "-" +
     vendor_phone.slice(6);
 
-  const newVendor = await Vendor.create({
+  const p1 = createVendor({
     vendor_first_name,
     vendor_last_name,
     vendor_trade,
     vendor_email,
     vendor_phone,
   });
+  const p2 = findOpenIssues();
 
-  if (!newVendor) {
-    throw new InternalServerError("New Vendor creation failed.");
-  } else {
-    res.status(200).json({ msg: "New Vendor succesfully created!" });
-  }
+  const [result, issues] = await Promise.all([p1, p2]);
+  const vendor = result.toJSON();
+
+  res.status(200).set('hx-trigger', 'update-list').render('vendor-id', { vendor, issues, layout: false });
 }
 
-//delete vendor
-async function deleteVendor(req, res) {
-  const vendor_id = req.params.id;
-
-  const vendorDelData = await Vendor.destroy({
-    where: {
-      vendor_id,
-    },
-  });
-  if (!vendorDelData) {
-    throw new BadRequestError("Delete vendor failed");
-  } else {
-    res.status(200).json({ msg: `Delete vendor ID: ${vendor_id} succeeded` });
-  }
+async function renderEditVendorForm(req, res) {
+  const { id } = req.params;
+  const vendor = await findVendorByID(id);
+  res.status(200).render('vendor-form-edit', { vendor, layout: false });
 }
 
-//update vendor
-async function updateVendor(req, res) {
+async function renderUpdatedVendor(req, res) {
   const vendor_id = req.params.id;
-  const {
+  let {
     vendor_first_name,
     vendor_last_name,
     vendor_trade,
@@ -218,31 +188,46 @@ async function updateVendor(req, res) {
     "-" +
     vendor_phone.slice(6);
 
-  const vendorData = await Vendor.update(
+  await updateVendor(vendor_id,
     {
       vendor_first_name,
       vendor_last_name,
       vendor_trade,
       vendor_email,
       vendor_phone,
-    },
-    {
-      where: {
-        vendor_id,
-      },
-    },
+    }
   );
-  if (!vendorData[0]) {
-    throw new BadRequestError("Update vendor failed");
-  } else {
-    res.status(200).json({ msg: `Update vendor ID: ${vendor_id} succeeded` });
-  }
-};
+
+  const vendor = await findVendorByID(vendor_id);
+
+  res.status(200).set('hx-trigger', 'update-list').render('vendor-id', { vendor, layout: false });
+}
+
+async function renderDeletedVendor(req, res) {
+  const { id } = req.params;
+  await deleteVendor(id);
+
+  res.status(200).set('hx-trigger', 'update-list').send('');
+}
+
+async function renderVendorSearch(req, res) {
+  const { search } = req.body;
+  const vendors = await searchVendors(search.toLowerCase());
+
+  const isOob = req.headers['hx-trigger'] === 'selectOption' || req.headers['hx-trigger'] === 'searchBar';
+
+  res.status(200).render('vendor-aside', { vendors, isOob, layout: false });
+}
 
 module.exports = {
   renderVendors,
   renderOneVendor,
-  renderIssuesSelect,
   renderVendorNewIssue,
-
+  renderVendorsByTrade,
+  renderNewVendorForm,
+  renderNewVendorsList,
+  renderUpdatedVendor,
+  renderEditVendorForm,
+  renderDeletedVendor,
+  renderVendorSearch,
 };

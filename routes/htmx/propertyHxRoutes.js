@@ -3,9 +3,12 @@ const c = require('../../controller/propertyController');
 
 router.route('/')
   .get(c.renderProperties)
+  .post(c.createProperty)
 
 
 router.route('/:id')
   .get(c.renderOneProperty)
+  .patch(c.updateProperty)
+  .delete(c.deleteProperty)
 
 module.exports = router;

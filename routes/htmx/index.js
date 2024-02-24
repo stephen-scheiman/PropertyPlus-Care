@@ -9,14 +9,18 @@ const issueHxRoutes = require('./issueHxRoutes.js');
 const taskHxRoutes = require('./taskHxRoutes.js');
 const vendorHxRoutes = require('./vendorHxRoutes.js');
 const ownerHxRoutes = require('./ownerHxRoutes.js');
-
+const signupHxRoutes = require('./signupHxRoutes.js');
 
 
 router.use('/login', loginHxRoutes);
+router.use('/signup', signupHxRoutes);
+
+router.use(withAuth);
+
 router.get('/', c.renderHome);
+router.get('/favicon.ico', (req, res) => { res.status(200).end() });
 
 router.use(pageRedirect);
-
 
 router.get('/aside', c.renderAside)
 // router.get('/', withAuth, c.renderHome);

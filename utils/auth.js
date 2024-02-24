@@ -1,7 +1,13 @@
 const withAuth = (req, res, next) => {
-  // If the user is not logged in, redirect the request to the login route
-  if (!req.session.logged_in) {
-    res.redirect('/login');
+  // console.log(req.session);
+  // console.log(req.headers);
+  if (!req.session.loggedIn) {
+    if (req.headers['hx-request']) {
+      // console.log('\n\n here \n\n');
+      return res.status(200).set('hx-redirect', '/login').end();
+    }
+    return res.redirect('/login');
+
   } else {
     next();
   }

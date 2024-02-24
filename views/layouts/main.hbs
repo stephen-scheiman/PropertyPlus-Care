@@ -10,6 +10,7 @@
       crossorigin="anonymous"
     />
     <title>PropertyPlus Care</title>
+    <link rel="icon" type="image/x-icon" href="/public/img/favicon.png">
     <script src="/js/htmx.min.js"></script>
   </head>
   <body class="text-white bg-[url('/img/bg.jpeg')] bg-cover bg-no-repeat">
@@ -27,9 +28,8 @@
           name="model"
           hx-get="/aside"
           hx-target="#aside"
-          hx-trigger="change, load, update-aside from:body"
+          hx-trigger="click, change, update-aside from:body"
           hx-push-url="true"
-          {{!-- hx-push-url="true" --}}
         >
         {{!-- <h1>Navigate:</h1> --}}
           <option value="task" selected="selected=">Tasks</option>
@@ -38,7 +38,10 @@
           <option value="vendor">Vendors</option>
           <option value="owner">Owners</option>
         </select>
+        <div id="selectOption"></div>
+        <div id="searchBar"></div>
         <aside class="overflow-auto max-h-[80vh]" id="aside">{{{body}}}</aside>
+
       </div>
 
       <div id="main" class="w-[75%] mt-16 max-h-[80vh]"></div>

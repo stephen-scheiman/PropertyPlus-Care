@@ -5,19 +5,9 @@ router.route('/')
   .get(c.renderAllOwners)
   .post(c.renderNewOwner);
 
-
 router.route('/:id')
-  .get(c.renderOneOwner);
-//   .put(c.renderUpdatedIssue)
-//   .delete(c.renderDeletedIssue);
-
-// router.route('/:id/isDone')
-//   .patch(c.renderIsIssueDone);
-
-// router.route('/:issue_id/tasks/:task_id/isDone')
-//   .patch(c.renderIsTaskDone);
-
-// router.route('/property/:id')
-//   .get(c.renderIssuesByProperty)
+  .get(c.renderOneOwner)
+  .patch(c.renderUpdateOwner)
+  .delete(c.renderDeleteOwner);
   
 module.exports = router;

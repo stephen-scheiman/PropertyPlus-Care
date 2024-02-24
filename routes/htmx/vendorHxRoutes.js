@@ -3,12 +3,22 @@ const c = require('../../controller/vendorController');
 
 router.route('/')
   .get(c.renderVendors)
+  .post(c.renderVendorSearch)
 
-router.route('/issues')
-  .get(c.renderIssuesSelect)
+router.route('/trades')
+  .get(c.renderVendorsByTrade)
+
+router.route('/new')
+  .get(c.renderNewVendorForm)
+  .post(c.renderNewVendorsList)
 
 router.route('/:id')
   .get(c.renderOneVendor)
+  .delete(c.renderDeletedVendor)
+
+router.route('/:id/edit')
+  .get(c.renderEditVendorForm)
+  .patch(c.renderUpdatedVendor)
 
 router.route('/:id/issues')
   .post(c.renderVendorNewIssue)

@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const { Vendor, Issue, Property } = require("../../models");
 const { BadRequestError, InternalServerError } = require("../errors");
 
@@ -29,6 +30,17 @@ async function findVendorByID(id) {
   return vendor.toJSON();
 }
 
+async function findVendorsByTrade(vendor_trade) {
+  const vendorsData = await Vendor.findAll({ where: { vendor_trade } });
+
+  if (!vendorsData) {
+    throw new InternalServerError(`No vendors found with trade ${vendor_trade}`);
+  }
+  // console.log(vendorsData);
+  const vendors = vendorsData.map(e => e.toJSON());
+  return vendors;
+}
+
 async function createVendor(vendorData) {
   const vendor = await Vendor.create(vendorData);
 
@@ -58,7 +70,7 @@ async function updateVendor(vendor_id, vendorData) {
     throw new InternalServerError(`Update vendor failed id ${vendor_id}`);
   }
   // console.log(vendor);
-  vendor;
+  return vendor;
 };
 
 async function addIssueToVendor(vendor_id, issue_id) {
@@ -74,11 +86,28 @@ async function addIssueToVendor(vendor_id, issue_id) {
   return result;
 };
 
+async function searchVendors(search) {
+  const result = await Vendor.findAll({
+    where: {
+      [Op.or]: [
+        { vendor_first_name: { [Op.like]: `%${search}%` } },
+        { vendor_last_name: { [Op.like]: `%${search}%` } },
+      ]
+    }
+  });
+
+  const vendors = result.map(e => e.toJSON());
+
+  return vendors;
+}
+
 module.exports = {
   findAllVendors,
   findVendorByID,
+  findVendorsByTrade,
   createVendor,
   deleteVendor,
   updateVendor,
   addIssueToVendor,
+  searchVendors,
 };

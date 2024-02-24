@@ -5,4 +5,54 @@
     {{owner.owner_state}}
     {{owner.owner_zip}}</h3>
   <h3>Owner Phone:{{owner.owner_phone}}</h3>
+  <button
+    name="deleteOwner"
+    value="Delete Owner"
+    class="rounded-lg border-2 border-slate-300 bg-red-700 px-2"
+    hx-delete="/owners/{{owner.owner_id}}"
+    hx-target="#main"
+    hx-confirm="Are you sure you want to delete this owner? This action cannot be undone."
+  >Delete</button>
+
+  <button
+    name="updateOwner"
+    value="Update Owner"
+    class="rounded-lg border-2 border-slate-300 bg-emerald-800 px-2"
+    hx-on:click="document.getElementById('owner-update').classList = 'visible', 'p-5' "
+    hx-target="#main"
+  >Update</button>
+  <div id="owner-update" class="hidden" class="p-5">
+    <form class="flex flex-col">
+      <label for="owner_first_name">Owner First Name</label>
+      <input
+        type="text"
+        name="owner_first_name"
+        value="{{owner.owner_first_name}}"
+      />
+      <label for="owner_last_name">Owner Last Name</label>
+      <input
+        type="text"
+        name="owner_last_name"
+        value="{{owner.owner_last_name}}"
+      />
+      <label for="owner_street">Owner Street Address</label>
+      <input type="text" name="owner_street" value="{{owner.owner_street}}" />
+      <label for="owner_city">Owner City</label>
+      <input type="text" name="owner_city" value="{{owner.owner_city}}" />
+      <label for="owner_state">Owner State</label>
+      <input type="text" name="owner_state" value="{{owner.owner_state}}" />
+      <label for="owner_zip">Owner Zip</label>
+      <input type="text" name="owner_zip" value="{{owner.owner_zip}}" />
+      <label for="owner_email">Owner Email Address</label>
+      <input type="text" name="owner_email" value="{{owner.owner_email}}" />
+      <label for="owner_phone">Owner Phone Number</label>
+      <input type="text" name="owner_phone" value="{{owner.owner_phone}}" />
+      <button
+        class="rounded-lg border-2 border-slate-300 bg-emerald-800 px-2"
+        hx-patch="/owners/{{owner.owner_id}}"
+        type="submit"
+        hx-on:click="document.getElementById('owner-update').classList = 'hidden' "
+      >Submit</button>
+    </form>
+  </div>
 </main>
