@@ -4,7 +4,7 @@ const {
   NotFoundError,
   BadRequestError,
 } = require("../utils/errors");
-const { findOwners, findOwnerById } = require("../utils/queries/owners");
+const { findOwners, findOwnerById, createOwner, updateOwner, deleteOwner } = require("../utils/queries/owners");
 
 async function renderOwners(req, res) {
   const owners = await findOwners();
@@ -58,9 +58,7 @@ async function renderNewOwnersList(req, res) {
   owner_phone = owner_phone.replace(/[^0-9 ]/g, "");
 
   if (owner_phone.length > 10 || owner_phone.length < 10) {
-    throw new BadRequestError(
-      "Please enter a valid 10 digit phone number, no symbols or spaces",
-    );
+    throw new BadRequestError("Please enter a valid 10 digit phone number, no symbols or spaces");
   }
 
   owner_phone =
@@ -241,38 +239,6 @@ async function renderDeletedOwner(req, res) {
   const owner = await deleteOwner(owner_id);
   // res.status(200).json({ msg: "Deleted", owner });
   res.status(200).set('hx-trigger', 'update-owners').send('');
-}
-
-async function createOwner(newOwnerData) {
-  const owner = await Owner.create(newOwnerData);
-
-  if (!owner) {
-    throw new InternalServerError("Error creating new owner");
-  }
-
-  return owner.toJSON();
-}
-
-async function updateOwner(owner_id, ownerData) {
-  const owner = await Owner.update(ownerData, {
-    where: { owner_id },
-  });
-
-  if (!owner) {
-    throw new InternalServerError("Couldn't update owner information");
-  }
-
-  return owner;
-}
-
-async function deleteOwner(owner_id) {
-  const owner = await Owner.destroy({ where: { owner_id } });
-
-  if (!owner) {
-    throw new InternalServerError(`Couldn't delete owner with id ${owner_id}`);
-  }
-
-  return owner;
 }
 
 module.exports = {
