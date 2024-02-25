@@ -32,7 +32,12 @@
     <h3 class="font-semibold text-lg mt-2">Vendors Assigned: <span class="font-normal text-lg">(Double click to open vendor info)</span></h3>
     <ul>
       {{#each issue.Vendors}}
-        <li ><a hx-get="/vendors/{{vendor_id}}" hx-target="#main" hx-boost="true" hx-trigger="dblclick" class="cursor-pointer">{{vendor_first_name}} {{vendor_last_name}} ({{vendor_trade}})</a></li>
+        <li ><a hx-get="/vendors/{{vendor_id}}" hx-target="#main" hx-boost="true" hx-trigger="dblclick" class="cursor-pointer">{{vendor_first_name}} {{vendor_last_name}} ({{vendor_trade}})</a>
+          <button class="border-2 border-white rounded-lg px-2 bg-blue-400" name="vendor_id" value="{{vendor_id}}"
+            hx-patch="/issues/{{../issue.issue_id}}/unassign-vendor"
+            hx-target="#main"
+          >Unassign Vendor</button>
+        </li>
       {{/each}}
     </ul>
     <h4 class="font-semibold text-lg mt-2">Actions Taken:</h4>

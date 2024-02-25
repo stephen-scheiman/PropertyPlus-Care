@@ -136,6 +136,17 @@ async function addVendorToIssue(issue_id, vendor_id) {
   return result;
 };
 
+async function unassignVendor(issue_id, vendor_id) {
+  const issue = await Issue.findByPk(issue_id);
+
+  if (!issue) {
+    throw new BadRequestError(`No issue found with id ${issue_id}`);
+  }
+
+  const result = await issue.removeVendor(vendor_id);
+  return result;
+};
+
 async function updateIssueDone(issue_id, issue_isDone) {
   const issue = await Issue.update({issue_isDone}, { where: { issue_id }});
 
@@ -168,6 +179,7 @@ module.exports = {
   updateIssue,
   deleteIssue,
   addVendorToIssue,
+  unassignVendor,
   getIssuesByPropertyID,
   updateIssueDone,
   findOpenIssuesVendor,

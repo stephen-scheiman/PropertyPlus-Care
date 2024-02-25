@@ -9,7 +9,8 @@ const {
   updateIssueDone,
   deleteIssue,
   searchIssues,
-  addVendorToIssue
+  addVendorToIssue,
+  unassignVendor
 } = require("../utils/queries/issues");
 const { findVendorsByTradeNotIssue } = require("../utils/queries/vendors");
 
@@ -52,6 +53,7 @@ async function renderOneIssue(req, res) {
   const { id: issue_id } = req.params;
 
   const issue = await findOneIssue(issue_id);
+  console.log(issue);
   res.status(200).render("issue-ID", { issue, layout: false });
 }
 
@@ -138,12 +140,17 @@ async function renderAddVendor(req, res) {
   res.status(200).render("issue-ID", { issue, layout: false });
 }
 
-async function renderUnassignVendor(req, res) {
+async function renderUnassignVendor(req, res) {  
   const issue_id = req.params.id;
   const { vendor_id } = req.body;
 
+  console.log('\n ------------- \n');
+  console.log(issue_id);
+  console.log(vendor_id);
+  console.log('\n ------------- \n');
+
   const result = await unassignVendor(issue_id, vendor_id);
-  const issue = findOneIssue(issue_id);
+  const issue = await findOneIssue(issue_id);
 
   res.status(200).render("issue-ID", { issue, layout: false });
 }
