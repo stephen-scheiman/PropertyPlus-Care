@@ -3,24 +3,31 @@ const { BadRequestError, InternalServerError } = require("../utils/errors");
 const {
   findProperties,
   findPropertyByID,
+  createProperty,
+  deleteProperty,
+  updateProperty,
 } = require("../utils/queries/properties");
+const {findOwners, findOwnerById } = require('../utils/queries/owners');
 
 async function renderProperties(req, res) {
   const properties = await findProperties();
-  console.log(properties);
+  // console.log(properties);
   // res.status(200).json({ owners });
   res.status(200).render('property-aside', { properties, layout: false });
 }
 
 async function renderOneProperty(req, res) {
-  const { id: property_id } = req.params;
-  const property = await findPropertyByID(property_id);
+  const { id } = req.params;
+  const property = await findPropertyByID(id);
+  console.log(property);
   //res.status(200).json({ owner });
   res.status(200).render("property-id", { property, layout: false });
 }
 
 async function renderNewPropertyForm(req, res) {
-  res.status(200).render("property-form-new", { layout: false });
+  const owners = await findOwners();
+
+  res.status(200).render("property-form-new", { owners, layout: false });
 }
 
 async function renderNewPropertiesList(req, res) {
@@ -61,7 +68,7 @@ async function renderNewPropertiesList(req, res) {
   }
 
   //validate that the property name is unique
-  const propertyNames = await getAllProperties();
+  const propertyNames = await findProperties();
   for (x = 0; x < propertyNames.length; x++) {
     if (property_name === propertyNames[x].property_name) {
       throw new BadRequestError("Please enter a unique property name");
@@ -101,7 +108,7 @@ async function renderNewPropertiesList(req, res) {
   // convert state abbreviation to upper case
   property_state = property_state.toUpperCase();
 
-  const newProperty = await createProperty({
+  const propertyData = await createProperty({
     property_name,
     property_street,
     property_city,
@@ -109,17 +116,22 @@ async function renderNewPropertiesList(req, res) {
     property_zip,
     owner_id,
   });
-  console.log(newProperty);
+
+  const property = await findPropertyByID(propertyData.property_id);
+
   res
     .status(200)
-    .set("hx-trigger", "update-list")
-    .render("property-id", { newProperty, layout: false });
+    .set("hx-trigger", "update-properties")
+    .render("property-id", { property, layout: false });
 }
 
 async function renderEditPropertyForm(req, res) {
   const { id } = req.params;
-  const property = await findPropertyByID(id);
-  res.status(200).render("property-form-edit", { property, layout: false });
+  const p1 = findPropertyByID(id);
+  const p2 = findOwners();
+  const [property, owners] = await Promise.all([p1, p2]);
+
+  res.status(200).render("property-form-edit", { property, owners, layout: false });
 }
 
 async function renderUpdatedProperty(req, res) {
@@ -215,40 +227,9 @@ console.log(req.body);
 async function renderDeletedProperty(req, res) {
   const { id: property_id } = req.params;
   const property = await deleteProperty(property_id);
-  res.status(200).json({ msg: "Deleted", property });
+  res.status(200).set("hx-trigger", "update-properties").send('');
 }
 
-async function createProperty(newPropertyData) {
-  const property = await Property.create(newPropertyData);
-
-  if (!property) {
-    throw new InternalServerError("Error creating new owner");
-  }
-
-  return property.toJSON();
-}
-
-async function updateProperty(property_id, propertyData) {
-  const property = await Property.update(propertyData, {
-    where: { property_id },
-  });
-
-  if (!property) {
-    throw new InternalServerError("Couldn't update property information");
-  }
-
-  return property;
-}
-
-async function deleteProperty(property_id) {
-  const property = await Property.destroy({ where: { property_id } });
-
-  if (!property) {
-    throw new InternalServerError(`Couldn't delete owner with id ${property_id}`);
-  }
-
-  return property;
-}
 
 module.exports = {
   renderProperties,
