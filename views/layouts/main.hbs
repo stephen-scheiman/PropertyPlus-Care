@@ -23,8 +23,8 @@
     <img class="float-left" src="/img/Logo.png" alt="logo">
     </header>
 
-    <aside class="flex w-[95%] m-auto justify-around">
-      <div class="w-[20%]">
+    <div class="flex w-[95%] m-auto justify-around">
+      <aside class="w-[20%]">
         <select class="text-gray-400 mt-5"
           name="model"
           hx-get="/aside"
@@ -40,15 +40,15 @@
         </select>
         <div id="searchBar"></div>
         <div>
-          <div id="asideTitle"></div>
+          <h1 id="asideTitle" class="mx-4 mb-5 pt-5 text-4xl font-bold">Today's Tasks</h1>
           <div id="selectOption"></div>
         </div>
         <div class="overflow-auto max-h-[80vh]" id="aside">{{{body}}}</div>
-
-      </div>
+        <div id="addBtn"></div>
+      </aside>
 
       <div id="main" class="w-[75%] mt-16 max-h-[80vh]"></div>
-    </aside>
+    </div>
 
     <footer
       class="fixed bottom-0 flex w-screen bg-slate-500 text-center align-bottom sm:hidden"

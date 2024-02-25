@@ -12,6 +12,7 @@ const { findUserByPk } = require('../utils/queries/users');
 // homepage loads all current and past due Tasks
 async function renderHome(req, res) {
   const { user_id, logged_in } = req.session;
+  const isOob = true;
 
   // calling two promises but not awaiting them individually
   // 3rd line of code awaits both promises before continuing.
@@ -21,7 +22,7 @@ async function renderHome(req, res) {
   const [user, tasks] = await Promise.all([p1,p2]);
 
   // this needs to be completed when we know what the homepage will look like
-  res.status(200).render('task-aside', { tasks, user});
+  res.status(200).render('task-aside', { tasks, user, isOob, });
 }
 
 async function renderAside(req, res) {

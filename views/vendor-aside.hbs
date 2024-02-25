@@ -1,4 +1,3 @@
-<h1 class="mx-4 mb-5 pt-5 text-4xl font-bold">Vendors</h1>
 <ul
   id="vendorsList"
   hx-trigger="update-list from:body"
@@ -19,9 +18,21 @@
   {{/each}}
 </ul>
 
-<button hx-get="/vendors/new" hx-target="#main">Add New Vendor</button>
-
 {{#if isOob}}
+  <input
+    type="search"
+    id="searchBar"
+    class="text-gray-600"
+    name="search"
+    placeholder="search vendor's name"
+    hx-swap-oob="true"
+    hx-post="/vendors"
+    hx-target="#aside"
+    hx-trigger="input changed delay:300ms, search"
+  />
+
+  <h1 id="asideTitle" hx-swap-oob="true" class="mx-4 mb-5 pt-5 text-4xl font-bold">Vendors</h1>
+
   <select
     name="vendor_trade"
     id="selectOption"
@@ -38,15 +49,5 @@
     <option value="Roofer">Roofer</option>
   </select>
 
-  <input
-  type="search"
-  id="searchBar"
-  class="text-gray-600"
-  name="search"
-  placeholder="search vendor's name"
-  hx-swap-oob="true"
-  hx-post="/vendors"
-  hx-target="#aside"
-  hx-trigger="input changed delay:300ms, search"
-/>
+  <button id="addBtn" hx-swap-oob="true" hx-get="/vendors/new" hx-target="#main">Add New Vendor</button>
 {{/if}}

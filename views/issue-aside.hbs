@@ -1,41 +1,25 @@
-<div class="flex justify-between">
-    <h1 class="mx-4 mb-5 pt-5 text-4xl font-bold">Issues</h1>
-    {{!-- <label for="issuesSelect">View Options:</label> --}}
-
-  </div>
-
-  <div id="issuesList">
-    {{#each issues}}
-      <div class="backdrop-blur-sm bg-white/30 m-4 p-2 text-white rounded cursor-pointer">
-        <h2
-          class="font-bold text-xl my-2"
-          hx-get="/issues/{{this.issue_id}}"
-          hx-swap="innerHTML"
-          hx-target="#main"
-          hx-push-url="true"
-        >{{this.issue_title}}</h2>
-        <h3
-          class="font-semibold text-lg"
-          hx-get="/properties/{{this.property_id}}"
-          hx-swap="innerHTML"
-          hx-target="#main"
-          hx-push-url="true"
-        >Property: {{this.property.property_name}}</h3>
-        <p class="font-medium">Description: <span>{{this.issue_description}}</span></p>
-        <p class="font-medium">Next Follow-Up Date: <span>{{this.tasks.followUp_date}}</span></p>
-      </div>
-    {{/each}}
-      <select name="issueStatus" id="issuesSelect" class="text-gray-600 flex"
-      hx-get="/issues/whichIssues"
-      hx-select-oob="#issuesList"
-      hx-target="#issuesList"
-      hx-swap="innerHTML">
-      <option value="open">Open Issues</option>
-      <option value="closed">Closed Issues</option>
-      <option value="all">All Issues</option>
-    </select>
-  </div>
-
+<div id="issuesList">
+  {{#each issues}}
+    <div class="backdrop-blur-sm bg-white/30 m-4 p-2 text-white rounded cursor-pointer">
+      <h2
+        class="font-bold text-xl my-2"
+        hx-get="/issues/{{this.issue_id}}"
+        hx-swap="innerHTML"
+        hx-target="#main"
+        hx-push-url="true"
+      >{{this.issue_title}}</h2>
+      <h3
+        class="font-semibold text-lg"
+        hx-get="/properties/{{this.property_id}}"
+        hx-swap="innerHTML"
+        hx-target="#main"
+        hx-push-url="true"
+      >Property: {{this.property.property_name}}</h3>
+      <p class="font-medium">Description: <span>{{this.issue_description}}</span></p>
+      <p class="font-medium">Next Follow-Up Date: <span>{{this.tasks.followUp_date}}</span></p>
+    </div>
+  {{/each}}
+</div>
 
 {{#if isOob}}
   <input
@@ -50,5 +34,17 @@
     hx-trigger="input changed delay:300ms, search"
   />
 
-  <div hx-swap-oob="true" id="selectOption"></div>
+  <h1 id="asideTitle" hx-swap-oob="true" class="mx-4 mb-5 pt-5 text-4xl font-bold">Issues</h1>
+
+  <select name="issueStatus" id="selectOption" class="text-gray-600 flex"
+    hx-get="/issues/whichIssues"
+    hx-swap-oob="true"
+    hx-target="#issuesList"
+    hx-swap="innerHTML">
+    <option value="open">Open Issues</option>
+    <option value="closed">Closed Issues</option>
+    <option value="all">All Issues</option>
+  </select>
+
+  <div id="addBtn" hx-swap-oob="true" ></div>
 {{/if}}
