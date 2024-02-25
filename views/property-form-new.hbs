@@ -16,10 +16,10 @@
     <input type="text" name="property_zip" />
 
     <label for="owner">Property Owner:</label>
-    <select name="owner_name">
+    <select name="owner_id">
       <option value="" disabled selected hidden>Select a property owner</option>
-      {{#each property.owner as |owner|}}
-      <option value="{{property.owner_last_name}}">{{property.owner_last_name}}</option>
+      {{#each owners}}
+      <option value="{{owner_id}}">{{owner_first_name}} {{owner_last_name}}</option>
       {{/each}}
     </select>
     <button class="my-5" type="submit">Submit</button>
