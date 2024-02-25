@@ -31,7 +31,7 @@
       <li>
         <p>Task: {{task_name}}</p>
         <p>Note: {{status_update}}</p>
-        <p>Follow-up Date: {{followUp_date}}</p>
+        <p>Follow-up Date: {{format_date followUp_date}}</p>
           {{#if is_done}}
           <button name="isDone" value="Re-Open" 
             class="border-2 border-whiterounded-lg px-2 bg-green-400"
