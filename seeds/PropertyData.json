@@ -25,7 +25,7 @@
   },
   {
     "property_name": "Somewhere Over the Rainbow",
-    "property_street": "123 Pot'o'Gold Drive",
+    "property_street": "123 Pot of Gold Drive",
     "property_city": "Clovertown",
     "property_state": "NJ",
     "property_zip": "94587",
@@ -34,7 +34,7 @@
   {
     "property_name": "Treehouse",
     "property_street": "123 Redwood Drive",
-    "property_city": "Big sur",
+    "property_city": "Big Sur",
     "property_state": "AL",
     "property_zip": "98736",
     "owner_id": "5"
