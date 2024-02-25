@@ -228,7 +228,7 @@ async function renderUpdatedOwner(req, res) {
     throw new BadRequestError("Please enter a valid 5 digit zip code");
   }
 
-  const owner = await updateOwner(id, {
+  await updateOwner(id, {
     owner_first_name,
     owner_last_name,
     owner_email,
@@ -239,13 +239,16 @@ async function renderUpdatedOwner(req, res) {
     owner_zip,
   });
 
-  res.status(200).json({ msg: `Update owner ID: ${owner_id} succeeded` });
+  const owner = await findOwnerById(id);
+
+  res.status(200).set('hx-trigger', 'update-list').render('owner-id', { owner, layout: false });
 }
 
 async function renderDeletedOwner(req, res) {
   const { id: owner_id } = req.params;
   const owner = await deleteOwner(owner_id);
-  res.status(200).json({ msg: "Deleted", owner });
+  // res.status(200).json({ msg: "Deleted", owner });
+  res.status(200).set('hx-trigger', 'update-list').send('');
 }
 
 async function createOwner(newOwnerData) {
