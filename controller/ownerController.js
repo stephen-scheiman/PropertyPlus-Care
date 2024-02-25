@@ -237,7 +237,6 @@ async function renderUpdatedOwner(req, res) {
 async function renderDeletedOwner(req, res) {
   const { id: owner_id } = req.params;
   const owner = await deleteOwner(owner_id);
-  // res.status(200).json({ msg: "Deleted", owner });
   res.status(200).set('hx-trigger', 'update-owners').send('');
 }
 
