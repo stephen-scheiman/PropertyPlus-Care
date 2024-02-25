@@ -712,6 +712,22 @@ video {
   max-width: 25%;
 }
 
+.max-w-\[100\%\] {
+  max-width: 100%;
+}
+
+.max-w-1 {
+  max-width: 0.25rem;
+}
+
+.flex-auto {
+  flex: 1 1 auto;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
