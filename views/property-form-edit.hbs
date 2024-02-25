@@ -1,5 +1,5 @@
-<form
-  class="flex flex-col text-white"
+ <form
+  class="flex flex-col"
   hx-patch="/properties/{{property.property_id}}/edit"
   hx-target="#main"
 >
@@ -40,11 +40,12 @@
       value="{{property.property_zip}}"
     />
 
-    <input
-    class="mb-2 rounded text-gray-500"
-    type="text"
-    name="owner_id"
-    value="{{property.owner.owner_id}}"
+    <select name="owner_id" class="text-gray-500">
+      <option value="{{property.owner.owner_id}}" disabled selected hidden>{{property.owner.owner_first_name}} {{property.owner.owner_last_name}}</option>
+      {{#each owners}}
+      <option value="{{owner_id}}">{{owner_first_name}} {{owner_last_name}}</option>
+      {{/each}}
+    </select>
   />
 
   </div>
