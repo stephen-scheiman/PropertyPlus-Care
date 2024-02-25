@@ -1,10 +1,6 @@
 <main class="m-4 rounded bg-white/30 px-4 text-white backdrop-blur-md">
   <h2 class="text-4xl mb-5 font-bold">Vendor Information: </h2>
-  <div
-    id="vendorInfo"
-    hx-get="/vendors/{{vendor.vendor_id}}/edit"
-    hx-swap="outerHTML"
-  >
+  <div id="vendorInfo">
     <div>
     <label class="inline-block font-semibold">Name: <span class="font-normal">{{vendor.vendor_first_name}}</span></label>
     <label>{{vendor.vendor_last_name}}</label></div>
@@ -17,6 +13,11 @@
   </div>
 
   <div class="my-5">
+    <button
+      hx-get="/vendors/{{vendor.vendor_id}}/edit"
+      hx-target="#vendorInfo"
+      hx-swap="outerHTML"
+    >Edit Vendor</button>    
     <button
       hx-delete="/vendors/{{vendor.vendor_id}}"
       hx-target="#main"
