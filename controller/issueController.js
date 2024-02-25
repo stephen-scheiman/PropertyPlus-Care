@@ -53,16 +53,6 @@ async function renderOneIssue(req, res) {
 
   const issue = await findOneIssue(issue_id);
   res.status(200).render("issue-ID", { issue, layout: false });
-
-  // const p1 = findOneIssue(issue_id);
-  // const p2 = findTasksByIssueID(issue_id);
-  // const [issue, tasks] = await Promise.all([p1, p2]);
-
-  // console.log(issue);
-  // console.log('\n\n')
-  // console.log(tasks);
-  // console.log(issue);
-  // res.status(200).render("issue-ID", { issue, tasks, layout: false });
 }
 
 async function renderIssuesByProperty(req, res) {
@@ -84,41 +74,38 @@ async function renderIsIssueDone(req, res) {
     issueUpdate = await updateIssueDone(issue_id, true);
   }
 
-  const p1 = findOneIssue(issue_id);
-  const p2 = await findTasksByIssueID(issue_id);
-
-  const [issue, tasks] = await Promise.all([p1, p2]);
+  const issue = await findOneIssue(issue_id);
 
   res
     .status(200)
     .set("HX-Trigger", "update-issues")
-    .render("issue-ID", { issue, tasks, layout: false });
+    .render("issue-ID", { issue, layout: false });
 }
 
-async function renderNewIssue(req, res) {
-  const { issue_title, issue_description, property_id } = req.body;
+// async function renderNewIssue(req, res) {
+//   const { issue_title, issue_description, property_id } = req.body;
 
-  const issue = await createIssue({
-    issue_title,
-    issue_description,
-    property_id,
-  });
+//   const issue = await createIssue({
+//     issue_title,
+//     issue_description,
+//     property_id,
+//   });
 
-  res.status(200).json({ msg: "Created", issue });
-}
+//   res.status(200).json({ msg: "Created", issue });
+// }
 
-async function renderUpdatedIssue(req, res) {
-  const issue_id = req.params.id;
-  const { issue_title, issue_description, property_id } = req.body;
+// async function renderUpdatedIssue(req, res) {
+//   const issue_id = req.params.id;
+//   const { issue_title, issue_description, property_id } = req.body;
 
-  const issue = await updateIssue(issue_id, {
-    issue_title,
-    issue_description,
-    property_id,
-  });
+//   const issue = await updateIssue(issue_id, {
+//     issue_title,
+//     issue_description,
+//     property_id,
+//   });
 
-  res.status(200).json({ msg: "Updated", issue });
-}
+//   res.status(200).json({ msg: "Updated", issue });
+// }
 
 async function renderDeletedIssue(req, res) {
   const issue_id = req.params.id;
@@ -146,12 +133,19 @@ async function renderAddVendor(req, res) {
   const { vendor_id } = req.body;
 
   const result = await addVendorToIssue(issue_id, vendor_id);
+  const issue = findOneIssue(issue_id);
 
-  const p1 = findOneIssue(issue_id);
-  const p2 = findTasksByIssueID(issue_id);
-  const [issue, tasks] = await Promise.all([p1, p2]);
-  // console.log(issue);
-  res.status(200).render("issue-ID", { issue, tasks, layout: false });
+  res.status(200).render("issue-ID", { issue, layout: false });
+}
+
+async function renderUnassignVendor(req, res) {
+  const issue_id = req.params.id;
+  const { vendor_id } = req.body;
+
+  const result = await unassignVendor(issue_id, vendor_id);
+  const issue = findOneIssue(issue_id);
+
+  res.status(200).render("issue-ID", { issue, layout: false });
 }
 
 async function renderIsTaskDone(req, res) {
@@ -166,12 +160,11 @@ async function renderIsTaskDone(req, res) {
   }
 
   const issue = await findOneIssue(issue_id);
-  const tasks = await findTasksByIssueID(issue_id);
 
   res
     .status(200)
     .set("HX-Trigger", "update-tasks")
-    .render("issue-ID", { issue, tasks, layout: false });
+    .render("issue-ID", { issue, layout: false });
 }
 
 async function renderDeletedTask(req, res) {
@@ -180,12 +173,6 @@ async function renderDeletedTask(req, res) {
   const deletedTask = await deleteTask(task_id);
 
   const issue = await findOneIssue(issue_id);
-
-
-  // const p1 = findOneIssue(issue_id);
-  // const p2 = await findTasksByIssueID(issue_id);
-
-  // const [issue, tasks] = await Promise.all([p1, p2]);
 
   res
     .status(200)
@@ -205,13 +192,14 @@ module.exports = {
   renderAddVendor,
   renderDeletedIssue,
   renderIssues,
-  renderNewIssue,
+  // renderNewIssue,
   renderOneIssue,
-  renderUpdatedIssue,
+  // renderUpdatedIssue,
   renderIsTaskDone,
   renderDeletedTask,
   renderIssuesByProperty,
   renderIsIssueDone,
   renderVendorsByTrade,
   renderIssuesSearch,
+  renderUnassignVendor
 };
