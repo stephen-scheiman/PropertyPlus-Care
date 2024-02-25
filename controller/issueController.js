@@ -131,15 +131,25 @@ async function renderVendorsByTrade(req, res) {
 
 async function renderAddVendor(req, res) {
   console.log("\n ---------- \n");
-  console.log(`body: ${req.body}`);
-  console.log(`params: ${req.params}`);
-  console.log(`query: ${req.query}`);
+  // console.log(req);
+  console.log(req.body);
+  console.log(req.params);
   console.log("\n ---------- \n");
   const issue_id = req.params.id;
   const { vendor_id } = req.body;
 
+  console.log("\n ---------- \n");
+  console.log(issue_id);
+  console.log(vendor_id);
+  console.log("\n ---------- \n");
+
   const result = await addVendorToIssue(issue_id, vendor_id);
-  res.status(200).render("issue-ID", { issues, layout: false });
+
+  const p1 = findOneIssue(issue_id);
+  const p2 = findTasksByIssueID(issue_id);
+  const [issue, tasks] = await Promise.all([p1, p2]);
+  // console.log(issue);
+  res.status(200).render("issue-ID", { issue, tasks, layout: false });
 }
 
 async function renderIsTaskDone(req, res) {
