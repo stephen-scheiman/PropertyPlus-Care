@@ -19,7 +19,7 @@
         <span class="font-normal">{{vendor.vendor_email}}</span></label>
     </div>
   </div>
-  <select class="my-3 text-gray-400" name="issue_id" hx-post="/vendors/{{vendor.vendor_id}}/issues" hx-target="#main">
+  <select class="mt-2 text-gray-400" name="issue_id" hx-post="/vendors/{{vendor.vendor_id}}/issues" hx-target="#main">
     <option value="" disabled selected hidden>Assign Existing Issue to Vendor</option>
     {{#each issues}}
     <option value="{{issue_id}}">{{issue_title}}</option>
@@ -27,10 +27,10 @@
   </select>
   <div class="my-5">
     <button
-      class="rounded bg-blue-500 px-2 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
+      class="rounded bg-blue-400 px-2 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
       hx-get="/vendors/{{vendor.vendor_id}}/edit" hx-target="#vendorInfo" hx-swap="outerHTML">Edit Vendor</button>
     <button
-      class="rounded bg-blue-500 px-2 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
+      class="rounded bg-blue-400 px-2 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
       hx-delete="/vendors/{{vendor.vendor_id}}" hx-target="#main"
       hx-confirm="Are you sure you want to delete this vendor? This action cannot be undone.">Delete Vendor</button>
 

@@ -1,12 +1,12 @@
-  <form class="flex flex-col text-gray-600" hx-patch="/vendors/{{vendor.vendor_id}}/edit" hx-target="#main">
-    <div>
-      <label class="inline-block font-semibold">Name: </label>
-      <input type="text" name="vendor_first_name" value="{{vendor.vendor_first_name}}" autofocus/>
-      <input type="text" name="vendor_last_name" value="{{vendor.vendor_last_name}}"/>
-    </div>
-    <div>
-      <label class="inline-block font-semibold">Trade: </label>
-      <select name="vendor_trade">
+<form class="flex flex-col text-white" hx-patch="/vendors/{{vendor.vendor_id}}/edit" hx-target="#main">
+  <div>
+    <label class="inline-block font-semibold">Name: </label>
+    <input class="text-gray-500 rounded mb-2" type="text" name="vendor_first_name" value="{{vendor.vendor_first_name}}" autofocus />
+    <input class="text-gray-500 rounded mb-2" type="text" name="vendor_last_name" value="{{vendor.vendor_last_name}}" />
+  </div>
+  <div>
+    <label class="inline-block font-semibold">Trade: </label>
+    <select class="text-gray-500 rounded mb-2" name="vendor_trade">
       <option value="{{vendor.vendor_trade}}" disabled selected hidden>{{vendor.vendor_trade}}</option>
       <option value="Electrical">Electrical</option>
       <option value="Flooring">Flooring</option>
@@ -14,15 +14,17 @@
       <option value="Plumbing">Plumbing</option>
       <option value="Roofer">Roofer</option>
     </select>
-    </div>
-    <div>
-      <label class="inline-block font-semibold">Phone: </label>
-      <input type="text" name="vendor_phone" value="{{vendor.vendor_phone}}"/>
-    </div>
-    <div>
-      <label class="inline-block font-semibold">Email: </label>
-      <input type="email" name="vendor_email" value="{{vendor.vendor_email}}">
-    </div>
-    <button type="submit">Submit</button>
-    <button hx-get="/vendors/{{vendor.vendor_id}}" hx-target="#main">Cancel</button>
-  </form>
+  </div>
+  <div>
+    <label class="inline-block font-semibold ">Phone: </label>
+    <input class="text-gray-500 rounded mb-2" type="text" name="vendor_phone" value="{{vendor.vendor_phone}}" />
+  </div>
+  <div>
+    <label class="inline-block font-semibold">Email: </label>
+    <input class="text-gray-500 rounded mb-2" type="email" name="vendor_email" value="{{vendor.vendor_email}}">
+  </div>
+  <div class="my-5">
+  <button class="rounded bg-blue-400 px-2 hover:bg-green-400 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700" type="submit">Submit</button>
+  <button class="rounded bg-blue-400 px-2 hover:bg-red-400 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700" hx-get="/vendors/{{vendor.vendor_id}}" hx-target="#main">Cancel</button>
+  </div>
+</form>
