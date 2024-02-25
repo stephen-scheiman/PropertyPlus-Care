@@ -41,10 +41,10 @@ async function findOpenTasksByDueDate() {
         { is_done: false }
       ]
     },
-    include: [{
-      model: Property,
-      attributes: ['property_id', 'property_name']
-    }],
+    include: [
+      { model: Property, attributes: ["property_name"] },
+      { model: Issue, attributes: ["issue_title"] },
+    ],
   });
 
   const tasks = taskData.map(e => e.toJSON());
