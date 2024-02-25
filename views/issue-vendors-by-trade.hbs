@@ -1,7 +1,14 @@
-<label for="vendor_id">Vendor:</label>
-<select name="vendor_id" id="vendors" form="assignVendorsForm" class="text-black">
-  {{#each vendors}}
-  <option value="{{vendor_id}}">{{vendor_first_name}} {{vendor_last_name}}</option>
-  {{/each}}
-</select>
-<button type="submit" class="bg-green-600 border-2 rounded-lg border-white px-2">Add Vendor</button>
+{{#if isEmpty}}
+  <label for="vendor_id">Vendor:</label>
+  <select name="vendor_id" id="vendors" disabled class="text-black">
+    <option value="">No vendor found</option>
+  </select>
+{{else}}
+  <label for="vendor_id">Vendor:</label>
+  <select name="vendor_id" id="vendors" class="text-black">
+    {{#each vendors}}
+    <option value="{{vendor_id}}">{{vendor_first_name}} {{vendor_last_name}} ({{vendor_trade}})</option>
+    {{/each}}
+  </select>
+  <button type="submit" class="bg-green-600 border-2 rounded-lg border-white px-2">Add Vendor</button>
+{{/if}}

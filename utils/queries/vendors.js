@@ -41,6 +41,18 @@ async function findVendorsByTrade(vendor_trade) {
   return vendors;
 }
 
+async function findVendorsByTradeNotIssue(id, vendor_trade) {
+  const vendorsData = vendor_trade === 'All'
+    ? await Vendor.findAll({ include: [{ model: Issue, attributes: ['issue_id'] }] })
+    : await Vendor.findAll({
+        where: { vendor_trade },
+        include: [{ model: Issue, attributes:['issue_id']}]
+      })
+
+  const vendors = vendorsData.map(e => e.toJSON());
+  return vendors.filter(vendor => !vendor.issues.some(issue => issue.issue_id === id));
+}
+
 async function createVendor(vendorData) {
   const vendor = await Vendor.create(vendorData);
 
@@ -110,4 +122,5 @@ module.exports = {
   updateVendor,
   addIssueToVendor,
   searchVendors,
+  findVendorsByTradeNotIssue,
 };

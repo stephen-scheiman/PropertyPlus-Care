@@ -11,7 +11,7 @@ const {
   searchIssues,
   addVendorToIssue
 } = require("../utils/queries/issues");
-const { findVendorsByTrade } = require("../utils/queries/vendors");
+const { findVendorsByTradeNotIssue } = require("../utils/queries/vendors");
 
 async function renderOpenIssues(req, res) {
   const issues = await findOpenIssues();
@@ -121,27 +121,22 @@ async function renderDeletedIssue(req, res) {
 }
 
 async function renderVendorsByTrade(req, res) {
+  const { id: issue_id } = req.params;
   const { vendor_trade } = req.query;
-  console.log(vendor_trade);
 
-  const vendors = await findVendorsByTrade(vendor_trade)
+  const vendors = await findVendorsByTradeNotIssue(+issue_id, vendor_trade)
+  let isEmpty = false;
 
-  res.status(200).render("issue-vendors-by-trade", { vendors, layout: false });
+  if (vendors.length === 0) {
+    isEmpty = true;
+    return res.status(200).render("issue-vendors-by-trade", { vendors, isEmpty, layout: false });
+  }
+  return res.status(200).render("issue-vendors-by-trade", { vendors, isEmpty, layout: false });
 }
 
 async function renderAddVendor(req, res) {
-  console.log("\n ---------- \n");
-  // console.log(req);
-  console.log(req.body);
-  console.log(req.params);
-  console.log("\n ---------- \n");
   const issue_id = req.params.id;
   const { vendor_id } = req.body;
-
-  console.log("\n ---------- \n");
-  console.log(issue_id);
-  console.log(vendor_id);
-  console.log("\n ---------- \n");
 
   const result = await addVendorToIssue(issue_id, vendor_id);
 

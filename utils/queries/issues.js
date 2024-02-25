@@ -55,12 +55,8 @@ async function findOpenIssuesVendor(id) {
   })
 
   const issues = issuesData.map(e => e.toJSON());
-  // console.log(issues);
-  // console.log(id);
-  // console.log(issues.filter(issue => !issue.Vendors.some(vendor => vendor.vendor_id === id)));
   return issues.filter(issue => !issue.Vendors.some(vendor => vendor.vendor_id === id));
 }
-// findOpenIssuesVendor(1);
 
 async function getIssuesByPropertyID(property_id) {
   const issues = await Issue.findAll({

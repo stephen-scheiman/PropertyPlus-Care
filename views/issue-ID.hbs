@@ -4,14 +4,14 @@
     <div>
       {{#if issue.issue_isDone}}
       <button name="issueDone" value="Re-Open" class="border-2 border-white rounded-lg px-2 bg-green-400 mt-8"
-        hx-patch="/issues/{{issue.issue_id}}/isDone" 
-        hx-target="#main" 
+        hx-patch="/issues/{{issue.issue_id}}/isDone"
+        hx-target="#main"
         hx-swap="innerHTML"
       >Re-Open</button>
       {{else}}
       <button name="issueDone" value="Complete" class="border-2 border-white rounded-lg px-2 bg-red-400 mt-8"
-        hx-patch="/issues/{{issue.issue_id}}/isDone" 
-        hx-target="#main" 
+        hx-patch="/issues/{{issue.issue_id}}/isDone"
+        hx-target="#main"
         hx-swap="innerHTML"
       >Mark Complete</button>
       {{/if}}
@@ -22,18 +22,18 @@
       >Delete Issue</button>
     </div>
   </div>
-  
+
   <h2 class="font-semibold text-xl mt-5">Property:
     <span class="font-normal text-lg">{{issue.property.property_name}}</span>
   </h2>
-  
+
   <div>
     <h3 class="font-semibold text-lg mt-2">Description: <span class="font-normal text-lg">{{issue.issue_description}}</span></h3>
     <h3 class="font-semibold text-lg mt-2">Vendors Assigned: <span class="font-normal text-lg">{{vendor.vendor_id}}</span></h3>
     <h4 class="font-semibold text-lg mt-2">Actions Taken:</h4>
     <ul>
       {{#each tasks}}
-      <li class="border-2 border-slate-400 border-solid rounded-lg px-2 my-1">        
+      <li class="border-2 border-slate-400 border-solid rounded-lg px-2 my-1">
           <p class="font-semibold mt-1">Task: <span class="font-normal text-base">{{task_name}}</span></p>
           <p class="font-semibold mt-1">Note: <span class="font-normal text-base">{{status_update}}</span></p>
           <p class="font-semibold mt-1">Follow-up Date:  <span class="font-normal text-base">{{format_date followUp_date}}</span></p>
@@ -43,14 +43,14 @@
           hx-swap="innerHTML">Re-Open</button>
         {{else}}
         <button name="isDone" value="Complete" class="border-2 border-white rounded-lg px-2 bg-green-500 my-1"
-          hx-patch="/issues/{{issue_id}}/tasks/{{task_id}}/isDone" 
-          hx-target="#main" 
+          hx-patch="/issues/{{issue_id}}/tasks/{{task_id}}/isDone"
+          hx-target="#main"
           hx-swap="innerHTML"
         >Mark Complete</button>
         {{/if}}
         <button name="deleteTask" value="{{task_id}}" class="border-2 border-white rounded-lg px-2 bg-red-400"
           hx-confirm="Are you sure you want to delete this task? This action cannot be undone."
-          hx-delete="/issues/{{issue_id}}/tasks/{{task_id}}" 
+          hx-delete="/issues/{{issue_id}}/tasks/{{task_id}}"
           hx-target="#main"
         >Delete Task</button>
       </li>
@@ -63,12 +63,13 @@
 
     <div>
       <label for="vendor_trade">Assign Vendor:</label>
-      <select class="text-black" name="vendor_trade" 
+      <select class="text-black" name="vendor_trade"
         hx-get="/issues/{{issue.issue_id}}/assign-vendor"
         hx-target="#assignVendorForm"
         hx-swap="innerHTML"
       >
         <option value="" disabled selected hidden>Pick a trade</option>
+        <option value="All">All Trade</option>
         <option value="Electrical">Electrical</option>
         <option value="Flooring">Flooring</option>
         <option value="Handyman">Handyman</option>
