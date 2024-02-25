@@ -9,6 +9,7 @@ const {
   updateIssueDone,
   deleteIssue,
   searchIssues,
+  addVendorToIssue
 } = require("../utils/queries/issues");
 const { findVendorsByTrade } = require("../utils/queries/vendors");
 
@@ -129,6 +130,11 @@ async function renderVendorsByTrade(req, res) {
 }
 
 async function renderAddVendor(req, res) {
+  console.log("\n ---------- \n");
+  console.log(`body: ${req.body}`);
+  console.log(`params: ${req.params}`);
+  console.log(`query: ${req.query}`);
+  console.log("\n ---------- \n");
   const issue_id = req.params.id;
   const { vendor_id } = req.body;
 
