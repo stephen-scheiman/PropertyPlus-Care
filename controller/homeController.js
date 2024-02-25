@@ -26,34 +26,34 @@ async function renderHome(req, res) {
 
 async function renderAside(req, res) {
   const { model } = req.query;
+  const isOob = true;
 
   console.log('\n\n', model, '\n\n');
 
   switch (model) {
     case 'task': {
       const tasks = await findOpenTasksByDueDate();
-      return res.status(200).render('task-aside', {tasks, layout: false});
+      return res.status(200).render('task-aside', {tasks, isOob, layout: false});
     }
 
     case 'issues': {
       const issues = await findOpenIssues();
-      const isOob = true;
       return res.status(200).render('issue-aside', { issues, isOob, layout: false });
     }
 
     case 'property': {
       const properties = await findProperties();
-      return res.status(200).render('property-aside', { properties, layout: false });
+      return res.status(200).render('property-aside', { properties, isOob, layout: false });
     }
 
     case 'vendor': {
       const vendors = await findAllVendors();
-      return res.status(200).render('vendor-aside', { vendors, layout: false });
+      return res.status(200).render('vendor-aside', { vendors, isOob, layout: false });
     }
 
     case 'owner': {
       const owners = await findOwners();
-      return res.status(200).render('owner-aside', { owners, layout: false });
+      return res.status(200).render('owner-aside', { owners, isOob, layout: false });
     }
 
     default:

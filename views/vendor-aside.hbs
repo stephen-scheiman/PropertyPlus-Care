@@ -21,7 +21,7 @@
 
 <button hx-get="/vendors/new" hx-target="#main">Add New Vendor</button>
 
-{{#unless isOob}}
+{{#if isOob}}
   <select
     name="vendor_trade"
     id="selectOption"
@@ -49,4 +49,4 @@
   hx-target="#aside"
   hx-trigger="input changed delay:300ms, search"
 />
-{{/unless}}
+{{/if}}

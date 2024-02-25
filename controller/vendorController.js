@@ -38,9 +38,7 @@ async function renderVendorsByTrade(req, res) {
 
   const vendors = vendor_trade === 'All' ? await findAllVendors() : await findVendorsByTrade(vendor_trade);
 
-  const isOob = req.headers['hx-trigger'] === 'selectOption' || req.headers['hx-trigger'] === 'searchBar';
-
-  res.status(200).render('vendor-aside', { vendors, isOob, layout: false });
+  res.status(200).render('vendor-aside', { vendors, layout: false });
 }
 
 async function renderNewVendorForm(req, res) {
@@ -214,9 +212,7 @@ async function renderVendorSearch(req, res) {
   const { search } = req.body;
   const vendors = await searchVendors(search.toLowerCase());
 
-  const isOob = req.headers['hx-trigger'] === 'selectOption' || req.headers['hx-trigger'] === 'searchBar';
-
-  res.status(200).render('vendor-aside', { vendors, isOob, layout: false });
+  res.status(200).render('vendor-aside', { vendors, layout: false });
 }
 
 module.exports = {
