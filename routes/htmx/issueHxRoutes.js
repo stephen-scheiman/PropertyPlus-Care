@@ -2,8 +2,8 @@ const router = require('express').Router();
 const c = require('../../controller/issueController');
 
 router.route('/')
-  .get(c.renderOpenIssues)
-  .post(c.renderNewIssue);
+  .get(c.renderOpenIssues);
+  // .post(c.renderNewIssue);
 
 // enter additional routes above the /id route as needed
 router.route('/whichIssues')
@@ -14,12 +14,15 @@ router.route('/search')
 
 router.route('/:id')
   .get(c.renderOneIssue)
-  .put(c.renderUpdatedIssue)
+  // .put(c.renderUpdatedIssue)
   .delete(c.renderDeletedIssue);
 
 router.route('/:id/assign-vendor')
   .get(c.renderVendorsByTrade)
   .patch(c.renderAddVendor);
+  
+router.route('/:id/unassign-vendor')
+  .patch(c.renderUnassignVendor);
 
 router.route('/:id/isDone')
   .patch(c.renderIsIssueDone);

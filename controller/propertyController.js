@@ -7,11 +7,11 @@ const {
   deleteProperty,
   updateProperty,
 } = require("../utils/queries/properties");
-const { findOwners, findOwnerById } = require('../utils/queries/owners');
+const { findOwners } = require("../utils/queries/owners");
 
 async function renderProperties(req, res) {
   const properties = await findProperties();
-  res.status(200).render('property-aside', { properties, layout: false });
+  res.status(200).render("property-aside", { properties, layout: false });
 }
 
 async function renderOneProperty(req, res) {
@@ -126,7 +126,9 @@ async function renderEditPropertyForm(req, res) {
   const p2 = findOwners();
   const [property, owners] = await Promise.all([p1, p2]);
 
-  res.status(200).render("property-form-edit", { property, owners, layout: false });
+  res
+    .status(200)
+    .render("property-form-edit", { property, owners, layout: false });
 }
 
 async function renderUpdatedProperty(req, res) {
@@ -193,25 +195,27 @@ async function renderUpdatedProperty(req, res) {
   // convert state abbreviation to upper case
   property_state = property_state.toUpperCase();
 
-  const property = await updateProperty(id,
-    {
-      property_name,
-      property_street,
-      property_city,
-      property_state,
-      property_zip,
-      owner_id,
-    },
-  );
-    res
-      .status(200)
-      .json({ msg: `Update property ID: ${id} succeeded` });
+  await updateProperty(id, {
+    property_name,
+    property_street,
+    property_city,
+    property_state,
+    property_zip,
+    owner_id,
+  });
+
+  const property = await findPropertyByID(id);
+
+  res
+    .status(200)
+    .set("hx-trigger", "update-owners")
+    .render("property-id", { property, layout: false });
 }
 
 async function renderDeletedProperty(req, res) {
   const { id: property_id } = req.params;
   const property = await deleteProperty(property_id);
-  res.status(200).set("hx-trigger", "update-properties").send('');
+  res.status(200).set("hx-trigger", "update-properties").send("");
 }
 
 module.exports = {
@@ -221,5 +225,5 @@ module.exports = {
   renderNewPropertyForm,
   renderEditPropertyForm,
   renderNewPropertiesList,
-  renderDeletedProperty
+  renderDeletedProperty,
 };
