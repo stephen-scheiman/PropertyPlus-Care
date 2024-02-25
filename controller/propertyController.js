@@ -7,26 +7,21 @@ const {
   deleteProperty,
   updateProperty,
 } = require("../utils/queries/properties");
-const {findOwners, findOwnerById } = require('../utils/queries/owners');
+const { findOwners, findOwnerById } = require('../utils/queries/owners');
 
 async function renderProperties(req, res) {
   const properties = await findProperties();
-  // console.log(properties);
-  // res.status(200).json({ owners });
   res.status(200).render('property-aside', { properties, layout: false });
 }
 
 async function renderOneProperty(req, res) {
   const { id } = req.params;
   const property = await findPropertyByID(id);
-  console.log(property);
-  //res.status(200).json({ owner });
   res.status(200).render("property-id", { property, layout: false });
 }
 
 async function renderNewPropertyForm(req, res) {
   const owners = await findOwners();
-
   res.status(200).render("property-form-new", { owners, layout: false });
 }
 
@@ -144,7 +139,7 @@ async function renderUpdatedProperty(req, res) {
     property_zip,
     owner_id,
   } = req.body;
-console.log(req.body);
+
   if (
     !(
       property_name &&
@@ -166,16 +161,13 @@ console.log(req.body);
     );
   }
 
-  //validate that the property name is unique
-  //
-  //commented out for update until discussed with team
-  //
-  // const propertyNames = await getAllProperties();
-  // for(x=0; x<propertyNames.length; x++){
-  //   if (property_name === propertyNames[x].property_name){
-  //     throw new BadRequestError("Please enter a unique property name")
-  //   }
-  // }
+  //validate that the property name is unique  
+  const propertyNames = await findProperties();
+  for(x=0; x<propertyNames.length; x++){
+    if (property_name === propertyNames[x].property_name){
+      throw new BadRequestError("Please enter a unique property name")
+    }
+  }
 
   //validate proper street address
   const streetPattern = /^[a-zA-Z0-9. ]+$/;
@@ -229,7 +221,6 @@ async function renderDeletedProperty(req, res) {
   const property = await deleteProperty(property_id);
   res.status(200).set("hx-trigger", "update-properties").send('');
 }
-
 
 module.exports = {
   renderProperties,

@@ -1,4 +1,4 @@
- <form
+<form
   class="flex flex-col"
   hx-patch="/properties/{{property.property_id}}/edit"
   hx-target="#main"
@@ -41,9 +41,16 @@
     />
 
     <select name="owner_id" class="text-gray-500">
-      <option value="{{property.owner.owner_id}}" disabled selected hidden>{{property.owner.owner_first_name}} {{property.owner.owner_last_name}}</option>
+      <option
+        value="{{property.owner.owner_id}}"
+        disabled
+        selected
+        hidden
+      >{{property.owner.owner_first_name}}
+        {{property.owner.owner_last_name}}</option>
       {{#each owners}}
-      <option value="{{owner_id}}">{{owner_first_name}} {{owner_last_name}}</option>
+        <option value="{{owner_id}}">{{owner_first_name}}
+          {{owner_last_name}}</option>
       {{/each}}
     </select>
 

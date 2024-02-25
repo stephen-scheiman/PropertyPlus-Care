@@ -3,7 +3,6 @@ const c = require('../../controller/propertyController');
 
 router.route('/')
   .get(c.renderProperties)
-  // .post(c.renderNewProperty);
 
 router.route('/new')
   .get(c.renderNewPropertyForm)

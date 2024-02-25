@@ -8,15 +8,12 @@ const { findOwners, findOwnerById } = require("../utils/queries/owners");
 
 async function renderOwners(req, res) {
   const owners = await findOwners();
-  console.log(owners);
-  // res.status(200).json({ owners });
   res.status(200).render('owner-aside', { owners, layout: false });
 }
 
 async function renderOneOwner(req, res) {
   const { id: owner_id } = req.params;
   const owner = await findOwnerById(owner_id);
-  //res.status(200).json({ owner });
   res.status(200).render("owner-id", { owner, layout: false });
 }
 
@@ -126,8 +123,6 @@ async function renderNewOwnersList(req, res) {
     owner_zip,
   });
 
-  //res.status(200).json({ msg: "created", newOwner });
-  //res.status(200).json("Owner created successfully!");
   res.status(200).set('hx-trigger', 'update-owners').render('owner-id', { owner, layout: false });
 }
 
@@ -200,15 +195,12 @@ async function renderUpdatedOwner(req, res) {
   }
 
   // validate that the email is unique
-
-  // Commenting out for now until we discuss update validation
-
-  // const ownerData = await getAllOwners();
-  // for(x=0; x<ownerData.length; x++){
-  //   if (owner_email === ownerData[x].owner_email){
-  //     throw new BadRequestError("A user with this email address already exists")
-  //   }
-  // }
+  const ownerData = await findOwners();
+  for(x=0; x<ownerData.length; x++){
+    if (owner_email === ownerData[x].owner_email){
+      throw new BadRequestError("A user with this email address already exists")
+    }
+  }
 
   if (!streetPattern.test(owner_street)) {
     throw new BadRequestError("Please enter a valid street address");
