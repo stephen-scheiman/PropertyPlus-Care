@@ -1,27 +1,36 @@
-<main>
-  <h2>Owner: {{owner.owner_first_name}} {{owner.owner_last_name}}</h2>
-  <h3>Address: {{owner.owner_street}}</h3>
-  <h3>{{owner.owner_city}},
-    {{owner.owner_state}}
-    {{owner.owner_zip}}</h3>
-  <h3>Owner Phone:{{owner.owner_phone}}</h3>
-  <button
-    name="deleteOwner"
-    value="Delete Owner"
-    class="rounded-lg border-2 border-slate-300 bg-red-700 px-2"
-    hx-delete="/owners/{{owner.owner_id}}"
-    hx-target="#main"
-    hx-confirm="Are you sure you want to delete this owner? This action cannot be undone."
-  >Delete</button>
+<main class="m-4 rounded bg-white/30 px-4 text-white backdrop-blur-md">
+  <h2 class="mb-5 text-4xl font-bold">Owner Information: </h2>
+  <div id="ownerInfo">
+    <div>
+      <label class="inline-block font-semibold">Name:
+        <span class="font-normal">{{owner.owner_first_name}}</span></label>
+      <label>{{owner.owner_last_name}}</label>
+    </div>
+    <div>
+      <label class="inline-block font-semibold">Address:
+        <span class="font-normal">{{owner.owner_street}}</span></label>
+        <span class="font-normal">{{owner.owner_city}}, {{owner.owner_state}} {{owner.owner_zip}}</span></label>
+    </div>
+    <div>
+      <label class="inline-block font-semibold">Phone:
+        <span class="font-normal">{{owner.owner_phone}}</span></label>
+    </div>
+    <div>
+      <label class="inline-block font-semibold">Email:
+        <span class="font-normal">{{owner.owner_email}}</span></label>
+    </div>
+  </div>
+  <div class="my-5">
+    <button
+      class="rounded bg-blue-400 px-2 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
+      hx-get="/owners/{{owner.owner_id}}/edit" hx-target="#ownerInfo" hx-swap="outerHTML">Edit Owner</button>
+    <button
+      class="rounded bg-blue-400 px-2 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
+      hx-delete="/owners/{{owner.owner_id}}" hx-target="#main"
+      hx-confirm="Are you sure you want to delete this owner? This action cannot be undone.">Delete Owner</button>
 
-  <button
-    name="updateOwner"
-    value="Update Owner"
-    class="rounded-lg border-2 border-slate-300 bg-emerald-800 px-2"
-    hx-on:click="document.getElementById('owner-update').classList = 'visible', 'p-5' "
-    hx-target="#main"
-  >Update</button>
-  <div id="owner-update" class="hidden" class="p-5">
+  </div>
+  {{!-- <div id="owner-update" class="hidden" class="p-5">
     <form class="flex flex-col">
       <label for="owner_first_name">Owner First Name</label>
       <input
@@ -54,5 +63,5 @@
         hx-on:click="document.getElementById('owner-update').classList = 'hidden' "
       >Submit</button>
     </form>
-  </div>
+  </div> --}}
 </main>
