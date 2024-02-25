@@ -1,28 +1,28 @@
-<main class="w-full max-w-xs">
-  <h1 class="flex justify-center text-white">Please Enter Your Credentials</h1>
+<main>
+  <h1 class="flex justify-center text-white my-5">Please Enter Your Credentials</h1>
   <form
-    class="mb-4 flex flex-col justify-center rounded bg-white px-8 pb-8 pt-6 shadow-md"
+    class="m-80 flex flex-col content-center rounded bg-white/30 p-2 text-white backdrop-blur-md max-w-[25%] px-8 pb-8 pt-6 shadow-md"
     hx-post="/login"
     hx-target="#main"
     hx-push-url="true"
   >
     <label
-      class="mb-2 block text-sm font-bold text-gray-700"
+      class="mb-2 block text-sm font-bold text-white"
       for="user_email"
     >Email</label>
     <input
-      class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+      class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-500 shadow focus:outline-none"
       type="email"
       name="user_email"
       placeholder="example@example.com"
     />
     <div class="p-2"></div>
     <label
-      class="mb-2 block text-sm font-bold text-gray-700"
+      class="mb-2 block text-sm font-bold text-white"
       for="user_password"
     >Password</label>
     <input
-      class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+      class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-500 shadow focus:outline-none"
       type="password"
       name="user_password"
       placeholder="**********"
@@ -33,7 +33,7 @@
       type="submit"
     >Login</button>
   </form>
-  <a href="/signup">Register for Account</a>
+  <a href class="flex justify-center text-white my-5" ="/signup">Register for Account</a>
 </main>
 
 {{! <div class="w-full max-w-xs">
