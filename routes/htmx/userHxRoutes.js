@@ -3,9 +3,9 @@ const c = require('../../controller/userController');
 
 router.route('/')
   .get(c.renderCurrentUser)
-  .patch(c.renderUserEditForm)
+  .patch(c.renderEditedUser)
 
-router.route('/:id/edit')
+router.route('/edit')
+  .get(c.renderUserEditForm)
 
-
-module.exports = router;
+module.exports = router; 

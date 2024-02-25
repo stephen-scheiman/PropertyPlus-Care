@@ -1,6 +1,6 @@
 const { User } = require('../models');
 const { BadRequestError, NotFoundError } = require('../utils/errors');
-const { userLogin, createUser, findUserByPk } = require('../utils/queries/users')
+const { updateUser, userLogin, createUser, findUserByPk } = require('../utils/queries/users')
 
 async function renderLoginForm(req, res) {
   // If the user is already logged in, redirect the request to another route
@@ -63,8 +63,23 @@ async function renderCurrentUser(req, res) {
   res.status(200).render('user-id', { user, layout: false });
 };
 
-async function renderUserEditForm(req, res) {
+function renderUserEditForm(req, res) {
+  res.status(200).render('user-form-edit', { layout: false });
+}
 
+async function renderEditedUser(req, res) {
+  const { user_id } = req.session;
+  const { user_email, user_name, user_password } = req.body;
+  const userData = {};
+
+  if (user_email) { userData.user_email = user_email };
+  if (user_name) { userData.user_name = user_name };
+  if (user_password) { userData.user_password = user_password };
+
+  const result = await updateUser(user_id, userData);
+  const user = await findUserByPk(user_id);
+
+  res.status(200).render('user-id', { user, layout: false});
 }
 
 module.exports = {
@@ -75,4 +90,5 @@ module.exports = {
   renderLoggedOut,
   renderCurrentUser,
   renderUserEditForm,
+  renderEditedUser,
 };

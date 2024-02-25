@@ -38,9 +38,20 @@ async function findUserByPk(user_id) {
   return userData.toJSON();
 }
 
+async function updateUser(user_id, userData) {
+  const result = await User.update(userData, { where: { user_id }, individualHooks: true });
+
+  if (!result[0]) {
+    throw new InternalServerError(`Couldn't update user with ${userData}`);
+  }
+
+  return result;
+}
+
 module.exports = {
   userLogin,
   createUser,
   findUserByPk,
-  
+  updateUser,
+
 }

@@ -1,6 +1,6 @@
 <form
   class="flex flex-col text-white"
-  hx-patch="/users/{{user.user_id}}/edit"
+  hx-patch="/users"
   hx-target="#main"
 >
   <div>
@@ -18,10 +18,18 @@
     <label class="inline-block font-semibold">Email: </label>
     <input
       class="mb-2 rounded text-gray-500"
-      type="text"
+      type="email"
       name="user_email"
       value="{{user.user_email}}"
     />
   </div>
+
+  <div>
+    <label for="user_password">Password: </label>
+    <input type="password" name="user_password">
+  </div>
+
+  <button type="submit">Submit</button>
+  <button>Cancel</button>
 
 </form>
