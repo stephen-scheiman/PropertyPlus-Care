@@ -15,9 +15,9 @@
   </head>
   <body class="text-white bg-[url('/img/bg.jpeg')] bg-cover bg-no-repeat">
     
-    <header class="fixed inline right-0 max-h-10 max-w-10 p-3 mr-4">
-      <a href="./">
-        <i class="fa-regular fa-user"></i>
+    <header class="float-right max-h-10 max-w-10-">
+      <a class="m-6" href="./">
+        <i class="fa-regular fa-user object-right-top pt-4 p-1"></i>
         Account
       </a>
     </header>
@@ -31,7 +31,6 @@
           hx-trigger="click, change, update-aside from:body"
           hx-push-url="true"
         >
-        {{!-- <h1>Navigate:</h1> --}}
           <option value="task" selected="selected=">Tasks</option>
           <option value="issues">Issues</option>
           <option value="property">Properties</option>
