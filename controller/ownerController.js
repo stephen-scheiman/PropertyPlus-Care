@@ -6,7 +6,7 @@ const {
 } = require("../utils/errors");
 const { findOwners, findOwnerById } = require("../utils/queries/owners");
 
-async function renderAllOwners(req, res) {
+async function renderOwners(req, res) {
   const owners = await findOwners();
   console.log(owners);
   // res.status(200).json({ owners });
@@ -240,7 +240,7 @@ async function renderUpdatedOwner(req, res) {
     owner_zip,
   });
 
-  res.status(200).json({ msg: "updated", owner });
+  res.status(200).json({ msg: `Update owner ID: ${owner_id} succeeded` });
 }
 
 async function renderDeletedOwner(req, res) {
@@ -283,7 +283,7 @@ async function deleteOwner(owner_id) {
 
 module.exports = {
   renderOneOwner,
-  renderAllOwners,
+  renderOwners,
   renderNewOwnersList,
   renderUpdatedOwner,
   renderDeletedOwner,

@@ -2,7 +2,7 @@ const router = require('express').Router();
 const c = require('../../controller/ownerController');
 
 router.route('/')
-  .get(c.renderAllOwners)
+  .get(c.renderOwners)
   // .post(c.renderNewOwner);
 
 router.route('/new')
