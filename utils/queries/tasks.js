@@ -1,5 +1,7 @@
+const e = require("express");
 const { Property, Issue, Task } = require("../../models");
 const { InternalServerError } = require("../errors");
+const { Op } = require('sequelize');
 
 async function findOpenTasks() {
   const tasks = await Task.findAll({
@@ -28,6 +30,24 @@ async function findTasksByIssueID(issue_id) {
     throw new InternalServerError("Couldn't find tasks");
   };
   // console.log(tasks);
+  return tasks;
+}
+
+async function findOpenTasksByDueDate() {
+  const taskData = await Task.findAll({
+    where: {
+      [Op.and]: [
+        { followUp_date: { [Op.lte]: Date.now() } },
+        { is_done: false }
+      ]
+    },
+    include: [{
+      model: Property,
+      attributes: ['property_id', 'property_name']
+    }],
+  });
+
+  const tasks = taskData.map(e => e.toJSON());
   return tasks;
 }
 
@@ -110,5 +130,6 @@ module.exports = {
   createTask,
   // updateTask,
   deleteTask,
-  updateIsDone
+  updateIsDone,
+  findOpenTasksByDueDate,
 }
