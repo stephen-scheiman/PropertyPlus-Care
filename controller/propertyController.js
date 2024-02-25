@@ -161,14 +161,6 @@ async function renderUpdatedProperty(req, res) {
     );
   }
 
-  //validate that the property name is unique  
-  const propertyNames = await findProperties();
-  for(x=0; x<propertyNames.length; x++){
-    if (property_name === propertyNames[x].property_name){
-      throw new BadRequestError("Please enter a unique property name")
-    }
-  }
-
   //validate proper street address
   const streetPattern = /^[a-zA-Z0-9. ]+$/;
   if (!streetPattern.test(property_street)) {
