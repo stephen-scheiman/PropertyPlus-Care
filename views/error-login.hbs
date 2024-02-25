@@ -1,0 +1,40 @@
+<main>
+  <h1 class="my-5 flex justify-center text-white">Please Enter Your Credentials</h1>
+  <form
+    class="m-80 flex max-w-[25%] flex-col content-center rounded bg-white/30 p-2 px-8 pb-8 pt-6 text-white shadow-md backdrop-blur-md"
+    hx-post="/login"
+    hx-target="#main"
+    hx-push-url="true"
+  >
+    <label
+      class="mb-2 block text-sm font-bold text-white"
+      for="user_email"
+    >Email</label>
+    <input
+      class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-500 shadow focus:outline-none mb-2"
+      type="email"
+      name="user_email"
+      placeholder="example@example.com"
+    />
+
+    <label
+      class="mb-2 block text-sm font-bold text-white"
+      for="user_password"
+    >Password</label>
+    <input
+      class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-500 shadow focus:outline-none mb-2"
+      type="password"
+      name="user_password"
+      placeholder="**********"
+    />
+
+    <button
+      class="bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
+      type="submit"
+    >Login</button>
+
+    <div class="p-2 text-red-500">{{msg}}</div>
+  </form>
+  <a href="/signup" class="my-5 flex justify-center text-white">Register for
+    Account</a>
+</main>

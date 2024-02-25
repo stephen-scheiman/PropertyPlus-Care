@@ -6,7 +6,7 @@ async function userLogin(userData) {
   const user = await User.findOne({ where: {user_email: userData.user_email}});
 
   if (!user) {
-    throw new BadRequestError("Incorrect email or password, please try again or register a new account");
+    throw new BadRequestError('login', "Incorrect email or password, please try again or register a new account");
   }
 
   const validPassword = await user.checkPassword(userData.user_password);
