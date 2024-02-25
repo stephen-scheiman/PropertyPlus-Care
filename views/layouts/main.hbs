@@ -22,7 +22,7 @@
       </a>
     </header>
 
-    <div class="flex w-[95%] m-auto justify-around">
+    <aside class="flex w-[95%] m-auto justify-around">
       <div class="w-[20%]">
         <select class="text-gray-400 mt-5"
           name="model"
@@ -38,14 +38,17 @@
           <option value="vendor">Vendors</option>
           <option value="owner">Owners</option>
         </select>
-        <div id="selectOption"></div>
         <div id="searchBar"></div>
-        <aside class="overflow-auto max-h-[80vh]" id="aside">{{{body}}}</aside>
+        <div>
+          <div id="asideTitle"></div>
+          <div id="selectOption"></div>
+        </div>
+        <div class="overflow-auto max-h-[80vh]" id="aside">{{{body}}}</div>
 
       </div>
 
       <div id="main" class="w-[75%] mt-16 max-h-[80vh]"></div>
-    </div>
+    </aside>
 
     <footer
       class="fixed bottom-0 flex w-screen bg-slate-500 text-center align-bottom sm:hidden"
