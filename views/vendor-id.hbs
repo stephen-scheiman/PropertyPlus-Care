@@ -1,5 +1,5 @@
-<main class="m-4 rounded bg-white/30 px-4 text-white backdrop-blur-md">
-  <h2 class="mb-5 text-4xl font-bold">Vendor Information: </h2>
+<main class="m-4 rounded bg-white/30 p-4 text-white backdrop-blur-md">
+  <h2 class="mb-3 text-4xl font-bold">Vendor Information: </h2>
   <div id="vendorInfo">
     <div>
       <label class="inline-block font-semibold">Name:
@@ -19,12 +19,7 @@
         <span class="font-normal">{{vendor.vendor_email}}</span></label>
     </div>
   </div>
-  <select class="mt-2 text-gray-400" name="issue_id" hx-post="/vendors/{{vendor.vendor_id}}/issues" hx-target="#main">
-    <option value="" disabled selected hidden>Assign Existing Issue to Vendor</option>
-    {{#each issues}}
-    <option value="{{issue_id}}">{{issue_title}}</option>
-    {{/each}}
-  </select>
+
   <div class="my-5">
     <button
       class="rounded bg-blue-400 px-2 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
@@ -34,7 +29,13 @@
       hx-delete="/vendors/{{vendor.vendor_id}}" hx-target="#main"
       hx-confirm="Are you sure you want to delete this vendor? This action cannot be undone.">Delete Vendor</button>
   </div>
-
+  <select class="rounded mt-2 text-gray-400" name="issue_id" hx-post="/vendors/{{vendor.vendor_id}}/issues" hx-target="#main">
+    <option value="" disabled selected hidden>Assign Existing Issue to Vendor</option>
+    {{#each issues}}
+    <option value="{{issue_id}}">{{issue_title}}</option>
+    {{/each}}
+  </select>
+  <br>
   <ul class="inline-block pb-3 pt-3 font-semibold">Assigned Issues:
     {{#each vendor.issues}}
     <li class="border-2 border-black" hx-get="/issues/{{issue_id}}" hx-target="#main" hx-push-url="true">
