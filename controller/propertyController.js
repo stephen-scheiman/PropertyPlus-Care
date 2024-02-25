@@ -123,7 +123,7 @@ async function renderEditPropertyForm(req, res) {
 }
 
 async function renderUpdatedProperty(req, res) {
-  const property_id = req.params.id;
+  const id = req.params.id;
   let {
     property_name,
     property_street,
@@ -197,7 +197,7 @@ console.log(req.body);
   // convert state abbreviation to upper case
   property_state = property_state.toUpperCase();
 
-  const property = await updateProperty(id, //BUG HERE!!!!
+  const property = await updateProperty(id,
     {
       property_name,
       property_street,
@@ -209,7 +209,7 @@ console.log(req.body);
   );
     res
       .status(200)
-      .json({ msg: `Update property ID: ${property_id} succeeded` });
+      .json({ msg: `Update property ID: ${id} succeeded` });
 }
 
 async function renderDeletedProperty(req, res) {
@@ -240,22 +240,14 @@ async function updateProperty(property_id, propertyData) {
   return property;
 }
 
-async function deleteProperty(req, res) {
-  const property_id = req.params.id;
+async function deleteProperty(property_id) {
+  const property = await Property.destroy({ where: { property_id } });
 
-  const propDelData = await Property.destroy({
-    where: {
-      property_id,
-    },
-  });
-
-  if (!propDelData) {
-    throw new BadRequestError("Delete property failed");
-  } else {
-    res
-      .status(200)
-      .json({ msg: `Delete property ID: ${property_id} succeeded` });
+  if (!property) {
+    throw new InternalServerError(`Couldn't delete owner with id ${property_id}`);
   }
+
+  return property;
 }
 
 module.exports = {
