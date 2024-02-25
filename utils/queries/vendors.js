@@ -60,7 +60,7 @@ async function createVendor(vendorData) {
     throw new InternalServerError(`New Vendor creation failed. ${vendorData}`);
   }
   // console.log(vendor);
-  return vendor;
+  return vendor.toJSON();
 }
 
 //delete vendor

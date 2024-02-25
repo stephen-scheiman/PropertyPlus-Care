@@ -118,8 +118,7 @@ async function renderNewVendorsList(req, res) {
   });
   const p2 = findOpenIssues();
 
-  const [result, issues] = await Promise.all([p1, p2]);
-  const vendor = result.toJSON();
+  const [vendor, issues] = await Promise.all([p1, p2]);
 
   res.status(200).set('hx-trigger', 'update-vendors').render('vendor-id', { vendor, issues, layout: false });
 }
