@@ -1,24 +1,20 @@
 const { Property, Owner, Issue } = require('../../models');
 const { InternalServerError, NotFoundError } = require('../errors');
 
-async function getAllProperties() {
+async function findProperties() {
   const properties = await Property.findAll({
     include: [{
       model: Owner,
     }],
-    // raw: true,
-    // nest: true
   });
 
   if (!properties) {
     throw new NotFoundError(`Couldn't find properties`);
   }
-
-  // console.log(properties.map(e => e.toJSON()));
   return properties.map(e => e.toJSON());
 };
 
-async function getPropertyByID(property_id) {
+async function findPropertyByID(property_id) {
   const property = await Property.findByPk(property_id, {
     include: [
       { model: Owner },
@@ -26,17 +22,14 @@ async function getPropertyByID(property_id) {
         where: {
           property_id
         },
-        // attributes: { exclude: ['createdAt', 'updatedAt']}
       }
     ],
-    // raw: true,
-    // nest:true
   });
 
   if (!property) {
     throw new NotFoundError(`Couldn't find property with id ${property_id}`);
   }
- // console.log(property.toJSON());
+  console.log(property.toJSON())
   return property.toJSON();
 };
 
@@ -71,8 +64,8 @@ async function deleteProperty(property_id) {
 };
 
 module.exports = {
-  getAllProperties,
-  getPropertyByID,
+  findProperties,
+  findPropertyByID,
   createProperty,
   updateProperty,
   deleteProperty,

@@ -1,46 +1,27 @@
-
-  <button hx-on:click="document.getElementById('modal-property').showModal()">Add New Property</button>
+<main>
+  <button hx-get="/properties/new" hx-target="#main">Add New Property</button>
   <h1 class="mx-4 mb-5 pt-5 text-4xl font-bold">Properties</h1>
-  <ul>
-    {{#each properties}}
-    <li class="backdrop-blur-sm bg-white/30 m-4 p-2 text-white rounded cursor-pointer"
-    
-    hx-get="/properties/{{property_id}}"
-    hx-target="#main"
-    hx-trigger="click"
-    >
-      <h2>{{property_name}}</h2>
-      <p>{{property_street}}</p>
-      <p>{{property_city}}, {{property_state}} {{property_zip}}</p>
-      <p hx-on:click="document.getElementById('modal-owner-{{owner_id}}').showModal()">{{owner.owner_first_name}} {{owner.owner_last_name}}</p>
-    </li>
-    <dialog id="modal-owner-{{owner_id}}">
-      <h2>{{owner.owner_first_name}} {{owner.owner_last_name}}</h2>
-      <p>{{owner.owner_phone}}</p>
-      <p>{{owner.owner_email}}</p>
-    </dialog>
+  <ul
+    id="propertiesList"
+    hx-trigger="update-list from:body"
+    hx-get="/properties"
+    hx-target="#aside"
+  >
+    {{#each properties as |property|}}
+      <li
+        class="m-4 cursor-pointer rounded bg-white/30 p-2 text-white backdrop-blur-sm"
+        hx-get="/properties/{{property_id}}"
+        hx-target="#main"
+        hx-trigger="click"
+        hx-boost="true"
+        hx-push-url="true"
+      >
+        <h2 hx-target="closest li">{{property_name}}</h2>
+        <p hx-target="closest li">{{property_street}}</p>
+        <p hx-target="closest li">{{property_city}}</p>
+        <p hx-target="closest li">{{property_state}}</p>
+        <p hx-target="closest li">{{property_zip}}</p>
+      </li>
     {{/each}}
   </ul>
-  <dialog class="p-5" id="modal-property">
-    <button hx-on:click="document.getElementById('modal-property').close()">Close</button>
-    <form class="flex flex-col">
-      <label for="property_name">Property Name</label>
-      <input type="text" name="property_name">
-      <label for="property_street">Property Street</label>
-      <input type="text" name="property_street">
-      <label for="property_city">Property City</label>
-      <input type="text" name="property_city">
-      <label for="property_state">Property State</label>
-      <input type="text" name="property_state">
-      <label for="property_zip">Property Zip</label>
-      <input type="text" name="property_zip">
-      <select name="owner_id">
-        <option selected="Selected">None</option>
-        {{#each owners}}
-        <option value="{{owner.owner_id}}">{{owner.owner_first_name}} {{owner.owner_last_name}}</option>
-        {{/each}}
-        <option>+ Create New Owner</option>
-      </select>
-      <button type="submit">Submit</button>
-    </form>
-  </dialog>
+</main>

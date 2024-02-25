@@ -10,57 +10,15 @@
       crossorigin="anonymous"
     />
     <title>PropertyPlus Care</title>
-    <link rel="icon" type="image/x-icon" href="/public/img/favicon.png">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <script src="/js/htmx.min.js"></script>
   </head>
-  <body class="bg-[#085394] text-slate-300">
-    <header class="fixed right-0 max-h-10 max-w-10 sm:hidden">
-      <a href="./help.hbs">
-        <img src="/img/questionmark.png" alt="question mark" />
-      </a>
+  <body class="text-white bg-[url('/img/bg.jpeg')] bg-cover bg-no-repeat">
+    
+    <header>
+    <img class="float-left" src="/img/Logo.png" alt="logo">
     </header>
 
     <div id="main" class="w-[75%]">{{{body}}}</div>
-
-    <footer
-      class="fixed bottom-0 flex w-screen bg-slate-500 text-center align-bottom sm:hidden"
-    >
-      <nav class="m-auto w-screen py-1.5">
-        <ul class="flex max-w-screen-sm justify-around">
-          <li><i
-              hx-get="/test/pg1"
-              hx-trigger="click"
-              hx-swap="innerHTML"
-              hx-target="#test"
-              hx-push-url="true"
-              class="fa-regular fa-calendar fa-3x"
-            ></i></li>
-          <li><i
-              hx-get="/test/pg2"
-              hx-trigger="click"
-              hx-swap="innerHTML"
-              hx-target="#test"
-              hx-push-url="true"
-              class="fa-regular fa-square-check fa-3x"
-            ></i></li>
-          <li><i
-              hx-get="/test/pg3"
-              hx-trigger="click"
-              hx-swap="innerHTML"
-              hx-target="#test"
-              hx-push-url="true"
-              class="fa-regular fa-house fa-3x"
-            ></i></li>
-          <li><i
-              hx-get="/test/pg4"
-              hx-trigger="click"
-              hx-swap="innerHTML"
-              hx-target="#test"
-              hx-push-url="true"
-              class="fa-regular fa-user-helmet-safety fa-3x"
-            ></i></li>
-        </ul>
-      </nav>
-    </footer>
   </body>
 </html>

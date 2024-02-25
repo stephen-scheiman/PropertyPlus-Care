@@ -1,0 +1,25 @@
+<main class="m-4 rounded bg-white/30 px-4 text-white backdrop-blur-md">
+  <form
+    class="flex flex-col text-gray-600"
+    hx-post="/owners/new"
+    hx-target="#main"
+  >
+    <label for="owner_first_name">First Name:</label>
+    <input type="text" name="owner_first_name" autofocus />
+    <label for="owner_last_name">Last Name:</label>
+    <input type="text" name="owner_last_name" />
+    <label for="owner_street">Owner Street Address:</label>
+    <input type="text" name="owner_street" />
+    <label for="owner_city">Owner City:</label>
+    <input type="text" name="owner_city" />
+    <label for="owner_state">Owner State:</label>
+    <input type="text" name="owner_state" />
+    <label for="owner_zip">Owner Zip:</label>
+    <input type="text" name="owner_zip" />
+    <label for="owner_email">Email:</label>
+    <input type="email" name="owner_email" />
+    <label for="owner_phone">Phone Number:</label>
+    <input type="text" name="owner_phone" />
+    <button class="my-5" type="submit">Submit</button>
+  </form>
+</main>

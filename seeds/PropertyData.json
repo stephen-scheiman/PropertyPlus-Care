@@ -3,7 +3,7 @@
     "property_name": "Bohemian Bungalow",
     "property_street": "123 Bohemian Drive",
     "property_city": "Oaktown",
-    "property_state": "California",
+    "property_state": "CA",
     "property_zip": "94541",
     "owner_id": "1"
   },
@@ -11,7 +11,7 @@
     "property_name": "Serenity Now",
     "property_street": "123 Peaceful Drive",
     "property_city": "Monterey",
-    "property_state": "California",
+    "property_state": "CA",
     "property_zip": "95316",
     "owner_id": "2"
   },
@@ -19,7 +19,7 @@
     "property_name": "Sarah's Tranquil Condo",
     "property_street": "123 Flowy Drive",
     "property_city": "Pinole",
-    "property_state": "California",
+    "property_state": "NY",
     "property_zip": "94534",
     "owner_id": "3"
   },
@@ -27,7 +27,7 @@
     "property_name": "Somewhere Over the Rainbow",
     "property_street": "123 Pot'o'Gold Drive",
     "property_city": "Clovertown",
-    "property_state": "California",
+    "property_state": "NJ",
     "property_zip": "94587",
     "owner_id": "4"
   },
@@ -35,7 +35,7 @@
     "property_name": "Treehouse",
     "property_street": "123 Redwood Drive",
     "property_city": "Big sur",
-    "property_state": "California",
+    "property_state": "AL",
     "property_zip": "98736",
     "owner_id": "5"
   }

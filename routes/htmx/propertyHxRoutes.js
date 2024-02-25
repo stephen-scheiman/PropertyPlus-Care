@@ -3,12 +3,19 @@ const c = require('../../controller/propertyController');
 
 router.route('/')
   .get(c.renderProperties)
-  .post(c.createProperty)
+  // .post(c.renderNewProperty);
 
+router.route('/new')
+  .get(c.renderNewPropertyForm)
+  .post(c.renderNewPropertiesList);
 
 router.route('/:id')
   .get(c.renderOneProperty)
-  .patch(c.updateProperty)
-  .delete(c.deleteProperty)
+  .patch(c.renderUpdatedProperty)
+  .delete(c.renderDeletedProperty);
+
+  router.route('/:id/edit')
+  .get(c.renderEditPropertyForm)
+  .patch(c.renderUpdatedProperty)
 
 module.exports = router;

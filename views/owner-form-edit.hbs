@@ -1,0 +1,78 @@
+<form
+  class="flex flex-col text-white"
+  hx-patch="/owners/{{owner.owner_id}}/edit"
+  hx-target="#main"
+>
+  <div>
+    <label class="inline-block font-semibold">Owner Name: </label>
+    <input
+      class="mb-2 rounded text-gray-500"
+      type="text"
+      name="owner_first_name"
+      value="{{owner.owner_first_name}}"
+      autofocus
+    />
+    <input
+      class="mb-2 rounded text-gray-500"
+      type="text"
+      name="owner_last_name"
+      value="{{owner.owner_last_name}}"
+    />
+  </div>
+  <div>
+    <label class="inline-block font-semibold">Owner Address: </label>
+    <input
+      class="mb-2 rounded text-gray-500"
+      type="text"
+      name="owner_street"
+      value="{{owner.owner_street}}"
+    />
+    <input
+      class="mb-2 rounded text-gray-500"
+      type="text"
+      name="owner_city"
+      value="{{owner.owner_city}}"
+    />
+    <input
+      class="mb-2 rounded text-gray-500"
+      type="text"
+      name="owner_state"
+      value="{{owner.owner_state}}"
+    />
+    <input
+      class="mb-2 rounded text-gray-500"
+      type="text"
+      name="owner_zip"
+      value="{{owner.owner_zip}}"
+    />
+  </div>
+  <div>
+    <label class="inline-block font-semibold">Owner Phone: </label>
+    <input
+      class="mb-2 rounded text-gray-500"
+      type="text"
+      name="owner_phone"
+      value="{{owner.owner_phone}}"
+    />
+  </div>
+  <div>
+    <label class="inline-block font-semibold">Owner Email: </label>
+    <input
+      class="mb-2 rounded text-gray-500"
+      type="email"
+      name="owner_email"
+      value="{{owner.owner_email}}"
+    />
+  </div>
+  <div class="my-5">
+    <button
+      class="rounded bg-blue-400 px-2 hover:bg-green-400 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
+      type="submit"
+    >Submit</button>
+    <button
+      class="rounded bg-blue-400 px-2 hover:bg-red-400 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
+      hx-get="/owners/{{owner.owner_id}}"
+      hx-target="#main"
+    >Cancel</button>
+  </div>
+</form>
