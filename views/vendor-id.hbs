@@ -30,10 +30,9 @@
       class="rounded bg-blue-400 px-2 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
       hx-get="/vendors/{{vendor.vendor_id}}/edit" hx-target="#vendorInfo" hx-swap="outerHTML">Edit Vendor</button>
     <button
-      class="rounded bg-blue-400 px-2 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
+      class="rounded bg-blue-400 px-2 hover:bg-red-400 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
       hx-delete="/vendors/{{vendor.vendor_id}}" hx-target="#main"
       hx-confirm="Are you sure you want to delete this vendor? This action cannot be undone.">Delete Vendor</button>
-
   </div>
 
   <ul class="inline-block pb-3 pt-3 font-semibold">Assigned Issues:
