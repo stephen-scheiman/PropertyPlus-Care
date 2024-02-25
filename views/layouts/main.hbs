@@ -29,7 +29,7 @@
           name="model"
           hx-get="/aside"
           hx-target="#aside"
-          hx-trigger="click, change, update-aside from:body"
+          hx-trigger="click, change throttle:100ms,"
           hx-push-url="true"
         >
           <option value="task" selected="selected=">Tasks</option>
