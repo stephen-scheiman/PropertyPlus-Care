@@ -28,7 +28,7 @@ async function renderNewTaskForm(req, res) {
   const property_id = ids[1];
 
   // send issue_id and property_id values to form for later use
-  res.status(200).render('new-task-form', { issue_id, property_id, layout: false });
+  res.status(200).render('task-form-new', { issue_id, property_id, layout: false });
 }
 
 // create task function

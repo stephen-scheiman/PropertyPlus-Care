@@ -14,6 +14,10 @@ router.route('/:id')
   .put(c.renderUpdatedIssue)
   .delete(c.renderDeletedIssue);
 
+router.route('/:id/assign-vendor')
+  .get(c.renderVendorsByTrade)
+  .patch(c.renderAddVendor);
+
 router.route('/:id/isDone')
   .patch(c.renderIsIssueDone);
 

@@ -9,6 +9,7 @@ const {
   updateIssueDone,
   deleteIssue,
 } = require("../utils/queries/issues");
+const { findVendorsByTrade } = require("../utils/queries/vendors");
 
 async function renderOpenIssues(req, res) {
   const issues = await findOpenIssues();
@@ -117,12 +118,21 @@ async function renderDeletedIssue(req, res) {
   res.status(200).send('');
 }
 
+async function renderVendorsByTrade(req, res) {
+  const { vendor_trade } = req.query;
+  console.log(vendor_trade);
+
+  const vendors = await findVendorsByTrade(vendor_trade)
+
+  res.status(200).render("issue-vendors-by-trade", { vendors, layout: false });
+}
+
 async function renderAddVendor(req, res) {
   const issue_id = req.params.id;
   const { vendor_id } = req.body;
 
   const result = await addVendorToIssue(issue_id, vendor_id);
-  res.status(200).json({ msg: "Vendor added", result });
+  res.status(200).render("issue-ID", { issues, layout: false });
 }
 
 async function renderIsTaskDone(req, res) {
@@ -173,4 +183,5 @@ module.exports = {
   renderDeletedTask,
   renderIssuesByProperty,
   renderIsIssueDone,
+  renderVendorsByTrade
 };

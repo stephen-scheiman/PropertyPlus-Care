@@ -60,17 +60,46 @@
     <button name="newTask" value="{{issue.issue_id}} {{issue.property_id}}"
       class="border-2 border-white rounded-lg px-2 bg-blue-400"
       hx-get="/tasks/new"
-      hx-target="#newTaskDiv"
+      hx-target="#addDiv"
       hx-swap="innerHTML"
     >New Task</button>
-    {{!-- <button name="assignVendor" value="?"
+
+<div>
+  <label for="vendor_trade">Trade:</label>
+  <select class="text-black" name="vendor_trade" hx-get="/issues/{{issue.issue_id}}/assign-vendor" hx-target="#vendors">
+    <option value="" disabled selected hidden>Pick a trade</option>
+    <option value="Electrical">Electrical</option>
+    <option value="Flooring">Flooring</option>
+    <option value="Handyman">Handyman</option>
+    <option value="Plumbing">Plumbing</option>
+    <option value="Roofer">Roofer</option>
+  </select>
+</div>
+<div>
+  <form
+    hx-patch="/{{issue_id}}/assign-vendor"
+    hx-target="#main">
+      <label for="vendors">Vendor:</label>
+        <select name="vendors" id="vendors"></select>
+        <button name="addVendor" value=""
+          class="border-2 border-slate-300 rounded-lg px-2 bg-purple-900"
+          hx-patch="/issues/{{issue_id}}/assign-vendor"
+          hx-target="#addDiv"
+          hx-swap="innerHTML"
+        >Assign Vendor</button>
+  </form> 
+</div>
+
+
+
+    {{!-- <button name="assignVendor" value="{{issue.issue_id}} {{issue.property_id}}"
       class="border-2 border-slate-300 rounded-lg px-2 bg-purple-900"
-      hx-patch="/issues/{{issue_id}}/assign-vendor"
-      hx-target="??"
-      hx-swap="??"
+      hx-patch="/issues"
+      hx-target="#addDiv"
+      hx-swap="innerHTML"
     >Assign Vendor</button> --}}
   </div>
-  {{!-- This is where the New Task Form will appear --}}
-  <div id="newTaskDiv"></div>
+  {{!-- This is where the New Task Form or Assign Vendor will appear --}}
+  <div id="addDiv"></div>
 </main>
 </main>
