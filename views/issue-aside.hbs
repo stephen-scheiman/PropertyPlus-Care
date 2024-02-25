@@ -37,9 +37,10 @@
   <h1 id="asideTitle" hx-swap-oob="true" class="mx-4 mb-5 pt-5 text-4xl font-bold">Issues</h1>
 
   <select name="issueStatus" id="selectOption" class="text-gray-600 flex"
-    hx-get="/issues/whichIssues"
     hx-swap-oob="true"
-    hx-target="#issuesList"
+    hx-get="/issues/whichIssues"
+    hx-target="#aside"
+    hx-trigger="change, update-issues from:body"
     hx-swap="innerHTML">
     <option value="open">Open Issues</option>
     <option value="closed">Closed Issues</option>

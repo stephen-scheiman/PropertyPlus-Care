@@ -32,7 +32,7 @@ async function findUserByPk(user_id) {
   const userData = await User.findByPk(user_id);
 
   if (!userData) {
-    throw new InternalServerError(`Couldn't create new user with ${userData}`);
+    throw new InternalServerError(`Couldn't find user with id ${user_id}`);
   }
 
   return userData.toJSON();
