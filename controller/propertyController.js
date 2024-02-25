@@ -187,7 +187,7 @@ console.log(req.body);
   property_city =
     property_city[0].toUpperCase() + property_city.slice(1).toLowerCase();
   //validate letters only
-  const namePattern = /^[a-zA-Z]+$/;
+  const namePattern = /^[a-zA-Z ]+$/;
   if (!namePattern.test(property_city)) {
     throw new BadRequestError("Please enter a valid city name");
   }
