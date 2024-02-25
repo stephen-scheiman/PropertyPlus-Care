@@ -30,9 +30,14 @@
   <div>
     <h3 class="font-semibold text-lg mt-2">Description: <span class="font-normal text-lg">{{issue.issue_description}}</span></h3>
     <h3 class="font-semibold text-lg mt-2">Vendors Assigned: <span class="font-normal text-lg">{{vendor.vendor_id}}</span></h3>
+    <ul>
+      {{#each issue.Vendors}}
+        <li ><a href="/vendors/{{vendor_id}}" hx-target="#main" hx-boost="true">{{vendor_first_name}} {{vendor_last_name}} ({{vendor_trade}})</a></li>
+      {{/each}}
+    </ul>
     <h4 class="font-semibold text-lg mt-2">Actions Taken:</h4>
     <ul>
-      {{#each tasks}}
+      {{#each issue.tasks}}
       <li class="border-2 border-slate-400 border-solid rounded-lg px-2 my-1">
           <p class="font-semibold mt-1">Task: <span class="font-normal text-base">{{task_name}}</span></p>
           <p class="font-semibold mt-1">Note: <span class="font-normal text-base">{{status_update}}</span></p>
