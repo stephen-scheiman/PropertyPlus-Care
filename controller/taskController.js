@@ -62,7 +62,7 @@ async function renderNewTask(req, res) {
   const p2 = findTasksByIssueID(issue_id);
   const [issue, tasks] = await Promise.all([p1, p2]);
 
-  res.status(200).set('HX-Trigger', 'update-aside').render("issue-ID", { issue, tasks, layout: false });
+  res.status(200).set('hx-trigger', 'update-tasks').render("issue-ID", { issue, tasks, layout: false });
 }
 
 //update task function

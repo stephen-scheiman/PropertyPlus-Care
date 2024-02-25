@@ -128,7 +128,7 @@ async function renderNewOwnersList(req, res) {
 
   //res.status(200).json({ msg: "created", newOwner });
   //res.status(200).json("Owner created successfully!");
-  res.status(200).set('hx-trigger', 'update-list').render('owner-id', { owner, layout: false });
+  res.status(200).set('hx-trigger', 'update-owners').render('owner-id', { owner, layout: false });
 }
 
 async function renderEditOwnerForm(req, res) {
@@ -241,14 +241,14 @@ async function renderUpdatedOwner(req, res) {
 
   const owner = await findOwnerById(id);
 
-  res.status(200).set('hx-trigger', 'update-list').render('owner-id', { owner, layout: false });
+  res.status(200).set('hx-trigger', 'update-owners').render('owner-id', { owner, layout: false });
 }
 
 async function renderDeletedOwner(req, res) {
   const { id: owner_id } = req.params;
   const owner = await deleteOwner(owner_id);
   // res.status(200).json({ msg: "Deleted", owner });
-  res.status(200).set('hx-trigger', 'update-list').send('');
+  res.status(200).set('hx-trigger', 'update-owners').send('');
 }
 
 async function createOwner(newOwnerData) {

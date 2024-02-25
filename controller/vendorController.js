@@ -121,7 +121,7 @@ async function renderNewVendorsList(req, res) {
   const [result, issues] = await Promise.all([p1, p2]);
   const vendor = result.toJSON();
 
-  res.status(200).set('hx-trigger', 'update-list').render('vendor-id', { vendor, issues, layout: false });
+  res.status(200).set('hx-trigger', 'update-vendors').render('vendor-id', { vendor, issues, layout: false });
 }
 
 async function renderEditVendorForm(req, res) {
@@ -198,14 +198,14 @@ async function renderUpdatedVendor(req, res) {
 
   const vendor = await findVendorByID(vendor_id);
 
-  res.status(200).set('hx-trigger', 'update-list').render('vendor-id', { vendor, layout: false });
+  res.status(200).set('hx-trigger', 'update-vendors').render('vendor-id', { vendor, layout: false });
 }
 
 async function renderDeletedVendor(req, res) {
   const { id } = req.params;
   await deleteVendor(id);
 
-  res.status(200).set('hx-trigger', 'update-list').send('');
+  res.status(200).set('hx-trigger', 'update-vendors').send('');
 }
 
 async function renderVendorSearch(req, res) {

@@ -16,7 +16,7 @@ const { findVendorsByTradeNotIssue } = require("../utils/queries/vendors");
 async function renderOpenIssues(req, res) {
   const issues = await findOpenIssues();
   // console.log(issues);
-  res.status(200).render("issue-aside", { issues });
+  res.status(200).render("issue-aside", { issues, layout: false });
 }
 
 async function renderIssues(req, res) {
@@ -91,7 +91,7 @@ async function renderIsIssueDone(req, res) {
 
   res
     .status(200)
-    .set("HX-Trigger", "update-aside")
+    .set("HX-Trigger", "update-issues")
     .render("issue-ID", { issue, tasks, layout: false });
 }
 
@@ -170,7 +170,7 @@ async function renderIsTaskDone(req, res) {
 
   res
     .status(200)
-    .set("HX-Trigger", "update-aside")
+    .set("HX-Trigger", "update-tasks")
     .render("issue-ID", { issue, tasks, layout: false });
 }
 
@@ -179,15 +179,18 @@ async function renderDeletedTask(req, res) {
 
   const deletedTask = await deleteTask(task_id);
 
-  const p1 = findOneIssue(issue_id);
-  const p2 = await findTasksByIssueID(issue_id);
+  const issue = await findOneIssue(issue_id);
 
-  const [issue, tasks] = await Promise.all([p1, p2]);
+
+  // const p1 = findOneIssue(issue_id);
+  // const p2 = await findTasksByIssueID(issue_id);
+
+  // const [issue, tasks] = await Promise.all([p1, p2]);
 
   res
     .status(200)
-    .set("HX-Trigger", "update-aside")
-    .render("issue-ID", { issue, tasks, layout: false });
+    .set("HX-Trigger", "update-tasks")
+    .render("issue-ID", { issue, layout: false });
 }
 
 async function renderIssuesSearch(req, res) {
