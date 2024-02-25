@@ -18,7 +18,6 @@ router.use('/signup', signupHxRoutes);
 router.use(withAuth);
 
 router.get('/', c.renderHome);
-router.get('/favicon.ico', (req, res) => { res.status(200).end() });
 
 router.use(pageRedirect);
 
