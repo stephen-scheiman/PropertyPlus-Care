@@ -36,7 +36,8 @@ async function renderAside(req, res) {
 
     case 'issues': {
       const issues = await findOpenIssues();
-      return res.status(200).render('issue-aside', {  issues, layout: false });
+      const isOob = true;
+      return res.status(200).render('issue-aside', { issues, isOob, layout: false });
     }
 
     case 'property': {

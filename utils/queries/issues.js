@@ -150,6 +150,19 @@ async function updateIssueDone(issue_id, issue_isDone) {
   return issue;
 }
 
+async function searchIssues(search) {
+  const result = await Issue.findAll({
+    where: { issue_title: { [Op.like]: `%${search}%` } },
+    include: [
+      { model: Property },
+      { model: Task },
+    ],
+  });
+
+  const issues = result.map(e => e.toJSON());
+  return issues;
+}
+
 module.exports = {
   findAllIssues,
   findOpenIssues,
@@ -162,4 +175,5 @@ module.exports = {
   getIssuesByPropertyID,
   updateIssueDone,
   findOpenIssuesVendor,
+  searchIssues,
 }

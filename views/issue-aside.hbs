@@ -1,7 +1,7 @@
 <div class="flex justify-between">
     <h1 class="mx-4 mb-5 pt-5 text-4xl font-bold">Issues</h1>
     {{!-- <label for="issuesSelect">View Options:</label> --}}
-    
+
   </div>
 
   <div id="issuesList">
@@ -35,3 +35,20 @@
       <option value="all">All Issues</option>
     </select>
   </div>
+
+
+{{#if isOob}}
+  <input
+    type="search"
+    id="searchBar"
+    class="text-gray-600"
+    name="search"
+    placeholder="search issue's name"
+    hx-swap-oob="true"
+    hx-post="/issues/search"
+    hx-target="#aside"
+    hx-trigger="input changed delay:300ms, search"
+  />
+
+  <div hx-swap-oob="true" id="selectOption"></div>
+{{/if}}

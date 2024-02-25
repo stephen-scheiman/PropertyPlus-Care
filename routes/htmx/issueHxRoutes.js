@@ -9,6 +9,9 @@ router.route('/')
 router.route('/whichIssues')
   .get(c.renderIssues);
 
+router.route('/search')
+  .post(c.renderIssuesSearch)
+
 router.route('/:id')
   .get(c.renderOneIssue)
   .put(c.renderUpdatedIssue)
@@ -29,5 +32,5 @@ router.route('/:issue_id/tasks/:task_id/isDone')
 
 router.route('/property/:id')
   .get(c.renderIssuesByProperty)
-  
+
 module.exports = router;

@@ -8,6 +8,7 @@ const {
   getIssuesByPropertyID,
   updateIssueDone,
   deleteIssue,
+  searchIssues,
 } = require("../utils/queries/issues");
 const { findVendorsByTrade } = require("../utils/queries/vendors");
 
@@ -48,7 +49,7 @@ async function renderIssues(req, res) {
 
 async function renderOneIssue(req, res) {
   const { id: issue_id } = req.params;
-  
+
   const p1 = findOneIssue(issue_id);
   const p2 = findTasksByIssueID(issue_id);
   const [issue, tasks] = await Promise.all([p1, p2]);
@@ -171,6 +172,13 @@ async function renderDeletedTask(req, res) {
     .render("issue-ID", { issue, tasks, layout: false });
 }
 
+async function renderIssuesSearch(req, res) {
+  const { search } = req.body;
+  const issues = await searchIssues(search.toLowerCase());
+  res.status(200).render('issue-aside', { issues, layout: false });
+}
+
+
 module.exports = {
   renderOpenIssues,
   renderAddVendor,
@@ -183,5 +191,6 @@ module.exports = {
   renderDeletedTask,
   renderIssuesByProperty,
   renderIsIssueDone,
-  renderVendorsByTrade
+  renderVendorsByTrade,
+  renderIssuesSearch,
 };
