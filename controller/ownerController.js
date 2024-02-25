@@ -115,7 +115,7 @@ async function renderNewOwnersList(req, res) {
     throw new BadRequestError("Please enter a valid 5 digit zip code");
   }
 
-  const newOwner = await createOwner({
+  const owner = await createOwner({
     owner_first_name,
     owner_last_name,
     owner_email,
@@ -128,8 +128,7 @@ async function renderNewOwnersList(req, res) {
 
   //res.status(200).json({ msg: "created", newOwner });
   //res.status(200).json("Owner created successfully!");
-  console.log(newOwner);
-  res.status(200).set('hx-trigger', 'update-list').render('owner-id', { newOwner, layout: false });
+  res.status(200).set('hx-trigger', 'update-list').render('owner-id', { owner, layout: false });
 }
 
 async function renderEditOwnerForm(req, res) {
