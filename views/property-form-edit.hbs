@@ -1,0 +1,62 @@
+<form
+  class="flex flex-col text-white"
+  hx-patch="/properties/{{property.property_id}}/edit"
+  hx-target="#main"
+>
+  <div>
+    <label class="inline-block font-semibold">Property Name: </label>
+    <input
+      class="mb-2 rounded text-gray-500"
+      type="text"
+      name="property_name"
+      value="{{property.property_name}}"
+      autofocus
+    />
+  </div>
+  <div>
+    <label class="inline-block font-semibold">Property Address: </label>
+    <input
+      class="mb-2 rounded text-gray-500"
+      type="text"
+      name="property_street"
+      value="{{property.property_street}}"
+    />
+    <input
+      class="mb-2 rounded text-gray-500"
+      type="text"
+      name="property_city"
+      value="{{property.property_city}}"
+    />
+    <input
+      class="mb-2 rounded text-gray-500"
+      type="text"
+      name="property_state"
+      value="{{property.property_state}}"
+    />
+    <input
+      class="mb-2 rounded text-gray-500"
+      type="text"
+      name="property_zip"
+      value="{{property.property_zip}}"
+    />
+
+    <input
+    class="mb-2 rounded text-gray-500"
+    type="text"
+    name="owner_id"
+    value="{{property.owner.owner_id}}"
+  />
+
+  </div>
+  <div class="my-5">
+    <button
+      class="rounded bg-blue-400 px-2 hover:bg-green-400 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
+      type="submit"
+    >Submit</button>
+    <button
+      class="rounded bg-blue-400 px-2 hover:bg-red-400 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
+      hx-get="/properties/{{property.property_id}}"
+      hx-target="#main"
+    >Cancel</button>
+  </div>
+</form>

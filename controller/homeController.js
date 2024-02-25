@@ -2,7 +2,7 @@ const { Task, User, Property } = require('../models');
 const { Op } = require('sequelize');
 const { findOpenIssues } = require('../utils/queries/issues')
 const { findOpenTasks, findOpenTasksByDueDate } = require('../utils/queries/tasks')
-const { getAllProperties } = require('../utils/queries/properties')
+const { findProperties } = require('../utils/queries/properties')
 const { findAllVendors } = require('../utils/queries/vendors')
 const { findOwners } = require('../utils/queries/owners')
 // const { BadRequestError } = require('../utils/errors/');
@@ -41,7 +41,7 @@ async function renderAside(req, res) {
     }
 
     case 'property': {
-      const properties = await getAllProperties();
+      const properties = await findProperties();
       return res.status(200).render('property-aside', { properties, layout: false });
     }
 

@@ -1,0 +1,27 @@
+<main class="m-4 rounded bg-white/30 px-4 text-white backdrop-blur-md">
+  <form
+    class="flex flex-col text-gray-600"
+    hx-post="/properties/new"
+    hx-target="#main"
+  >
+    <label for="property_name">Property Name:</label>
+    <input type="text" name="property_name" autofocus />
+    <label for="property_street">Property Street Address:</label>
+    <input type="text" name="property_street" />
+    <label for="property_city">Property City:</label>
+    <input type="text" name="property_city" />
+    <label for="property_state">Property State:</label>
+    <input type="text" name="property_state" />
+    <label for="property_zip">Property Zip:</label>
+    <input type="text" name="property_zip" />
+
+    <label for="owner">Property Owner:</label>
+    <select name="owner_name">
+      <option value="" disabled selected hidden>Select a property owner</option>
+      {{#each property.owner as |owner|}}
+      <option value="{{property.owner_last_name}}">{{property.owner_last_name}}</option>
+      {{/each}}
+    </select>
+    <button class="my-5" type="submit">Submit</button>
+  </form>
+</main>
