@@ -1,0 +1,27 @@
+<form
+  class="flex flex-col text-white"
+  hx-patch="/users/{{user.user_id}}/edit"
+  hx-target="#main"
+>
+  <div>
+    <label class="inline-block font-semibold">Username: </label>
+    <input
+      class="mb-2 rounded text-gray-500"
+      type="text"
+      name="user_name"
+      value="{{user.user_name}}"
+      autofocus
+    />
+  </div>
+
+  <div>
+    <label class="inline-block font-semibold">Email: </label>
+    <input
+      class="mb-2 rounded text-gray-500"
+      type="text"
+      name="user_email"
+      value="{{user.user_email}}"
+    />
+  </div>
+
+</form>

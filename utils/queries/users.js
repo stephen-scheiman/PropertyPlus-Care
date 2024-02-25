@@ -24,13 +24,23 @@ async function createUser(userData) {
   if (!user) {
     throw new InternalServerError(`Couldn't create new user with ${userData}`);
   }
-  console.log(user);
+  // console.log(user);
   return user.toJSON();
 };
 
+async function findUserByPk(user_id) {
+  const userData = await User.findByPk(user_id);
+
+  if (!userData) {
+    throw new InternalServerError(`Couldn't create new user with ${userData}`);
+  }
+
+  return userData.toJSON();
+}
 
 module.exports = {
   userLogin,
   createUser,
-
+  findUserByPk,
+  
 }
