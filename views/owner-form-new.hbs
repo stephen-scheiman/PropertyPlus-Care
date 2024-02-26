@@ -21,5 +21,8 @@
     <label for="owner_phone">Phone Number:</label>
     <input type="text" name="owner_phone" />
     <button class="my-5" type="submit">Submit</button>
+    {{#if isError}}
+      <div class="p-2 text-red-500">{{msg}}</div>
+    {{/if}}
   </form>
 </main>

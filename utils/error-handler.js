@@ -25,6 +25,12 @@ async function errorHandler(err, req, res, next) {
         .set({'hx-retarget': 'this', 'hx-reswap': 'outerHTML'})
         .render("owner-form-edit", { owner, msg, isError, layout: false });
     }
+
+    case "owner-form-new": {
+      return res
+        .status(200)
+        .render("owner-form-new", { msg, isError, layout: false });
+    }
   }
 
   switch (key) {
