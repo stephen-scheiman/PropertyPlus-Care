@@ -78,6 +78,12 @@ async function errorHandler(err, req, res, next) {
         .set({ "hx-retarget": "this", "hx-reswap": "outerHTML" })
         .render('vendor-form-edit', { vendor, msg, isError, layout: false });
     }
+
+    case "vendor-form-new": {
+      return res
+        .status(200)
+        .render("vendor-form-new", { msg, isError, layout: false });
+    }
   }
 
   res.status(500).json({ msg: "Something went wrong, try again later" });
