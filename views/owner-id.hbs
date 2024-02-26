@@ -31,10 +31,10 @@
 
   </div>
   <div>
-    <h4 class="font-semibold text-lg mt-2 pb-3">Properties: <span class="font-normal">(double click to open property info)</span></h4>
+    <h4 class="font-semibold text-lg mt-2 pb-3">Associated Properties: <span class="font-normal">(double click to open property info)</span></h4>
     <ul>
       {{#each owner.properties}}
-        <li hx-get="/properties/{{property_id}}" hx-target="#main" hx-trigger="dblclick" class="cursor-pointer">
+        <li class="pb-3 cursor-pointer" hx-get="/properties/{{property_id}}" hx-target="#main" hx-trigger="dblclick" class="cursor-pointer">
           <h5>Name: {{property_name}}</h5>
           <h5>Address: </h5>
           <p>{{property_street}}</p>

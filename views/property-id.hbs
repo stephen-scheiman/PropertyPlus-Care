@@ -36,10 +36,10 @@
       hx-confirm="Are you sure you want to delete this property? This action cannot be undone."
     >Delete Property</button>
   </div>
-  <ol>
+  <ol class="pb-3">
     <h3 class="font-semibold underline">Property Issues:</h3>
     {{#each property.issues as |issue|}}
-      <li class="cursor-pointer hover:font-bold hover:text-red-500 max-w-40 pb-3" hx-get="/issues/{{issue_id}}" hx-target="#main" hx-trigger="click">
+      <li class="cursor-pointer hover:font-bold hover:text-red-500" hx-get="/issues/{{issue_id}}" hx-target="#main" hx-trigger="click">
         {{issue.issue_title}}
       </li>
     {{/each}}

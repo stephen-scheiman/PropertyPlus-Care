@@ -1,4 +1,4 @@
-<main class="m-4 rounded bg-inherit px-4 text-white backdrop-blur-xl shadow-lg">
+<main class="m-4 rounded bg-inherit px-4 text-white backdrop-blur-xl shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]">
   <div class="flex justify-between">
     <h1 id="issueTitle" class="font-bold text-2xl mt-5">{{issue.issue_title}}</h1>
     <div>
@@ -40,7 +40,7 @@
   <ul>
     {{#each issue.Vendors}}
       <li ><a hx-get="/vendors/{{vendor_id}}" hx-target="#main" hx-boost="true" hx-trigger="dblclick" class="cursor-pointer">{{vendor_first_name}} {{vendor_last_name}} ({{vendor_trade}})</a>
-        <button class="text-xs bg-blue-500 px-1 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700 my-3 shadow-lg me-4 border-2 border-white rounded py-[2px] hover:scale-105 hover:shadow-xl" name="vendor_id" value="{{vendor_id}}"
+        <button class="text-xs bg-blue-500 px-1 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700 my-3 shadow-lg me-4 rounded py-[2px] hover:scale-105 hover:shadow-xl" name="vendor_id" value="{{vendor_id}}"
           hx-patch="/issues/{{../issue.issue_id}}/unassign-vendor"
           hx-target="#main"
         >Unassign Vendor</button>
