@@ -14,8 +14,17 @@
   hx-swap-oob="true"
   class="mt-5 text-xl font-semibold"
 >Property:
-  <select id="selectProperty" name="property_id" class="mb-2 rounded text-gray-500">
-    <option value="{{issue.property_id}}" selected disabled hidden>{{issue.property.property_name}}</option>
+  <select
+    id="selectProperty"
+    name="property_id"
+    class="mb-2 rounded text-gray-500"
+  >
+    <option
+      value="{{issue.property_id}}"
+      selected
+      disabled
+      hidden
+    >{{issue.property.property_name}}</option>
     {{#each properties}}
       <option value="{{property_id}}">{{property_name}}</option>
     {{/each}}
@@ -46,7 +55,7 @@
 >
   <button class="bg-green-400" type="submit">Submit</button>
   <button class="bg-red-400">Cancel</button>
-   {{#if isError}}
+  {{#if isError}}
     <div class="p-2 text-red-500">{{msg}}</div>
-    {{/if}}
+  {{/if}}
 </form>
