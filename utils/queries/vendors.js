@@ -104,6 +104,9 @@ async function searchVendors(search) {
       [Op.or]: [
         { vendor_first_name: { [Op.like]: `%${search}%` } },
         { vendor_last_name: { [Op.like]: `%${search}%` } },
+        { vendor_email: { [Op.like]: `%${search}%` } },
+        { vendor_phone: { [Op.like]: `%${search}%` } },
+        { vendor_trade: { [Op.like]: `%${search}%` } },
       ]
     }
   });
