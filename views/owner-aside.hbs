@@ -23,7 +23,18 @@
 </main>
 
 {{#if isOob}}
-  <div id="searchBar" hx-swap-oob="true" ></div>
+  <input
+    type="search"
+    id="searchBar"
+    class="text-gray-600"
+    name="search"
+    placeholder="owner's information"
+    hx-swap-oob="true"
+    hx-post="/owners/search"
+    hx-target="#aside"
+    hx-trigger="input changed delay:300ms, search"
+  />
+
   <h1 id="asideTitle" hx-swap-oob="true" class="mx-4 mb-5 pt-5 text-4xl font-bold">Owners</h1>
   <div id="selectOption" hx-swap-oob="true" ></div>
   <button id="addBtn" hx-swap-oob="true" hx-get="/owners/new" hx-target="#main">Add New Owner</button>

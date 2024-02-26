@@ -27,4 +27,7 @@
   <button class="rounded bg-blue-400 px-2 hover:bg-green-400 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700" type="submit">Submit</button>
   <button class="rounded bg-blue-400 px-2 hover:bg-red-400 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700" hx-get="/vendors/{{vendor.vendor_id}}" hx-target="#main">Cancel</button>
   </div>
+  {{#if isError}}
+    <div class="p-2 text-red-500">{{msg}}</div>
+    {{/if}}
 </form>

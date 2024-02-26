@@ -15,6 +15,7 @@ const {
 } = require("../utils/queries/issues");
 const { findVendorsByTradeNotIssue } = require("../utils/queries/vendors");
 const { findProperties } = require("../utils/queries/properties");
+const { BadRequestError } = require("../utils/errors");
 // const { BadRequestError } = require("../utils/error-handler");
 
 async function renderOpenIssues(req, res) {
@@ -98,6 +99,10 @@ async function renderNewIssue(req, res) {
   console.log(`\n ------------- \n`);
 
   const { issue_title, issue_description, property_id } = req.body;
+
+  if (!(issue_title && issue_description && property_id)){
+    throw new BadRequestError("issue-form-new","Please complete all fields");
+  }
 
   const issue = await createIssue({ issue_title, issue_description, property_id });
   console.log(issue);
@@ -200,6 +205,10 @@ async function renderIssueFormEdit(req, res) {
 async function renderUpdatedIssue(req, res) {
   const issue_id = req.params.id;
   const { issue_title, issue_description, property_id } = req.body;
+
+  if (!(issue_title && issue_description && property_id)){
+    throw new BadRequestError("issue-form-edit","Please complete all fields");
+  }
 
   await updateIssue(issue_id, {
     issue_title,

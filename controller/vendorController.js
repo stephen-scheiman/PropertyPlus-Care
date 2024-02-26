@@ -144,7 +144,11 @@ async function renderUpdatedVendor(req, res) {
   if (
     !(namePattern.test(vendor_first_name) && namePattern.test(vendor_last_name))
   ) {
-    throw new BadRequestError("Please enter the vendor's first and last name");
+    throw new BadRequestError(
+      'vendor-form-edit',
+      "Please enter the vendor's first and last name",
+      {vendor_id}
+    );
   }
 
   //format vendor name before sending to db
@@ -158,7 +162,11 @@ async function renderUpdatedVendor(req, res) {
   const emailPattern =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!emailPattern.test(vendor_email)) {
-      throw new BadRequestError("Please enter a valid email address");
+      throw new BadRequestError(
+        'vendor-form-edit',
+        "Please enter a valid email address",
+        {vendor_id}
+      );
     }
 
   //validate that the email is unique
@@ -174,7 +182,11 @@ async function renderUpdatedVendor(req, res) {
   vendor_phone = vendor_phone.replace(/[^0-9 ]/g, "");
 
   if (vendor_phone.length > 10 || vendor_phone.length < 10) {
-    throw new BadRequestError("Please enter a valid 10 digit phone number, no symbols or spaces");
+    throw new BadRequestError(
+      'vendor-form-edit',
+      "Please enter a valid 10 digit phone number, no symbols or spaces",
+      {vendor_id}
+    );
   }
 
   vendor_phone =
