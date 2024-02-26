@@ -198,6 +198,7 @@ async function renderUpdatedOwner(req, res) {
     throw new BadRequestError(
       "owner-form-edit",
       "Please enter a valid 10 digit phone number, no symbols or spaces",
+      {owner_id: id}
     );
   }
 
@@ -218,6 +219,7 @@ async function renderUpdatedOwner(req, res) {
     throw new BadRequestError(
       "owner-form-edit",
       "Please enter your first and last name",
+      {owner_id: id}
     );
   }
 
@@ -225,6 +227,7 @@ async function renderUpdatedOwner(req, res) {
     throw new BadRequestError(
       "owner-form-edit",
       "Please enter a valid email address",
+      {owner_id: id}
     );
   }
 
@@ -235,6 +238,7 @@ async function renderUpdatedOwner(req, res) {
       throw new BadRequestError(
         "owner-form-edit",
         "An owner with this email address already exists",
+        {owner_id: id}
       );
     }
   }
@@ -243,6 +247,7 @@ async function renderUpdatedOwner(req, res) {
     throw new BadRequestError(
       "owner-form-edit",
       "Please enter a valid street address",
+      {owner_id: id}
     );
   }
 
@@ -250,6 +255,7 @@ async function renderUpdatedOwner(req, res) {
     throw new BadRequestError(
       "owner-form-edit",
       "Please enter a valid city name",
+      {owner_id: id}
     );
   }
 
@@ -257,6 +263,7 @@ async function renderUpdatedOwner(req, res) {
     throw new BadRequestError(
       "owner-form-edit",
       "Please enter a valid 2 letter state abbreviation",
+      {owner_id: id}
     );
   }
 
@@ -264,6 +271,7 @@ async function renderUpdatedOwner(req, res) {
     throw new BadRequestError(
       "owner-form-edit",
       "Please enter a valid 5 digit zip code",
+      {owner_id: id}
     );
   }
 

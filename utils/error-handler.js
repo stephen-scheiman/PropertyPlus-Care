@@ -1,3 +1,6 @@
+const { findProperties } = require('./queries/properties');
+const { findOwnerById } = require('./queries/owners');
+
 async function errorHandler(err, req, res, next) {
   console.log("\n\n");
   console.log(err);
@@ -16,9 +19,11 @@ async function errorHandler(err, req, res, next) {
     }
 
     case "owner-form-edit": {
+      const owner = await findOwnerById(err.data.owner_id)
       return res
         .status(200)
-        .render("owner-form-edit", { msg, isError, layout: false });
+        .set({'hx-retarget': 'this', 'hx-reswap': 'outerHTML'})
+        .render("owner-form-edit", { owner, msg, isError, layout: false });
     }
   }
 
