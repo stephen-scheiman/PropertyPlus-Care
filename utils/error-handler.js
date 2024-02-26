@@ -65,6 +65,12 @@ async function errorHandler(err, req, res, next) {
         });
     }
 
+    case "issue-form-new": {
+      return res
+        .status(200)
+        .render("issue-form-new", { msg, isError, layout: false });
+    }
+
     case "vendor-form-edit": {
       const vendor = await findVendorByID(err.data.vendor_id);
       return res
