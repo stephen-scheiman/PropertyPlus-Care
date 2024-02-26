@@ -3,13 +3,6 @@
   hx-target="#aside"
   hx-trigger="update-issues from:body"
 >
-  <button id="newIssue" name="newIssue"
-    hx-get="/issues/new"
-    {{!-- taret is off --}}
-    hx-target="#main"
-    {{!-- hx-swap-oob="true" --}}
-    hx-swap="innerHTML"
-  >New Issue</button>
 
   {{#each issues}}
     <div class="backdrop-blur-sm bg-white/30 m-4 p-2 text-white rounded cursor-pointer">
@@ -36,6 +29,14 @@
 {{#if isOob}}
   <h1 id="asideTitle" hx-swap-oob="true" class="mx-4 my-3 text-4xl font-bold">Issues</h1>
 
+  <button id="addBtn" name="newIssue"
+    hx-get="/issues/new"
+    {{!-- taret is off --}}
+    hx-target="#main"
+    hx-swap-oob="true"
+    hx-swap="innerHTML"
+  >New Issue</button>
+
   <input
     type="search"
     id="searchBar"
@@ -59,5 +60,5 @@
     <option value="all">All Issues</option>
   </select>
 
-  <div id="addBtn" hx-swap-oob="true" ></div>
+  {{!-- <div id="addBtn" hx-swap-oob="true" ></div> --}}
 {{/if}}
