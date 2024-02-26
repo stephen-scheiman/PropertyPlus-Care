@@ -1,7 +1,7 @@
 const { Task, User, Property } = require('../models');
 const { Op } = require('sequelize');
 const { findOpenIssues } = require('../utils/queries/issues')
-const { findOpenTasks, findOpenTasksByDueDate } = require('../utils/queries/tasks')
+const { findOpenTasks, findOpenTasksByDueDate, findTasksDueToday } = require('../utils/queries/tasks')
 const { findProperties } = require('../utils/queries/properties')
 const { findAllVendors } = require('../utils/queries/vendors')
 const { findOwners } = require('../utils/queries/owners')
@@ -18,10 +18,15 @@ async function renderHome(req, res) {
   // Only works when the two promises are independent of each other.
   const p1 = findUserByPk(user_id);
   const p2 = findOpenTasksByDueDate();
-  const [user, tasks] = await Promise.all([p1,p2]);
+  const p3 = findTasksDueToday();
+  const [user, pastTasks, todayTasks] = await Promise.all([p1, p2, p3]);
+
+  console.log('\n\n homecontroller \n\n');
+  console.log('\npastTasks', pastTasks);
+  console.log('\ntodayTasks', todayTasks);
 
   // this needs to be completed when we know what the homepage will look like
-  res.status(200).render('task-aside', { tasks, user, });
+  res.status(200).render('task-aside', { pastTasks, todayTasks, user, });
 }
 
 async function renderAside(req, res) {
@@ -75,25 +80,25 @@ function redirectHome(req, res) {
 //   res.render('loginView');
 // };
 
-async function findTasks() {
-  const taskData = await Task.findAll({
-    where: {
-      followUp_date: {
-        [Op.lte]: Date.now()
-      },
-      is_done: false,
-    },
-    include: [{
-      model: Property,
-      attributes: ['property_id', 'property_name']
-    }],
-    // returning raw data - will test if this works
-    raw: true,
-    // telling it that the data returned will be nest
-    nest: true,
-  });
-  return taskData;
-};
+// async function findTasks() {
+//   const taskData = await Task.findAll({
+//     where: {
+//       followUp_date: {
+//         [Op.lte]: Date.now()
+//       },
+//       is_done: false,
+//     },
+//     include: [{
+//       model: Property,
+//       attributes: ['property_id', 'property_name']
+//     }],
+//     // returning raw data - will test if this works
+//     raw: true,
+//     // telling it that the data returned will be nest
+//     nest: true,
+//   });
+//   return taskData;
+// };
 
 /**
  *
