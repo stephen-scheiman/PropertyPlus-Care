@@ -13,6 +13,8 @@ const {
   unassignVendor
 } = require("../utils/queries/issues");
 const { findVendorsByTradeNotIssue } = require("../utils/queries/vendors");
+const { findProperties } = require("../utils/queries/properties");
+// const { BadRequestError } = require("../utils/error-handler");
 
 async function renderOpenIssues(req, res) {
   const issues = await findOpenIssues();
@@ -84,17 +86,22 @@ async function renderIsIssueDone(req, res) {
     .render("issue-ID", { issue, layout: false });
 }
 
-// async function renderNewIssue(req, res) {
-//   const { issue_title, issue_description, property_id } = req.body;
+async function renderNewIssueForm(req, res) {
+  const properties = await findProperties();
+  res.status(200).render("issue-form-new", { properties, layout: false });
+};
 
-//   const issue = await createIssue({
-//     issue_title,
-//     issue_description,
-//     property_id,
-//   });
+async function renderNewIssue(req, res) {
+  console.log(`\n ------------- \n`);
+  console.log(req.body);
+  console.log(`\n ------------- \n`);
 
-//   res.status(200).json({ msg: "Created", issue });
-// }
+  const { issue_title, issue_description, property_id } = req.body;
+
+  const issue = await createIssue({ issue_title, issue_description, property_id });
+  console.log(issue);
+  res.status(200).set('hx-trigger', 'update-issues').render("issue-id", { issue, layout: false });
+}
 
 // async function renderUpdatedIssue(req, res) {
 //   const issue_id = req.params.id;
@@ -199,7 +206,8 @@ module.exports = {
   renderAddVendor,
   renderDeletedIssue,
   renderIssues,
-  // renderNewIssue,
+  renderNewIssueForm,
+  renderNewIssue,
   renderOneIssue,
   // renderUpdatedIssue,
   renderIsTaskDone,

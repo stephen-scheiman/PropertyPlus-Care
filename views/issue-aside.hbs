@@ -1,4 +1,13 @@
-<div id="issuesList">
+<div id="issuesList"
+  hx-get="/issues"
+  hx-target="#aside"
+  hx-trigger="update-issues from:body"
+>
+  <button id="newIssue" name="newIssue"
+    hx-get="/issues/new"
+    hx-target="#main"
+    hx-swap="innerHTML"
+  >New Issue</button>
   {{#each issues}}
     <div class="backdrop-blur-sm bg-white/30 m-4 p-2 text-white rounded cursor-pointer">
       <h2

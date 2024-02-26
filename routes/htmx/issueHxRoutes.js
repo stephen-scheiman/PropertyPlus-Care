@@ -3,15 +3,18 @@ const c = require('../../controller/issueController');
 
 router.route('/')
   .get(c.renderOpenIssues);
-  // .post(c.renderNewIssue);
 
-// enter additional routes above the /id route as needed
+router.route('/new')
+  .get(c.renderNewIssueForm)
+  .post(c.renderNewIssue);
+
 router.route('/whichIssues')
   .get(c.renderIssues);
 
 router.route('/search')
   .post(c.renderIssuesSearch)
 
+// enter additional routes above the /id route as needed
 router.route('/:id')
   .get(c.renderOneIssue)
   // .put(c.renderUpdatedIssue)

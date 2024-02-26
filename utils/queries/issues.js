@@ -90,8 +90,9 @@ async function findOneIssue(issue_id) {
   return issue.toJSON();
 };
 
-async function createIssue(issueData) {
-  const issue = await Issue.create(issueData);
+async function createIssue(issue_data) {
+  
+  const issue = await Issue.create(issue_data);
 
   if (!issue) {
     throw new InternalServerError("Couldn't create an issue");
