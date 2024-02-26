@@ -7,7 +7,7 @@
   >
     {{#each owners as |owner|}}
       <li
-        class="m-4 cursor-pointer rounded bg-white/30 p-2 text-white backdrop-blur-sm"
+        class="m-4 rounded bg-white/30 p-2 text-white backdrop-blur-sm cursor-pointer shadow-lg hover:scale-105"
         hx-get="/owners/{{owner_id}}"
         hx-target="#main"
         hx-trigger="click"
@@ -37,5 +37,5 @@
 
   <h1 id="asideTitle" hx-swap-oob="true" class="mx-4 mb-5 pt-5 text-4xl font-bold">Owners</h1>
   <div id="selectOption" hx-swap-oob="true" ></div>
-  <button id="addBtn" class="rounded-md bg-green-500 px-2 mt-3" hx-swap-oob="true" hx-get="/owners/new" hx-target="#main">Add New Owner</button>
+  <button id="addBtn" class="rounded bg-green-400 px-2 hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700 my-10" hx-swap-oob="true" hx-get="/owners/new" hx-target="#main">Add New Owner</button>
 {{/if}}
