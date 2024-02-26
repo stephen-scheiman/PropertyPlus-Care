@@ -1,44 +1,26 @@
-<main>
-  <h1 class="flex justify-center text-white my-5">Please Enter Your Credentials</h1>
+<div class="flex-col h-max w-auto">
+  <h1 class="text-white text-center text-3xl font-bold mb-2">Please Enter Your Credentials</h1>
   <form
-    class="m-80 flex flex-col content-center rounded bg-white/30 p-2 text-white backdrop-blur-md max-w-[25%] px-8 pb-8 pt-6 shadow-md"
-    hx-post="/login"
-    hx-target="#main"
-    hx-push-url="true"
-  >
-    <label
-      class="mb-2 block text-sm font-bold text-white"
-      for="user_email"
-    >Email</label>
+    class="rounded bg-white/30 p-2 text-white backdrop-blur-md shadow-md"
+    hx-post="/login" hx-target="#main" hx-push-url="true">
+    <label class="mb-2 block text-sm font-bold text-white" for="user_email">Email</label>
     <input
-      class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-500 shadow focus:outline-none"
-      type="email"
-      name="user_email"
-      placeholder="example@example.com"
-    />
-    <div class="p-2"></div>
-    <label
-      class="mb-2 block text-sm font-bold text-white"
-      for="user_password"
-    >Password</label>
+      class="focus:shadow-outline w-full appearance-none rounded border px-1 py-2 leading-tight text-gray-500 shadow focus:outline-none"
+      type="email" name="user_email" placeholder="example@example.com" />
+    <label class="my-2 block text-sm font-bold text-white" for="user_password">Password</label>
     <input
-      class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-500 shadow focus:outline-none"
-      type="password"
-      name="user_password"
-      placeholder="**********"
-    />
-    <div class="p-2"></div>
-    <button
-      class="bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
-      type="submit"
-    >Login</button>
-
+      class="focus:shadow-outline w-full appearance-none rounded border px-1 py-2 leading-tight text-gray-500 shadow focus:outline-none"
+      type="password" name="user_password" placeholder="**********" />
+      <div class="flex justify-center">
+    <button class="bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700 my-2 px-2 py-1 rounded-xl font-semibold"
+      type="submit">Login</button>
+</div>
     {{#if isError}}
     <div class="p-2 text-red-500">{{msg}}</div>
     {{/if}}
   </form>
-  <a href="/signup" class="flex justify-center text-white my-5" >Register for Account</a>
-</main>
+  <a href="/signup" class="text-white cursor-pointer flex justify-center">Register for Account</a>
+</div>
 
 {{! <div class="w-full max-w-xs">
   <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -46,17 +28,23 @@
       <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
         Username
       </label>
-      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username">
+      <input
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="username" type="text" placeholder="Username">
     </div>
     <div class="mb-6">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
         Password
       </label>
-      <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************">
+      <input
+        class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+        id="password" type="password" placeholder="******************">
       <p class="text-red-500 text-xs italic">Please choose a password.</p>
     </div>
     <div class="flex items-center justify-between">
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        type="button">
         Sign In
       </button>
       <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">

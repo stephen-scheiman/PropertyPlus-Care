@@ -65,7 +65,7 @@ async function renderNewOwnersList(req, res) {
 
   if (owner_phone.length > 10 || owner_phone.length < 10) {
     throw new BadRequestError(
-      "owner-form-edit",
+      "owner-form-new",
       "Please enter a valid 10 digit phone number, no symbols or spaces",
     );
   }
@@ -85,14 +85,14 @@ async function renderNewOwnersList(req, res) {
     !(namePattern.test(owner_first_name) && namePattern.test(owner_last_name))
   ) {
     throw new BadRequestError(
-      "owner-form-edit",
+      "owner-form-new",
       "Please enter your first and last name",
     );
   }
 
   if (!emailPattern.test(owner_email)) {
     throw new BadRequestError(
-      "owner-form-edit",
+      "owner-form-new",
       "Please enter a valid email address",
     );
   }
@@ -102,7 +102,7 @@ async function renderNewOwnersList(req, res) {
   for (x = 0; x < ownerData.length; x++) {
     if (owner_email === ownerData[x].owner_email) {
       throw new BadRequestError(
-        "owner-form-edit",
+        "owner-form-new",
         "An owner with this email address already exists",
       );
     }
@@ -110,28 +110,28 @@ async function renderNewOwnersList(req, res) {
 
   if (!streetPattern.test(owner_street)) {
     throw new BadRequestError(
-      "owner-form-edit",
+      "owner-form-new",
       "Please enter a valid street address",
     );
   }
 
   if (!namePattern.test(owner_city)) {
     throw new BadRequestError(
-      "owner-form-edit",
+      "owner-form-new",
       "Please enter a valid city name",
     );
   }
 
   if (!statePattern.test(owner_state)) {
     throw new BadRequestError(
-      "owner-form-edit",
+      "owner-form-new",
       "Please enter a valid 2 letter state abbreviation",
     );
   }
 
   if (!zipPattern.test(owner_zip)) {
     throw new BadRequestError(
-      "owner-form-edit",
+      "owner-form-new",
       "Please enter a valid 5 digit zip code",
     );
   }
@@ -218,7 +218,7 @@ async function renderUpdatedOwner(req, res) {
   ) {
     throw new BadRequestError(
       "owner-form-edit",
-      "Please enter your first and last name",
+      "Please enter a valid owner first and last name",
       {owner_id: id}
     );
   }
@@ -229,18 +229,6 @@ async function renderUpdatedOwner(req, res) {
       "Please enter a valid email address",
       {owner_id: id}
     );
-  }
-
-  // validate that the email is unique
-  const ownerData = await findOwners();
-  for (x = 0; x < ownerData.length; x++) {
-    if (owner_email === ownerData[x].owner_email) {
-      throw new BadRequestError(
-        "owner-form-edit",
-        "An owner with this email address already exists",
-        {owner_id: id}
-      );
-    }
   }
 
   if (!streetPattern.test(owner_street)) {

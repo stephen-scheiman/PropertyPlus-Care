@@ -1,24 +1,19 @@
 <html lang="en">
-
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://kit.fontawesome.com/542c6a9870.css"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="https://kit.fontawesome.com/542c6a9870.css" crossorigin="anonymous"/>
     <title>PropertyPlus Care</title>
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <script src="/js/htmx.min.js"></script>
   </head>
-  <body class="text-white bg-[url('/img/bg.jpeg')] bg-cover bg-no-repeat">
-    
-    <header>
-    <img class="float-left" src="/img/Logo.png" alt="logo">
+
+  <body class="text-white bg-[url('/img/bg.jpeg')] bg-cover bg-no-repeat h-screen">
+    <header class="flex justify-between h-36 px-2">
+      <img src="/img/Logo.png" alt="logo">
     </header>
 
-    <div id="main" class="w-[75%]">{{{body}}}</div>
+    <main id="main" class="h-[80%] flex justify-center items-center">{{{body}}}</main>
   </body>
 </html>

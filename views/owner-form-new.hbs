@@ -5,21 +5,24 @@
     hx-target="#main"
   >
     <label for="owner_first_name">First Name:</label>
-    <input type="text" name="owner_first_name" autofocus />
+    <input type="text" name="owner_first_name" autofocus hx-preserve id="o_f_n" />
     <label for="owner_last_name">Last Name:</label>
-    <input type="text" name="owner_last_name" />
+    <input type="text" name="owner_last_name" hx-preserve id="o_l_n" />
     <label for="owner_street">Owner Street Address:</label>
-    <input type="text" name="owner_street" />
+    <input type="text" name="owner_street" hx-preserve id="o_s" />
     <label for="owner_city">Owner City:</label>
-    <input type="text" name="owner_city" />
+    <input type="text" name="owner_city" hx-preserve id="o_c"/>
     <label for="owner_state">Owner State:</label>
-    <input type="text" name="owner_state" />
+    <input type="text" name="owner_state" hx-preserve id="o_st" />
     <label for="owner_zip">Owner Zip:</label>
-    <input type="text" name="owner_zip" />
+    <input type="text" name="owner_zip" hx-preserve id="o_z"/>
     <label for="owner_email">Email:</label>
-    <input type="email" name="owner_email" />
+    <input type="email" name="owner_email" hx-preserve id="o_e"/>
     <label for="owner_phone">Phone Number:</label>
-    <input type="text" name="owner_phone" />
+    <input type="text" name="owner_phone" hx-preserve id="o_p"/>
     <button class="my-5" type="submit">Submit</button>
+    {{#if isError}}
+      <div class="p-2 text-red-500">{{msg}}</div>
+    {{/if}}
   </form>
 </main>
