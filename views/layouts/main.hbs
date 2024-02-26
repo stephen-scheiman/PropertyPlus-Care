@@ -1,97 +1,63 @@
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://kit.fontawesome.com/542c6a9870.css"
-      crossorigin="anonymous"
-    />
-    <title>PropertyPlus Care</title>
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-    <script src="/js/htmx.min.js"></script>
-  </head>
-  <body class="text-white bg-[url('/img/bg.jpeg')] bg-cover bg-no-repeat">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://kit.fontawesome.com/542c6a9870.css" crossorigin="anonymous" />
+  <title>PropertyPlus Care</title>
+  <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+  <script src="/js/htmx.min.js"></script>
+</head>
 
-    <header>
-      <nav>
-        <a class="m-6 object-right-top p-1 float-right inline" href="/users" hx-boost="true" hx-target="#main">
-          <i class="fa-regular fa-user inline pr-1"></i>
-          Account
-        </a>
-        <button hx-post="/users/logout">Logout</button>
-      </nav>
-    <img class="float-left" src="/img/Logo.png" alt="logo">
-    </header>
+<body class="max-h-screen text-white bg-[url('/img/bg.jpeg')] bg-cover bg-no-repeat">
+  <header class="flex justify-between h-36 px-2">
+    <img src="/img/Logo.png" alt="logo">
+    <nav class="flex items-center me-4">
+      <a class="me-6" href="/users" hx-boost="true" hx-target="#main">
+        <i class="fa-regular fa-user inline pr-1"></i>
+        Account
+      </a>
+      <button class="border-2 border-white rounded-xl px-2 py-1" hx-post="/users/logout">Logout</button>
+    </nav>
+  </header>
 
-    <div class="flex w-[95%] m-auto justify-around">
-      <aside class="w-[20%]">
-        <select class="text-gray-400 mt-5"
-          name="model"
-          hx-get="/aside"
-          hx-target="#aside"
-          hx-trigger="click, change throttle:100ms,"
-          hx-push-url="true"
-        >
-          <option value="task" selected="selected=">Tasks</option>
-          <option value="issues">Issues</option>
-          <option value="property">Properties</option>
-          <option value="vendor">Vendors</option>
-          <option value="owner">Owners</option>
-        </select>
-        <div id="searchBar"></div>
-        <div>
-          <h1 id="asideTitle" class="mx-4 mb-5 pt-5 text-4xl font-bold">Today's Tasks</h1>
-          <div id="selectOption"></div>
-        </div>
-        <div class="overflow-auto max-h-[80vh]" id="aside">{{{body}}}</div>
-        <div id="addBtn"></div>
-      </aside>
+  <div class="flex w-[95%] justify-between">
+    <aside class="w-[20%] ps-2">
+      <label for="model" class="text-lg font-semibold mb-1 ms-4">Select Category:</label>
+      <select class="text-gray-600 rounded-md" name="model" hx-get="/aside" hx-target="#aside"
+        hx-trigger="click, change throttle:100ms," hx-push-url="true">
+        <option value="task" selected="selected=">Tasks</option>
+        <option value="issues">Issues</option>
+        <option value="property">Properties</option>
+        <option value="vendor">Vendors</option>
+        <option value="owner">Owners</option>
+      </select>
+      <h1 id="asideTitle" class="mx-4 mb-5 pt-5 text-4xl font-bold">Today's Tasks</h1>
+      <div id="newIssue"></div>
+      <div id="selectOption"></div>
+      <div id="searchBar"></div>
+      <div class="overflow-auto max-h-[60vh]" id="aside">{{{body}}}</div>
+      <div id="addBtn"></div>
+    </aside>
 
-      <div id="main" class="w-[75%] mt-16 max-h-[80vh]"></div>
-    </div>
+    <div id="main" class="w-[75%] mt-16 max-h-[80vh]"></div>
+  </div>
 
-    <footer
-      class="fixed bottom-0 flex w-screen bg-slate-500 text-center align-bottom sm:hidden"
-    >
-      <nav class="m-auto w-screen py-1.5">
-        <ul class="flex max-w-screen-sm justify-around">
-          <li><i
-              hx-get="/test/pg1"
-              hx-trigger="click"
-              hx-swap="innerHTML"
-              hx-target="#test"
-              hx-push-url="true"
-              class="fa-regular fa-calendar fa-3x"
-            ></i></li>
-          <li><i
-              hx-get="/test/pg2"
-              hx-trigger="click"
-              hx-swap="innerHTML"
-              hx-target="#test"
-              hx-push-url="true"
-              class="fa-regular fa-square-check fa-3x"
-            ></i></li>
-          <li><i
-              hx-get="/test/pg3"
-              hx-trigger="click"
-              hx-swap="innerHTML"
-              hx-target="#test"
-              hx-push-url="true"
-              class="fa-regular fa-house fa-3x"
-            ></i></li>
-          <li><i
-              hx-get="/test/pg4"
-              hx-trigger="click"
-              hx-swap="innerHTML"
-              hx-target="#test"
-              hx-push-url="true"
-              class="fa-regular fa-user-helmet-safety fa-3x"
-            ></i></li>
-        </ul>
-      </nav>
-    </footer>
-  </body>
+  <footer class="fixed bottom-0 flex w-screen bg-slate-500 text-center align-bottom sm:hidden">
+    <nav class="m-auto w-screen py-1.5">
+      <ul class="flex max-w-screen-sm justify-around">
+        <li><i hx-get="/test/pg1" hx-trigger="click" hx-swap="innerHTML" hx-target="#test" hx-push-url="true"
+            class="fa-regular fa-calendar fa-3x"></i></li>
+        <li><i hx-get="/test/pg2" hx-trigger="click" hx-swap="innerHTML" hx-target="#test" hx-push-url="true"
+            class="fa-regular fa-square-check fa-3x"></i></li>
+        <li><i hx-get="/test/pg3" hx-trigger="click" hx-swap="innerHTML" hx-target="#test" hx-push-url="true"
+            class="fa-regular fa-house fa-3x"></i></li>
+        <li><i hx-get="/test/pg4" hx-trigger="click" hx-swap="innerHTML" hx-target="#test" hx-push-url="true"
+            class="fa-regular fa-user-helmet-safety fa-3x"></i></li>
+      </ul>
+    </nav>
+  </footer>
+</body>
+
 </html>
