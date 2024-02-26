@@ -24,7 +24,7 @@
 
   <div class="flex w-[95%] justify-between">
     <aside class="w-[20%] ps-2">
-      <label for="model" class="text-lg font-semibold mb-1 ms-4">Select Category:</label>
+      <label for="model" class="text-lg font-semibold mb-1 ms-4">Select Category: </label>
       <select class="text-gray-600 rounded-md" name="model" hx-get="/aside" hx-target="#aside"
         hx-trigger="click, change throttle:100ms," hx-push-url="true">
         <option value="task" selected="selected=">Tasks</option>
@@ -38,10 +38,12 @@
       <div id="selectOption"></div>
       <div id="searchBar"></div>
       <div class="overflow-auto max-h-[60vh]" id="aside">{{{body}}}</div>
-      <div id="addBtn"></div>
+      <div class="flex justify-center">
+        <div id="addBtn"></div>
+      </div>
     </aside>
 
-    <div id="main" class="w-[75%] mt-16 max-h-[80vh]"></div>
+    <div id="main" class="w-[75%] mt-16 max-h-[80vh] overflow-auto text-white"></div>
   </div>
 
   <footer class="fixed bottom-0 flex w-screen bg-slate-500 text-center align-bottom sm:hidden">

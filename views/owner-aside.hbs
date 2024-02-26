@@ -26,7 +26,7 @@
   <input
     type="search"
     id="searchBar"
-    class="text-gray-600 rounded"
+    class="text-gray-600 ms-4 my-1 rounded-md p-1"
     name="search"
     placeholder="Search owners"
     hx-swap-oob="true"
@@ -37,5 +37,5 @@
 
   <h1 id="asideTitle" hx-swap-oob="true" class="mx-4 mb-5 pt-5 text-4xl font-bold">Owners</h1>
   <div id="selectOption" hx-swap-oob="true" ></div>
-  <button id="addBtn" hx-swap-oob="true" hx-get="/owners/new" hx-target="#main">Add New Owner</button>
+  <button id="addBtn" class="rounded-md bg-green-500 px-2 mt-3" hx-swap-oob="true" hx-get="/owners/new" hx-target="#main">Add New Owner</button>
 {{/if}}
