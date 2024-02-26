@@ -42,11 +42,10 @@ async function renderNewTaskForm(req, res) {
 
 // create task function
 async function renderNewTask(req, res) {
-  let { task_name, status_update, followUp_date, property_id, issue_id } =
-    req.body;
+  let { task_name, status_update, followUp_date, issue_id } = req.body;
 
   if (
-    !(task_name && status_update && followUp_date && property_id && issue_id)
+    !(task_name && status_update && followUp_date && issue_id)
   ) {
     throw new BadRequestError("Missing Data - Please complete all fields");
   }
@@ -65,13 +64,13 @@ async function renderNewTask(req, res) {
     );
   }
 
-  const newTask = await createTask({ task_name, status_update, followUp_date, property_id, issue_id });
+  const newTask = await createTask({ task_name, status_update, followUp_date, issue_id });
 
-  const p1 = findOneIssue(issue_id);
-  const p2 = findTasksByIssueID(issue_id);
-  const [issue, tasks] = await Promise.all([p1, p2]);
+  const issue = await findOneIssue(issue_id);
+  // const p2 = findTasksByIssueID(issue_id);
+  // const [issue, tasks] = await Promise.all([p1, p2]);
 
-  res.status(200).set('hx-trigger', 'update-tasks').render("issue-ID", { issue, tasks, layout: false });
+  res.status(200).set('hx-trigger', 'update-tasks').render("issue-ID", { issue, layout: false });
 }
 
 //update task function
