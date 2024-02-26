@@ -1,5 +1,12 @@
 <h1 id="issueTitle" class="mt-8 text-2xl font-bold" hx-swap-oob="true">
-  <input id="inputTitle" class="mb-2 rounded text-gray-500" name="issue_title" type="text" value="{{issue.issue_title}}" />
+  <input
+    id="inputTitle"
+    hx-preserve
+    class="mb-2 rounded text-gray-500"
+    name="issue_title"
+    type="text"
+    value="{{issue.issue_title}}"
+  />
 </h1>
 
 <h2
@@ -10,7 +17,7 @@
   <select id="selectProperty" name="property_id" class="mb-2 rounded text-gray-500">
     <option value="{{issue.property_id}}" selected disabled hidden>{{issue.property.property_name}}</option>
     {{#each properties}}
-    <option value="{{property_id}}">{{property_name}}</option>
+      <option value="{{property_id}}">{{property_name}}</option>
     {{/each}}
   </select>
 </h2>
@@ -22,6 +29,7 @@
 >Description:
   <input
     id="inputDesc"
+    hx-preserve
     class="mb-2 rounded text-gray-500"
     name="issue_description"
     type="text"
@@ -29,7 +37,16 @@
   />
 </h3>
 
-<form hx-swap-oob="true" id="editForm" hx-patch="/issues/{{issue.issue_id}}/edit" hx-target="#main" hx-include="#issueTitle, #selectProperty, #inputDesc">
+<form
+  hx-swap-oob="true"
+  id="editForm"
+  hx-patch="/issues/{{issue.issue_id}}/edit"
+  hx-target="#main"
+  hx-include="#issueTitle, #selectProperty, #inputDesc"
+>
   <button class="bg-green-400" type="submit">Submit</button>
   <button class="bg-red-400">Cancel</button>
+   {{#if isError}}
+    <div class="p-2 text-red-500">{{msg}}</div>
+    {{/if}}
 </form>
