@@ -1,6 +1,7 @@
 const { findProperties, findPropertyByID } = require("./queries/properties");
 const { findOwnerById } = require("./queries/owners");
 const { findVendorByID } = require('./queries/vendors');
+const { findOneIssue } = require('./queries/issues');
 
 async function errorHandler(err, req, res, next) {
   console.log("\n\n");
@@ -53,12 +54,16 @@ async function errorHandler(err, req, res, next) {
     }
 
     case "issue-form-edit": {
-      const issue = await findIssueByID(err.data.issue_id);
+      const p1 = await findProperties();
+      const p2 = findOneIssue(err.data.issue_id);
+      const [properties, issue] = await Promise.all([p1, p2]);
+
       return res
         .status(200)
-        .set({ "hx-retarget": "this", "hx-reswap": "outerHTML" })
+        .set({ "hx-retarget": "this" })
         .render("issue-form-edit", {
           issue,
+          properties,
           msg,
           isError,
           layout: false,

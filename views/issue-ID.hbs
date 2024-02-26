@@ -18,6 +18,7 @@
 
       <button
         hx-get="/issues/{{issue.issue_id}}/edit"
+        hx-target="#editForm"
       >Edit Issue</button>
 
       <button name="deleteIssue" value="{{issue.issue_id}}" class="border-2 border-white rounded-lg px-2 bg-blue-400 mt-8"

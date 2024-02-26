@@ -207,7 +207,7 @@ async function renderUpdatedIssue(req, res) {
   const { issue_title, issue_description, property_id } = req.body;
 
   if (!(issue_title && issue_description && property_id)){
-    throw new BadRequestError("issue-form-edit","Please complete all fields");
+    throw new BadRequestError("issue-form-edit", "Please complete all fields", { issue_id });
   }
 
   await updateIssue(issue_id, {
