@@ -1,6 +1,6 @@
 const { User } = require('../models');
 const { BadRequestError, NotFoundError } = require('../utils/errors');
-const { updateUser, userLogin, createUser, findUserByPk } = require('../utils/queries/users')
+const { updateUser, userLogin, createUser, findUserByPk, findUsers } = require('../utils/queries/users')
 
 async function renderLoginForm(req, res) {
   // If the user is already logged in, redirect the request to another route
@@ -31,10 +31,47 @@ async function renderSignupForm(req, res) {
 }
 
 async function renderNewUser(req, res) {
-  const { user_name, user_password, user_email } = req.body;
+  let { user_name, user_password, user_email } = req.body;
 
   if (!(user_name && user_email && user_password)) {
     throw new BadRequestError('Missing Data - Please fill out all required fields.');
+  }
+
+  //validate letters and numbers only in username
+  user_name = user_name.trim();
+  const namePattern = /^[a-zA-Z0-9]+$/;
+  //validate properly formed email
+  const emailPattern =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //password comlexity validation
+  const passwordPattern = /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+
+  if (
+    !namePattern.test(user_name) 
+  ) {
+    throw new BadRequestError("Your username should only contain letters and numbers");
+  }
+
+  if (
+    !emailPattern.test(user_email)
+  ) {
+    throw new BadRequestError("Please enter a valid email address");
+  }
+
+  //validate that the email is unique
+  const userData = await findUsers();
+  for (x = 0; x < userData.length; x++) {
+    if (user_email === userData[x].user_email) {
+      throw new BadRequestError(
+        "An owner with this email address already exists",
+      );
+    }
+  }
+
+  if (
+    !passwordPattern.test(user_password)
+  ) {
+    throw new BadRequestError("Your password must consist of 8 characters and contain uppercase and lowercase characters as well as a symbol and a number")
   }
 
   const user = await createUser({ user_name, user_password, user_email });

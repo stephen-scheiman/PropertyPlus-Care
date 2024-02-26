@@ -18,6 +18,11 @@ async function userLogin(userData) {
   return user;
 };
 
+async function findUsers() {
+  const users = await User.findAll();
+  return users;
+}
+
 async function createUser(userData) {
   const user = await User.create(userData);
 
@@ -53,5 +58,6 @@ module.exports = {
   createUser,
   findUserByPk,
   updateUser,
+  findUsers
 
 }
