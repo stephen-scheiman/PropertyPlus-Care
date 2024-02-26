@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { Owner, Property } = require("../../models");
 const {
   InternalServerError,
@@ -66,11 +67,29 @@ async function deleteOwner(owner_id) {
   return owner;
 };
 
+async function searchOwners(search) {
+  const result = await Owner.findAll({
+    where: {
+      [Op.or]: [
+        { owner_first_name: { [Op.like]: `%${search}%` } },
+        { owner_last_name: { [Op.like]: `%${search}%` } },
+        { owner_email: { [Op.like]: `%${search}%` } },
+        { owner_phone: { [Op.like]: `%${search}%` } },
+      ]
+    }
+  });
+
+  const owners = result.map(e => e.toJSON());
+
+  return owners;
+}
+
 module.exports = {
   findOwnerById,
   findOwners,
   createOwner,
   updateOwner,
   deleteOwner,
+  searchOwners,
 
 }

@@ -3,7 +3,10 @@ const c = require('../../controller/ownerController');
 
 router.route('/')
   .get(c.renderOwners)
-  // .post(c.renderNewOwner);
+// .post(c.renderNewOwner);
+
+router.route('/search')
+  .post(c.renderOwnerSearch)
 
 router.route('/new')
   .get(c.renderNewOwnerForm)
@@ -17,5 +20,5 @@ router.route('/:id')
   router.route('/:id/edit')
   .get(c.renderEditOwnerForm)
   .patch(c.renderUpdatedOwner)
-  
+
 module.exports = router;

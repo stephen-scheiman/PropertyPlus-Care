@@ -10,6 +10,7 @@ const {
   createOwner,
   updateOwner,
   deleteOwner,
+  searchOwners
 } = require("../utils/queries/owners");
 
 async function renderOwners(req, res) {
@@ -302,6 +303,14 @@ async function renderDeletedOwner(req, res) {
   res.status(200).set("hx-trigger", "update-owners").send("");
 }
 
+async function renderOwnerSearch(req, res) {
+  const { search } = req.body;
+  const owners = await searchOwners(search.toLowerCase());
+
+  res.status(200).render('owner-aside', { owners, layout: false });
+}
+
+
 module.exports = {
   renderOneOwner,
   renderOwners,
@@ -310,4 +319,5 @@ module.exports = {
   renderDeletedOwner,
   renderNewOwnerForm,
   renderEditOwnerForm,
+  renderOwnerSearch,
 };
