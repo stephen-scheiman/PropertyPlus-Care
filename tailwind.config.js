@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./views/**/*.hbs"],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'hero-pattern': "url('/img/background.jpg')"
+      }
+    },
   },
   plugins: [],
 }

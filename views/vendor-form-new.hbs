@@ -1,0 +1,39 @@
+<main class="m-4 rounded bg-inherit px-4 py-2 text-white backdrop-blur-xl shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]">
+  <h1 class="font-bold text-2xl my-5 text-white">Add New Vendor:</h1>
+  <form
+    class="flex flex-col text-gray-600"
+    hx-post="/vendors/new"
+    hx-target="#main"
+  >
+    <label for="vendor_first_name">First Name:</label>
+    <input type="text" name="vendor_first_name" autofocus hx-preserve id="v_f_n" />
+
+    <label for="vendor_last_name">Last Name:</label>
+    <input type="text" name="vendor_last_name" hx-preserve id="v_l_n" />
+
+    <label for="vendor_trade">Trade:</label>
+    <select name="vendor_trade" hx-preserve id="v_t">
+      <option value="" disabled selected hidden>Pick a trade</option>
+      <option value="Electrical">Electrical</option>
+      <option value="Flooring">Flooring</option>
+      <option value="Handyman">Handyman</option>
+      <option value="Plumbing">Plumbing</option>
+      <option value="Roofer">Roofer</option>
+    </select>
+
+    <label for="vendor_email">Email:</label>
+    <input type="email" name="vendor_email" hx-preserve id="v_e" />
+
+    <label for="vendor_phone">Phone Number:</label>
+    <input type="text" name="vendor_phone" hx-preserve id="v_p"/>
+
+    <button class="my-5" type="submit">Create Vendor</button>
+    {{#if isError}}
+      <div class="p-2 text-red-500">{{msg}}</div>
+    {{/if}}
+  </form>
+  <button class="rounded-lg border-2 border-slate-300 px-2"
+    hx-get="/cancel"
+    hx-target="#main"
+  >Cancel New Property</button>
+</main>

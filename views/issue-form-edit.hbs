@@ -1,0 +1,59 @@
+<h1 id="issueTitle" class="mt-8 text-2xl font-bold" hx-swap-oob="true">
+  <input
+    id="inputTitle"
+    hx-preserve
+    class="mb-2 rounded text-gray-500"
+    name="issue_title"
+    type="text"
+    value="{{issue.issue_title}}"
+  />
+</h1>
+
+<h2
+  id="propertyName"
+  hx-swap-oob="true"
+  class="mt-5 text-xl font-semibold"
+>Property:
+  <select
+    id="selectProperty"
+    name="property_id"
+    class="mb-2 rounded text-gray-500"
+  >
+    <option
+      value="{{issue.property_id}}"
+      selected
+      disabled
+      hidden
+    >{{issue.property.property_name}}</option>
+    {{#each properties}}
+      <option value="{{property_id}}">{{property_name}}</option>
+    {{/each}}
+  </select>
+</h2>
+
+<div id="issueDesc" hx-swap-oob="true">
+  <h3
+    hx-swap-oob="true"
+    class="mt-2 text-lg font-semibold"
+  >Description:
+  </h3>
+  <textarea
+      id="inputDesc"
+      hx-preserve
+      class="rounded text-gray-500 pl-1"
+      rows="5"
+      name="issue_description"
+  />{{issue.issue_description}}</textarea>
+</div>
+
+<form
+  hx-patch="/issues/{{issue.issue_id}}/edit"
+  hx-target="#main"
+  hx-include="#issueTitle, #selectProperty, #inputDesc"
+>
+  <button class="bg-green-400" type="submit">Submit</button>
+  <button class="bg-red-400">Cancel</button>
+  {{#if isError}}
+    <div class="p-2 text-red-500">{{msg}}</div>
+  {{/if}}
+</form>

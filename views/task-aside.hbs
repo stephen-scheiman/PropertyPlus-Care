@@ -1,0 +1,52 @@
+<ul id="tasksList"
+  hx-target="#aside"
+  hx-get="/tasks/due"
+  hx-trigger="update-tasks from:body">
+{{#each pastTasks}}
+  <div
+    class="m-4 rounded bg-white/30 p-2 text-white backdrop-blur-sm cursor-pointer shadow-lg hover:scale-105"
+    hx-get="/issues/{{issue_id}}"
+    hx-target="#main"
+    hx-push-url="true"
+  >
+    <h2 class="font-bold text-xl my-2 text-center rounded bg-red-500 shadow-lg">
+      <span class="font-normal">{{this.task_name}}</span></h2>
+    <h3 class="font-semibold">Issue:
+      <span class="font-normal">{{this.issue.issue_title}}</span>
+    </h3>
+    <h3 class="font-semibold">Property:
+      <span class="font-normal">{{this.issue.property.property_name}}</span>
+    </h3>
+    <h3 class="font-semibold">Due Date:
+      <span class="font-normal">{{format_date this.followUp_date}}</span>
+    </h3>
+  </div>
+{{/each}}
+{{#each todayTasks}}
+  <div
+    class="m-4 rounded bg-white/30 p-2 text-white backdrop-blur-sm cursor-pointer shadow-lg hover:scale-105"
+    hx-get="/issues/{{issue_id}}"
+    hx-target="#main"
+    hx-push-url="true"
+  >
+    <h2 class="font-bold text-xl my-2 text-center rounded bg-green-500 shadow-lg">
+      <span class="font-normal">{{this.task_name}}</span></h2>
+    <h3 class="font-semibold">Issue:
+      <span class="font-normal">{{this.issue.issue_title}}</span>
+    </h3>
+    <h3 class="font-semibold">Property:
+      <span class="font-normal">{{this.issue.property.property_name}}</span>
+    </h3>
+    <h3 class="font-semibold">Due Date:
+      <span class="font-normal">{{format_date this.followUp_date}}</span>
+    </h3>
+  </div>
+{{/each}}
+</ul>
+
+{{#if isOob}}
+  <h1 id="asideTitle" hx-swap-oob="true" class="mx-4 mb-5 pt-5 text-4xl font-bold">Today's Tasks</h1>
+  <div id="selectOption" hx-swap-oob="true" ></div>
+  <div id="searchBar" hx-swap-oob="true" ></div>
+  <div id="addBtn" hx-swap-oob="true"></div>
+{{/if}}

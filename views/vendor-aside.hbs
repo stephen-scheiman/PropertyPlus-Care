@@ -1,0 +1,53 @@
+<ul
+  id="vendorsList"
+  hx-trigger="update-vendors from:body"
+  hx-get="/vendors"
+  hx-target="#aside"
+>
+  {{#each vendors}}
+    <li
+      class="m-4 rounded bg-white/30 p-2 text-white backdrop-blur-sm cursor-pointer shadow-lg hover:scale-105"
+      hx-boost="true"
+      hx-push-url="true"
+    >
+      <a href="/vendors/{{vendor_id}}" hx-target="#main">
+        <h2 hx-target="closest li">{{vendor_first_name}} {{vendor_last_name}}</h2>
+        <h3 hx-target="closest li">Trade: {{vendor_trade}}</h3>
+      </a>
+    </li>
+  {{/each}}
+</ul>
+
+{{#if isOob}}
+  <input
+    type="search"
+    id="searchBar"
+    class="text-gray-600 ms-4 my-1 rounded-md p-1"
+    name="search"
+    placeholder="search vendor's name"
+    hx-swap-oob="true"
+    hx-post="/vendors"
+    hx-target="#aside"
+    hx-trigger="input changed delay:300ms, search"
+  />
+
+  <h1 id="asideTitle" hx-swap-oob="true" class="mx-4 mb-5 pt-5 text-4xl font-bold">Vendors</h1>
+
+  <select
+    name="vendor_trade"
+    id="selectOption"
+    class="text-gray-600 ms-4 rounded-md"
+    hx-swap-oob="true"
+    hx-get="/vendors/trades"
+    hx-target="#aside"
+  >
+    <option value="All">All Trades</option>
+    <option value="Electrical">Electrical</option>
+    <option value="Flooring">Flooring</option>
+    <option value="Handyman">Handyman</option>
+    <option value="Plumbing">Plumbing</option>
+    <option value="Roofer">Roofer</option>
+  </select>
+
+  <button id="addBtn" class="bg-green-500 px-2 hover:bg-green-600 focus:outline-none focus:ring focus:ring-green-300 active:bg-green-700 my-3 shadow-lg me-4 border-2 border-white rounded-xl py-1 hover:scale-105 hover:shadow-xl" hx-swap-oob="true" hx-get="/vendors/new" hx-target="#main">Add New Vendor</button>
+{{/if}}

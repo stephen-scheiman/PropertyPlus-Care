@@ -1,0 +1,20 @@
+<main class="rounded px-4 my-5 text-white backdrop-blur-xl shadow-lg">
+  <h2 class="font-bold text-2xl pt-5 my-5">User Information: </h2>
+  <div id="userInfo">
+    <div>
+      <label class="inline-block font-semibold">Username:
+        <span class="font-normal">{{user.user_name}}</span></label>
+    </div>
+    <div>
+      <label class="inline-block font-semibold">Email:
+        <span class="font-normal">{{user.user_email}}</span></label>
+    </div>
+
+    <button
+    class="rounded bg-blue-400 px-2 my-5 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
+    hx-get="/users/edit"
+    hx-target="#userInfo"
+    hx-swap="outerHTML"
+  >Edit User</button>
+  </div>
+</main>

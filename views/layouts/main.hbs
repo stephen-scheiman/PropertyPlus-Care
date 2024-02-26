@@ -1,65 +1,54 @@
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://kit.fontawesome.com/542c6a9870.css"
-      crossorigin="anonymous"
-    />
-    <title>PropertyPlus Care</title>
-    <script src="/js/htmx.min.js"></script>
-  </head>
-  <body class="bg-[#085394] text-slate-300">
-    <header class="fixed right-0 max-h-10 max-w-10 sm:hidden">
-      <a href="./help.hbs">
-        <img src="/img/questionmark.png" alt="question mark" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://kit.fontawesome.com/542c6a9870.css" crossorigin="anonymous" />
+  <title>PropertyPlus Care</title>
+  <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+  <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+</head>
+
+<body class="max-h-screen bg-[#289acc] text-white md:bg-[url('/img/bg.jpeg')] md:bg-cover md:bg-no-repeat">
+  <header class="mb-4 md:flex md:justify-between md:h-36 md:px-2">
+    <img class="cursor-pointer" src="/img/Logo.png" alt="logo" title="Go Home" hx-get="/home">
+    <nav class="flex justify-end md:flex md:items-center md:me-4">
+      <a class="me-4 md:border-2 md:border-white md:rounded-xl px-2 md:py-1 hover:scale-105 hover:shadow-xl" href="/users" hx-boost="true" hx-target="#main">
+        <i class="fa-regular fa-user inline pr-1"></i>
+        Account
       </a>
-    </header>
+      <button class="md:border-2 md:border-white md:rounded-xl px-2 md:py-1 hover:scale-105 hover:shadow-xl" hx-post="/users/logout">Logout</button>
+    </nav>
+  </header>
 
-    <div id="main">{{{body}}}</div>
+  <div class="w-[100%] md:flex md:justify-around">
+    <aside class="pt-4 md:pt-0 w-[100%] md:w-[30%] lg:w-[25%] xl:w-[20%] ps-2">
+      <label for="model" class="text-lg font-semibold mb-1 ms-4">Select Category: </label>
+      <select class="text-gray-600 rounded-md" name="model" hx-get="/aside" hx-target="#aside"
+        hx-trigger="click, change throttle:100ms," hx-push-url="true">
+        <option value="task" selected="selected=">Tasks</option>
+        <option value="issues">Issues</option>
+        <option value="property">Properties</option>
+        <option value="vendor">Vendors</option>
+        <option value="owner">Owners</option>
+      </select>
+      <h1 id="asideTitle" class="mx-4 mb-5 pt-5 text-4xl font-bold">Today's Tasks</h1>
+      <div id="newIssue"></div>
+      <div id="selectOption"></div>
+      <div id="searchBar"></div>
+      <div class="overflow-auto max-h-[60vh]" id="aside">{{{body}}}</div>
+      <div class="flex justify-center">
+        <div id="addBtn"></div>
+      </div>
+    </aside>
 
-    <footer
-      class="fixed bottom-0 flex w-screen bg-slate-500 text-center align-bottom sm:hidden"
-    >
-      <nav class="m-auto w-screen py-1.5">
-        <ul class="flex max-w-screen-sm justify-around">
-          <li><i
-              hx-get="/test/pg1"
-              hx-trigger="click"
-              hx-swap="innerHTML"
-              hx-target="#test"
-              hx-push-url="true"
-              class="fa-regular fa-calendar fa-3x"
-            ></i></li>
-          <li><i
-              hx-get="/test/pg2"
-              hx-trigger="click"
-              hx-swap="innerHTML"
-              hx-target="#test"
-              hx-push-url="true"
-              class="fa-regular fa-square-check fa-3x"
-            ></i></li>
-          <li><i
-              hx-get="/test/pg3"
-              hx-trigger="click"
-              hx-swap="innerHTML"
-              hx-target="#test"
-              hx-push-url="true"
-              class="fa-regular fa-house fa-3x"
-            ></i></li>
-          <li><i
-              hx-get="/test/pg4"
-              hx-trigger="click"
-              hx-swap="innerHTML"
-              hx-target="#test"
-              hx-push-url="true"
-              class="fa-regular fa-user-helmet-safety fa-3x"
-            ></i></li>
-        </ul>
-      </nav>
-    </footer>
-  </body>
+    <div id="main" class="w-[100%] md:w-[65%] lg:w-[70%] xl:w-[75%] max-h-[80vh] text-white overflow-auto"></div>
+  </div>
+
+  <footer class="fixed bottom-0 flex w-screen justify-center align-bottom">
+    <h4 class="font-semibold">&copy UCB Coders 2024</h4>
+  </footer>
+</body>
+
 </html>

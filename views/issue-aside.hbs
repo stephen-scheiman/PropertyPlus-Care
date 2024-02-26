@@ -1,0 +1,62 @@
+<div id="issuesList"
+  hx-get="/issues"
+  hx-target="#aside"
+  hx-trigger="update-issues from:body"
+>
+
+  {{#each issues}}
+    <div class="m-4 rounded bg-white/30 p-2 text-white backdrop-blur-sm cursor-pointer shadow-lg hover:scale-105">
+      <h2
+        class="font-bold text-xl my-2 text-center rounded {{#if issue_isDone}} bg-green-500 {{else}} bg-red-500 {{/if}} shadow-lg"
+        hx-get="/issues/{{this.issue_id}}"
+        hx-swap="innerHTML"
+        hx-target="#main"
+        hx-push-url="true"
+      >{{this.issue_title}}</h2>
+      <h3
+        class="font-semibold text-lg hover:underline hover:italic"
+        hx-get="/properties/{{this.property_id}}"
+        hx-swap="innerHTML"
+        hx-target="#main"
+        hx-push-url="true"
+      >Property: {{this.property.property_name}}</h3>
+      <p class="font-medium">Description: <span>{{this.issue_description}}</span></p>
+    </div>
+  {{/each}}
+</div>
+
+{{#if isOob}}
+  <h1 id="asideTitle" hx-swap-oob="true" class="mx-4 my-3 text-4xl font-bold">Issues</h1>
+
+  <button id="addBtn" name="newIssue" class="bg-green-500 px-2 hover:bg-green-600 focus:outline-none focus:ring focus:ring-green-300 active:bg-green-700 my-3 shadow-lg me-4 border-2 border-white rounded-xl py-1 hover:scale-105 hover:shadow-xl"
+    hx-get="/issues/new"
+    hx-target="#main"
+    hx-swap-oob="true"
+    hx-swap="innerHTML"
+  >New Issue</button>
+
+  <input
+    type="search"
+    id="searchBar"
+    class="text-gray-600 ms-4 my-1 rounded-md p-1"
+    name="search"
+    placeholder="Search Issues"
+    hx-swap-oob="true"
+    hx-post="/issues/search"
+    hx-target="#aside"
+    hx-trigger="input changed delay:300ms, search"
+  />
+
+  <select name="issueStatus" id="selectOption" class="text-gray-600 ms-4 rounded-md"
+    hx-swap-oob="true"
+    hx-get="/issues/whichIssues"
+    hx-target="#aside"
+    hx-trigger="change, update-issues from:body"
+    hx-swap="innerHTML">
+    <option value="open">Open Issues</option>
+    <option value="closed">Closed Issues</option>
+    <option value="all">All Issues</option>
+  </select>
+
+  {{!-- <div id="addBtn" hx-swap-oob="true" ></div> --}}
+{{/if}}

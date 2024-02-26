@@ -1,0 +1,38 @@
+<main class="m-4 rounded bg-inherit px-4 py-2 text-white backdrop-blur-xl shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]">
+  <form
+    class="flex flex-col text-white lg:max-w-[50%]"
+    hx-post="/properties/new"
+    hx-target="#main"
+  >
+  <h1 class="font-bold text-2xl my-5 text-white">Add New Property:</h1>
+    <label for="property_name">Property Name:</label>
+    <input class="pl-1 rounded" placeholder="Cherry Orchards" type="text" name="property_name" autofocus hx-preserve id="p_n" />
+    <label class="mt-2" for="property_street">Property Street Address:</label>
+    <input class="pl-1 rounded" placeholder="123 Cherry Ln. #3" type="text" name="property_street" hx-preserve id="p_s" />
+    <label class="mt-2" for="property_city">Property City:</label>
+    <input class="pl-1 rounded" placeholder="City" type="text" name="property_city" hx-preserve id="p_c" />
+    <label class="mt-2" for="property_state">Property State:</label>
+    <input class="pl-1 rounded" placeholder="State" type="text" name="property_state" hx-preserve id="p_st" />
+    <label class="mt-2" for="property_zip">Property Zip:</label>
+    <input class="pl-1 rounded" placeholder="Zipcode" type="text" name="property_zip" hx-preserve id="p_z" />
+    {{#if isError}}
+      <div class="p-2 text-red-500">{{msg}}</div>
+    {{/if}}
+
+    <label class="mt-2" for="owner">Property Owner:</label>
+    <select class="rounded lg:max-w-[30%] text-gray-500" name="owner_id"  hx-preserve id="p_o">
+      <option value="" disabled selected hidden>Select a property owner</option>
+      {{#each owners}}
+        <option value="{{owner_id}}">{{owner_first_name}}
+          {{owner_last_name}}</option>
+      {{/each}}
+    </select>
+    <div>
+    <button class="rounded my-3 px-2 bg-green-400 hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700 shadow-lg" type="submit">Submit</button>
+      <button class="rounded my-3 mx-1 px-2 bg-red-400 hover:bg-red-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-red-700 shadow-lg"
+    hx-get="/cancel"
+    hx-target="#main"
+  >Cancel</button>
+  </div>
+  </form>
+</main>

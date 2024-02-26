@@ -1,0 +1,41 @@
+<ul
+  id="propertiesList"
+  hx-trigger="update-properties from:body"
+  hx-get="/properties"
+  hx-target="#aside"
+>
+  {{#each properties as |property|}}
+    <li
+      class="m-4 rounded bg-white/30 p-2 text-white backdrop-blur-sm cursor-pointer shadow-lg hover:scale-105"
+      hx-get="/properties/{{property_id}}"
+      hx-target="#main"
+      hx-push-url="true"
+    >
+      <h2>{{property_name}}</h2>
+      <p>{{property_street}}</p>
+      <p>{{property_city}}</p>
+      <p>{{property_state}}</p>
+      <p>{{property_zip}}</p>
+    </li>
+  {{/each}}
+</ul>
+
+{{#if isOob}}
+  <input
+    type="search"
+    id="searchBar"
+    class="text-gray-600 my-1 ms-4 rounded-md p-1"
+    name="search"
+    placeholder="Search Properties"
+    hx-swap-oob="true"
+    hx-post="/properties/search"
+    hx-target="#aside"
+    hx-trigger="input changed delay:300ms, search"
+  />
+
+  <h1 id="asideTitle" hx-swap-oob="true" class="mx-4 mb-5 pt-5 text-4xl font-bold">Properties</h1>
+  <div id="selectOption" hx-swap-oob="true" ></div>
+  <button id="addBtn" class="bg-green-500 px-2 hover:bg-green-600 focus:outline-none focus:ring focus:ring-green-300 active:bg-green-700 my-3 shadow-lg me-4 border-2 border-white rounded-xl py-1 hover:scale-105 hover:shadow-xl"
+    hx-swap-oob="true" hx-get="/properties/new" hx-target="#main">Add New Property
+  </button>
+{{/if}}

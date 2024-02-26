@@ -28,5 +28,11 @@
     "issue_description": "Renter says water is dripping from ceiling in bathroom",
     "issue_isDone": "false",
     "property_id": "5"
+  },
+  {
+    "issue_title": "Another Broken stove",
+    "issue_description": "Renter said stove stopped turning on but it's plugged in",
+    "issue_isDone": "false",
+    "property_id": "1"
   }
 ]

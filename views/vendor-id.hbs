@@ -1,0 +1,48 @@
+<main class="m-4 rounded bg-inherit px-4 text-white backdrop-blur-xl shadow-lg">
+  <h2 class="mb-3 text-4xl font-bold">Vendor Information: </h2>
+  <div id="vendorInfo">
+    <div>
+      <label class="inline-block font-semibold">Name:
+        <span class="font-normal">{{vendor.vendor_first_name}}</span></label>
+      <label>{{vendor.vendor_last_name}}</label>
+    </div>
+    <div>
+      <label class="inline-block font-semibold">Trade:
+        <span class="font-normal">{{vendor.vendor_trade}}</span></label>
+    </div>
+    <div>
+      <label class="inline-block font-semibold">Phone:
+        <span class="font-normal">{{vendor.vendor_phone}}</span></label>
+    </div>
+    <div>
+      <label class="inline-block font-semibold">Email:
+        <span class="font-normal">{{vendor.vendor_email}}</span></label>
+    </div>
+  </div>
+
+  <div class="my-5">
+    <button
+      class="rounded bg-blue-400 px-2 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
+      hx-get="/vendors/{{vendor.vendor_id}}/edit" hx-target="#vendorInfo" hx-swap="outerHTML">Edit Vendor</button>
+    <button
+      class="rounded bg-red-400 px-2 hover:bg-red-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-red-700"
+      hx-delete="/vendors/{{vendor.vendor_id}}" hx-target="#main"
+      hx-confirm="Are you sure you want to delete this vendor? This action cannot be undone.">Delete Vendor</button>
+  </div>
+  <select class="rounded mt-2 text-gray-500" name="issue_id" hx-post="/vendors/{{vendor.vendor_id}}/issues" hx-target="#main">
+    <option value="" disabled selected hidden>Assign Existing Issue to Vendor</option>
+    {{#each issues}}
+    <option value="{{issue_id}}">{{issue_title}}</option>
+    {{/each}}
+  </select>
+  <br>
+  <h3 class="inline-block pt-3 font-semibold underline">Assigned Issues:</h3>
+  <ul>
+    {{#each vendor.issues}}
+    <li class="cursor-pointer no-underline hover:font-bold hover:text-red-500 pb-3" hx-get="/issues/{{issue_id}}" hx-target="#main" hx-push-url="true">
+      <p hx-target="closest li">{{issue_title}}
+      </p>
+    </li>
+    {{/each}}
+    </ul>
+</main>

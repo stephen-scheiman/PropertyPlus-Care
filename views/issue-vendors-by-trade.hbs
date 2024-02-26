@@ -1,0 +1,14 @@
+{{#if isEmpty}}
+  <label for="vendor_id">Vendor:</label>
+  <select name="vendor_id" id="vendors" disabled class="text-black">
+    <option value="">No vendor found</option>
+  </select>
+{{else}}
+  <label for="vendor_id">Vendor:</label>
+  <select name="vendor_id" id="vendors" class="text-gray-500">
+    {{#each vendors}}
+    <option value="{{vendor_id}}">{{vendor_first_name}} {{vendor_last_name}} ({{vendor_trade}})</option>
+    {{/each}}
+  </select>
+  <button type="submit" class="text-xs bg-blue-500 px-1 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700 my-3 shadow-lg me-4 rounded py-[2px] hover:scale-105 hover:shadow-xl">Add Vendor</button>
+{{/if}}

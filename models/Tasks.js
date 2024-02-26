@@ -27,9 +27,6 @@ Task.init(
     followUp_date: {
       type: DataTypes.DATE,
       allowNull: false,
-      validate: {
-        isDate: true,
-      },
     },
 
     is_done: {
@@ -45,16 +42,6 @@ Task.init(
       references: {
         model: Issue,
         key: 'issue_id',
-      },
-    },
-    property_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-      references: {
-        model: Property,
-        key: 'property_id',
       },
     },
   },

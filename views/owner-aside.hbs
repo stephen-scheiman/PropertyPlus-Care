@@ -1,0 +1,41 @@
+<main>
+  <ul
+    id="ownersList"
+    hx-trigger="update-owners from:body"
+    hx-get="/owners"
+    hx-target="#aside"
+  >
+    {{#each owners as |owner|}}
+      <li
+        class="m-4 rounded bg-white/30 p-2 text-white backdrop-blur-sm cursor-pointer shadow-lg hover:scale-105"
+        hx-get="/owners/{{owner_id}}"
+        hx-target="#main"
+        hx-trigger="click"
+        hx-boost="true"
+        hx-push-url="true"
+      >
+        <h2 hx-target="closest li">{{owner_first_name}} {{owner_last_name}}</h2>
+        <p hx-target="closest li">{{owner_phone}}</p>
+        <p hx-target="closest li">{{owner_email}}</p>
+      </li>
+    {{/each}}
+  </ul>
+</main>
+
+{{#if isOob}}
+  <input
+    type="search"
+    id="searchBar"
+    class="text-gray-600 ms-4 my-1 rounded-md p-1"
+    name="search"
+    placeholder="Search owners"
+    hx-swap-oob="true"
+    hx-post="/owners/search"
+    hx-target="#aside"
+    hx-trigger="input changed delay:300ms, search"
+  />
+
+  <h1 id="asideTitle" hx-swap-oob="true" class="mx-4 mb-5 pt-5 text-4xl font-bold">Owners</h1>
+  <div id="selectOption" hx-swap-oob="true" ></div>
+  <button id="addBtn" class="bg-green-500 px-2 hover:bg-green-600 focus:outline-none focus:ring focus:ring-green-300 active:bg-green-700 my-3 shadow-lg me-4 border-2 border-white rounded-xl py-1 hover:scale-105 hover:shadow-xl" hx-swap-oob="true" hx-get="/owners/new" hx-target="#main">Add New Owner</button>
+{{/if}}
