@@ -1,24 +1,19 @@
-const { ValidationError, ValidationErrorItem } = require('sequelize');
-
 async function errorHandler(err, req, res, next) {
-  // console.log('\n\n');
-  // console.log(err);
-  // console.log('\n\n')
-  // console.log(err.errors[0])
-  // console.log('\n\n')
+  console.log('\n\n');
+  console.log(err);
+  console.log('\n\n')
 
-  // console.log('\n\n', err instanceof ValidationError ,'\n\n');
-  // console.log('\n\n', err.errors[0] instanceof ValidationErrorItem ,'\n\n');
 
   const msg = err.message;
   const isError = true;
+
   switch (err.from) {
     case 'login': {
       return res.status(200).render('login', { msg, isError, layout: false });
     }
 
     case 'signup': {
-      return res.status(200).render('error-signup', { msg, layout: false });
+      return res.status(200).render('signup', { msg, isError, layout: false });
     }
 
   }

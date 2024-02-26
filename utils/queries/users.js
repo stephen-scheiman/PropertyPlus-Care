@@ -12,7 +12,7 @@ async function userLogin(userData) {
   const validPassword = await user.checkPassword(userData.user_password);
 
   if (!validPassword) {
-    throw new BadRequestError("Incorrect email or password, please try again or register a new account");
+    throw new BadRequestError('login', "Incorrect email or password, please try again or register a new account");
   }
   // console.log(user);
   return user;
@@ -27,7 +27,7 @@ async function createUser(userData) {
   const user = await User.create(userData);
 
   if (!user) {
-    throw new InternalServerError(`Couldn't create new user with ${userData}`);
+    throw new InternalServerError('signup', `Couldn't create new user with ${userData}`);
   }
   // console.log(user);
   return user.toJSON();
@@ -37,7 +37,7 @@ async function findUserByPk(user_id) {
   const userData = await User.findByPk(user_id);
 
   if (!userData) {
-    throw new InternalServerError(`Couldn't find user with id ${user_id}`);
+    throw new InternalServerError('login', `Couldn't find user with id ${user_id}`);
   }
 
   return userData.toJSON();

@@ -34,7 +34,7 @@ async function renderNewUser(req, res) {
   let { user_name, user_password, user_email } = req.body;
 
   if (!(user_name && user_email && user_password)) {
-    throw new BadRequestError('Missing Data - Please fill out all required fields.');
+    throw new BadRequestError('signup', 'Missing Data - Please fill out all required fields.');
   }
 
   //validate letters and numbers only in username
@@ -47,15 +47,15 @@ async function renderNewUser(req, res) {
   const passwordPattern = /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
 
   if (
-    !namePattern.test(user_name) 
+    !namePattern.test(user_name)
   ) {
-    throw new BadRequestError("Your username should only contain letters and numbers");
+    throw new BadRequestError('signup', "Your username should only contain letters and numbers");
   }
 
   if (
     !emailPattern.test(user_email)
   ) {
-    throw new BadRequestError("Please enter a valid email address");
+    throw new BadRequestError('signup', "Please enter a valid email address");
   }
 
   //validate that the email is unique
@@ -71,7 +71,7 @@ async function renderNewUser(req, res) {
   if (
     !passwordPattern.test(user_password)
   ) {
-    throw new BadRequestError("Your password must consist of 8 characters and contain uppercase and lowercase characters as well as a symbol and a number")
+    throw new BadRequestError('signup', "Your password must consist of 8 characters and contain uppercase and lowercase characters as well as a symbol and a number")
   }
 
   const user = await createUser({ user_name, user_password, user_email });
