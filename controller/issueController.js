@@ -142,7 +142,7 @@ async function renderAddVendor(req, res) {
   const { vendor_id } = req.body;
 
   const result = await addVendorToIssue(issue_id, vendor_id);
-  const issue = findOneIssue(issue_id);
+  const issue = await findOneIssue(issue_id);
 
   res.status(200).render("issue-ID", { issue, layout: false });
 }
