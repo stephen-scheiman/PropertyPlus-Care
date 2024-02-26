@@ -19,6 +19,7 @@ router.use('/signup', signupHxRoutes);
 router.use(withAuth);
 
 router.get('/', c.renderHome);
+router.get('/home', c.redirectHome)
 
 router.use(pageRedirect);
 

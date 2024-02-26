@@ -61,6 +61,10 @@ async function renderAside(req, res) {
   }
 }
 
+function redirectHome(req, res) {
+  res.status(200).set('hx-redirect', '/').end();
+}
+
 
 // async function userLogin(req, res) {
 //   // If the user is already logged in, redirect the request to another route
@@ -105,5 +109,6 @@ async function getUser(id) {
 
 module.exports = {
   renderHome,
-  renderAside
+  renderAside,
+  redirectHome,
 };
