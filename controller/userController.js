@@ -1,5 +1,4 @@
-const { User } = require('../models');
-const { BadRequestError, NotFoundError } = require('../utils/errors');
+const { BadRequestError } = require('../utils/errors');
 const { updateUser, userLogin, createUser, findUserByPk, findUsers } = require('../utils/queries/users')
 
 async function renderLoginForm(req, res) {
