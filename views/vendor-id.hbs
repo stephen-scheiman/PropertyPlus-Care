@@ -29,25 +29,20 @@
       hx-delete="/vendors/{{vendor.vendor_id}}" hx-target="#main"
       hx-confirm="Are you sure you want to delete this vendor? This action cannot be undone.">Delete Vendor</button>
   </div>
-  <select class="rounded mt-2 text-gray-400" name="issue_id" hx-post="/vendors/{{vendor.vendor_id}}/issues" hx-target="#main">
+  <select class="rounded mt-2 text-gray-500" name="issue_id" hx-post="/vendors/{{vendor.vendor_id}}/issues" hx-target="#main">
     <option value="" disabled selected hidden>Assign Existing Issue to Vendor</option>
     {{#each issues}}
     <option value="{{issue_id}}">{{issue_title}}</option>
     {{/each}}
   </select>
   <br>
-  <ul class="inline-block pb-3 pt-3 font-semibold underline">Assigned Issues:
+  <h3 class="inline-block pt-3 font-semibold underline">Assigned Issues:</h3>
+  <ul>
     {{#each vendor.issues}}
     <li class="cursor-pointer no-underline hover:font-bold hover:text-red-500 pb-3" hx-get="/issues/{{issue_id}}" hx-target="#main" hx-push-url="true">
-      <h3 hx-target="closest li">{{issue_title}}</h3>
-      <p hx-target="closest li">{{issue-description}}</p>
-      {{#if issue_isDone}}
-      <p hx-target="closest li">Closed</p>
-      {{else}}
-      <p hx-target="closest li">Open</p>
-      {{/if}}
-      <p>{{property.property_name}}</p>
+      <p hx-target="closest li">{{issue_title}}
+      </p>
     </li>
     {{/each}}
-  </ul>
+    </ul>
 </main>
