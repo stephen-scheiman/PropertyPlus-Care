@@ -22,7 +22,7 @@
   <input
     type="search"
     id="searchBar"
-    class="text-gray-600"
+    class="text-gray-600 ms-4 my-1 rounded-md p-1"
     name="search"
     placeholder="search vendor's name"
     hx-swap-oob="true"
@@ -36,7 +36,7 @@
   <select
     name="vendor_trade"
     id="selectOption"
-    class="text-gray-600"
+    class="text-gray-600 ms-4 rounded-md"
     hx-swap-oob="true"
     hx-get="/vendors/trades"
     hx-target="#aside"
@@ -49,5 +49,5 @@
     <option value="Roofer">Roofer</option>
   </select>
 
-  <button id="addBtn" hx-swap-oob="true" hx-get="/vendors/new" hx-target="#main">Add New Vendor</button>
+  <button id="addBtn" class="rounded-md bg-green-500 px-2 mt-3" hx-swap-oob="true" hx-get="/vendors/new" hx-target="#main">Add New Vendor</button>
 {{/if}}

@@ -29,9 +29,8 @@
 {{#if isOob}}
   <h1 id="asideTitle" hx-swap-oob="true" class="mx-4 my-3 text-4xl font-bold">Issues</h1>
 
-  <button id="addBtn" name="newIssue"
+  <button id="addBtn" name="newIssue" class="rounded-md bg-green-500 px-2 mt-3"
     hx-get="/issues/new"
-    {{!-- taret is off --}}
     hx-target="#main"
     hx-swap-oob="true"
     hx-swap="innerHTML"
@@ -40,9 +39,9 @@
   <input
     type="search"
     id="searchBar"
-    class="text-gray-600 ms-4 my-2 rounded-md p-1"
+    class="text-gray-600 ms-4 my-1 rounded-md p-1"
     name="search"
-    placeholder="search issue's name"
+    placeholder="Search Issues"
     hx-swap-oob="true"
     hx-post="/issues/search"
     hx-target="#aside"

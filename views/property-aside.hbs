@@ -24,9 +24,9 @@
   <input
     type="search"
     id="searchBar"
-    class="text-gray-600"
+    class="text-gray-600 ms-4 rounded-md p-1"
     name="search"
-    placeholder="property information"
+    placeholder="Search Properties"
     hx-swap-oob="true"
     hx-post="/properties/search"
     hx-target="#aside"
@@ -35,5 +35,7 @@
 
   <h1 id="asideTitle" hx-swap-oob="true" class="mx-4 mb-5 pt-5 text-4xl font-bold">Properties</h1>
   <div id="selectOption" hx-swap-oob="true" ></div>
-  <button id="addBtn" hx-swap-oob="true" hx-get="/properties/new" hx-target="#main">Add New Property</button>
+  <button id="addBtn" class="rounded-md bg-green-500 px-2 mt-3"
+    hx-swap-oob="true" hx-get="/properties/new" hx-target="#main">Add New Property
+  </button>
 {{/if}}
