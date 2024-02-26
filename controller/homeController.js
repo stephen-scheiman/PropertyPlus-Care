@@ -1,7 +1,7 @@
 const { Task, User, Property } = require('../models');
 const { Op } = require('sequelize');
 const { findOpenIssues } = require('../utils/queries/issues')
-const { findOpenTasks, findOpenTasksByDueDate, findTasksDueToday } = require('../utils/queries/tasks')
+const { findOpenTasks, findOpenTasksDueToday, findOpenTasksPastDue } = require('../utils/queries/tasks')
 const { findProperties } = require('../utils/queries/properties')
 const { findAllVendors } = require('../utils/queries/vendors')
 const { findOwners } = require('../utils/queries/owners')
@@ -17,13 +17,9 @@ async function renderHome(req, res) {
   // 3rd line of code awaits both promises before continuing.
   // Only works when the two promises are independent of each other.
   const p1 = findUserByPk(user_id);
-  const p2 = findOpenTasksByDueDate();
-  const p3 = findTasksDueToday();
+  const p2 = findOpenTasksPastDue();
+  const p3 = findOpenTasksDueToday();
   const [user, pastTasks, todayTasks] = await Promise.all([p1, p2, p3]);
-
-  console.log('\n\n homecontroller \n\n');
-  console.log('\npastTasks', pastTasks);
-  console.log('\ntodayTasks', todayTasks);
 
   // this needs to be completed when we know what the homepage will look like
   res.status(200).render('task-aside', { pastTasks, todayTasks, user, });
@@ -37,8 +33,10 @@ async function renderAside(req, res) {
 
   switch (model) {
     case 'task': {
-      const tasks = await findOpenTasksByDueDate();
-      return res.status(200).render('task-aside', {tasks, isOob, layout: false});
+      const p1 = findOpenTasksPastDue();
+      const p2 = findOpenTasksDueToday();
+      const [pastTasks, todayTasks] = await Promise.all([p1, p2]);
+      return res.status(200).render('task-aside', {pastTasks, todayTasks, isOob, layout: false});
     }
 
     case 'issues': {

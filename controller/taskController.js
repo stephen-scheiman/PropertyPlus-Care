@@ -1,5 +1,5 @@
 const { BadRequestError } = require("../utils/errors");
-const { findOpenTasks, createTask, findTasksByIssueID } = require("../utils/queries/tasks");
+const { findOpenTasks, createTask, findOpenTasksDueToday, findOpenTasksPastDue } = require("../utils/queries/tasks");
 const { findOneIssue } = require("../utils/queries/issues");
 
 // I DON"T THINK WE NEED THIS
@@ -16,10 +16,13 @@ async function renderOpenTasks(req, res) {
 }
 
 async function renderOpenTasksDueDate(req, res) {
-  const tasks = await findOpenTasks(req, res);
+  const p1 = findOpenTasksPastDue();
+  const p2 = findOpenTasksDueToday();
+  const [pastTasks, todayTasks] = await Promise.all([p1, p2]);
+
   // console.log('\n\ntaskcontroller\n\n');
   // console.log(tasks)
-  res.status(200).render('task-aside', { tasks, layout: false });
+  res.status(200).render('task-aside', { pastTasks, todayTasks, layout: false });
 }
 
 // WE MAY NOT NEED THIS RENDER ONE TASK
