@@ -78,25 +78,25 @@ function redirectHome(req, res) {
 //   res.render('loginView');
 // };
 
-async function findTasks() {
-  const taskData = await Task.findAll({
-    where: {
-      followUp_date: {
-        [Op.lte]: Date.now()
-      },
-      is_done: false,
-    },
-    include: [{
-      model: Property,
-      attributes: ['property_id', 'property_name']
-    }],
-    // returning raw data - will test if this works
-    raw: true,
-    // telling it that the data returned will be nest
-    nest: true,
-  });
-  return taskData;
-};
+// async function findTasks() {
+//   const taskData = await Task.findAll({
+//     where: {
+//       followUp_date: {
+//         [Op.lte]: Date.now()
+//       },
+//       is_done: false,
+//     },
+//     include: [{
+//       model: Property,
+//       attributes: ['property_id', 'property_name']
+//     }],
+//     // returning raw data - will test if this works
+//     raw: true,
+//     // telling it that the data returned will be nest
+//     nest: true,
+//   });
+//   return taskData;
+// };
 
 /**
  *

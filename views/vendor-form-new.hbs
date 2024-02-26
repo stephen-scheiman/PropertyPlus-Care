@@ -31,5 +31,9 @@
       <div class="p-2 text-red-500">{{msg}}</div>
     {{/if}}
   </form>
-
+  <button class="rounded-lg border-2 border-slate-300 px-2"
+    hx-get="/"
+    hx-target="body"
+    hx-swap="innerHTML"
+  >Cancel New Property</button>
 </main>
