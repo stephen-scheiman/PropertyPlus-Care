@@ -1,23 +1,24 @@
 <main class="w-full max-w-xs">
-  <h1 class="flex justify-center text-white">Please input your information</h1>
+  <h1 class="text-white text-center text-2xl font-bold mb-2">Please input your information</h1>
   <form
-    class="mb-4 flex flex-col justify-center rounded bg-white px-8 pb-8 pt-6 shadow-md"
+    class="m-4 rounded bg-inherit px-4 text-white backdrop-blur-xl shadow-lg"
     hx-post="/signup"
     hx-target="#main"
     hx-push-url="true"
   >
     <label
       for="user_name"
-      class="mb-2 block text-sm font-bold text-gray-700"
+      class="mb-2 pt-3 block text-sm font-bold text-white"
     >Username:</label>
     <input
       type="text"
       name="user_name"
-      class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+      placeholder="Username"
+      class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-500 shadow focus:outline-none"
     />
 
     <label
-      class="mb-2 block text-sm font-bold text-gray-700"
+      class="mb-2 pt-3 block text-sm font-bold text-white"
       for="user_email"
     >Email</label>
     <input
@@ -29,22 +30,22 @@
 
     <div class="p-2"></div>
     <label
-      class="mb-2 block text-sm font-bold text-gray-700"
+      class="mb-2 block text-sm font-bold text-white"
       for="user_password"
     >Password</label>
     <input
-      class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+      class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-500 shadow focus:outline-none"
       type="password"
       name="user_password"
       placeholder="**********"
     />
 
     <div class="p-2 text-red-500">{{msg}}</div>
-
+    <div class="flex justify-center">
     <button
-      class="bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
+      class="bg-blue-500 px-2 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700 shadow-lg me-4 border-2 border-white rounded-xl py-1 hover:scale-105 hover:shadow-xl align-center mb-3"
       type="submit"
     >Sign up</button>
+    </div>
   </form>
-  <a href="/login">Login</a>
 </main>
