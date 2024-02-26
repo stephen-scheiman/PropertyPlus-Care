@@ -1,5 +1,4 @@
-const { Property, Owner, Issue } = require("../models");
-const { BadRequestError, InternalServerError } = require("../utils/errors");
+const { BadRequestError } = require("../utils/errors");
 const {
   findProperties,
   findPropertyByID,
