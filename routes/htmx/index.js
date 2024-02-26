@@ -24,7 +24,7 @@ router.use(pageRedirect);
 
 
 router.get('/aside', c.renderAside)
-router.get('/', withAuth, c.renderHome);
+//router.get('/', withAuth, c.renderHome);
 router.use('/login', loginHxRoutes);
 router.use('/properties', propertyHxRoutes);
 router.use('/issues', issueHxRoutes);
