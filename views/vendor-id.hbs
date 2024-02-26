@@ -36,9 +36,9 @@
     {{/each}}
   </select>
   <br>
-  <ul class="inline-block pb-3 pt-3 font-semibold">Assigned Issues:
+  <ul class="inline-block pb-3 pt-3 font-semibold underline">Assigned Issues:
     {{#each vendor.issues}}
-    <li class="border-2 border-black" hx-get="/issues/{{issue_id}}" hx-target="#main" hx-push-url="true">
+    <li class="cursor-pointer no-underline hover:font-bold hover:text-red-500 pb-3" hx-get="/issues/{{issue_id}}" hx-target="#main" hx-push-url="true">
       <h3 hx-target="closest li">{{issue_title}}</h3>
       <p hx-target="closest li">{{issue-description}}</p>
       {{#if issue_isDone}}
