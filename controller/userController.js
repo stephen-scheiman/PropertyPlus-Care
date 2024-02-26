@@ -62,7 +62,7 @@ async function renderNewUser(req, res) {
   const userData = await findUsers();
   for (x = 0; x < userData.length; x++) {
     if (user_email === userData[x].user_email) {
-      throw new BadRequestError(
+      throw new BadRequestError('signup',
         "An user with this email address already exists",
       );
     }
