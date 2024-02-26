@@ -3,15 +3,15 @@
   
   <form class="flex flex-col lg:max-w-[50%]" hx-post="/issues/new" hx-target="#main">
     <label for="issue_title" class="pt-2 text-lg font-semibold">Issue Title:</label>
-    <input type="text" name="issue_title" hx-preserve id="i_t" class="pl-1 rounded" />
+    <input type="text" name="issue_title" hx-preserve id="i_t" class="pl-1 rounded text-gray-600" />
 
     <label for="issue_description" class="pt-2 text-lg font-semibold">Issue Description:</label>
     <textarea name="issue_description" id="i_d" rows="5" placeholder="Enter Issue Description"
-      class="rounded text-gray-500 pl-1"></textarea>
+      class="rounded text-gray-600 pl-1"></textarea>
     {{!-- <input type="text" name="issue_description" hx-preserve id="i_d" /> --}}
 
     <label for="followUp_date" class="pt-2 text-lg font-semibold">Property:</label>
-    <select name="property_id" class="mt-2 rounded text-gray-400" hx-preserve id="i_p">
+    <select name="property_id" class="mt-2 rounded text-gray-600" hx-preserve id="i_p">
       {{#each properties}}
       <option value="{{property_id}}">{{property_name}}</option>
       {{/each}}
@@ -22,7 +22,7 @@
     {{/if}}
 
     <div class="pt-2">
-      <button class="rounded my-3 px-2 bg-green-400 hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700 shadow-lg" type="submit">Submit New Property</button>
+      <button class="rounded my-3 px-2 bg-green-400 hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700 shadow-lg" type="submit">Submit New Issue</button>
       <button class="rounded my-3 mx-1 px-2 bg-red-400 hover:bg-red-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-red-700 shadow-lg"
         hx-get="/cancel"
         hx-target="#main"
