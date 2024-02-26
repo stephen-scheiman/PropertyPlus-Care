@@ -1,27 +1,27 @@
-<main class="px-4 backdrop-blur-md bg-white/30 m-4 rounded">
+<main class="m-4 rounded bg-inherit px-4 text-white backdrop-blur-xl shadow-lg">
   <div class="flex justify-between">
-    <h1 id="issueTitle" class="font-bold text-2xl mt-8">{{issue.issue_title}}</h1>
+    <h1 id="issueTitle" class="font-bold text-2xl mt-5">{{issue.issue_title}}</h1>
     <div>
       {{#if issue.issue_isDone}}
-      <button name="issueDone" value="Re-Open" class="border-2 border-white rounded-lg px-2 bg-green-400 mt-8"
+      <button name="issueDone" value="Re-Open" class="rounded bg-green-400 px-2 hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700"
         hx-patch="/issues/{{issue.issue_id}}/isDone"
         hx-target="#main"
         hx-swap="innerHTML"
       >Re-Open</button>
       {{else}}
-      <button name="issueDone" value="Complete" class="border-2 border-white rounded-lg px-2 bg-red-400 mt-8"
+      <button name="issueDone" value="Complete" class="rounded bg-green-400 px-2 hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700 mt-3"
         hx-patch="/issues/{{issue.issue_id}}/isDone"
         hx-target="#main"
         hx-swap="innerHTML"
       >Mark Complete</button>
       {{/if}}
 
-      <button
+      <button class="rounded bg-blue-400 px-2 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700 mt-3"
         hx-get="/issues/{{issue.issue_id}}/edit"
         hx-target="#editForm"
       >Edit Issue</button>
 
-      <button name="deleteIssue" value="{{issue.issue_id}}" class="border-2 border-white rounded-lg px-2 bg-blue-400 mt-8"
+      <button name="deleteIssue" value="{{issue.issue_id}}" class="rounded bg-red-400 px-2 hover:bg-red-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-red-700 mt-3"
         hx-confirm="Are you sure you want to delete this issue? This action cannot be undone."
         hx-delete="/issues/{{issue.issue_id}}"
         hx-target="#main"
@@ -40,7 +40,7 @@
   <ul>
     {{#each issue.Vendors}}
       <li ><a hx-get="/vendors/{{vendor_id}}" hx-target="#main" hx-boost="true" hx-trigger="dblclick" class="cursor-pointer">{{vendor_first_name}} {{vendor_last_name}} ({{vendor_trade}})</a>
-        <button class="border-2 border-white rounded-lg px-2 bg-blue-400" name="vendor_id" value="{{vendor_id}}"
+        <button class="rounded text-xs bg-blue-400 p-[2px] hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700" name="vendor_id" value="{{vendor_id}}"
           hx-patch="/issues/{{../issue.issue_id}}/unassign-vendor"
           hx-target="#main"
         >Unassign Vendor</button>
@@ -52,22 +52,22 @@
     <h4 class="font-semibold text-lg mt-2">Actions Taken:</h4>
     <ul>
       {{#each issue.tasks}}
-      <li class="border-2 border-slate-400 border-solid rounded-lg px-2 my-1">
+      <li class="backdrop-blur-sm bg-white/30 rounded-lg px-2 my-1">
           <p class="font-semibold mt-1">Task: <span class="font-normal text-base">{{task_name}}</span></p>
           <p class="font-semibold mt-1">Note: <span class="font-normal text-base">{{status_update}}</span></p>
           <p class="font-semibold mt-1">Follow-up Date:  <span class="font-normal text-base">{{format_date followUp_date}}</span></p>
         {{#if is_done}}
-        <button name="isDone" value="Re-Open" class="border-2 border-white rounded-lg px-2 bg-green-500 my-1"
+        <button name="isDone" value="Re-Open" class="rounded bg-green-400 px-2 hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700 my-3"
           hx-patch="/issues/{{issue_id}}/tasks/{{task_id}}/isDone" hx-target="#main"
           hx-swap="innerHTML">Re-Open</button>
         {{else}}
-        <button name="isDone" value="Complete" class="border-2 border-white rounded-lg px-2 bg-green-500 my-1"
+        <button name="isDone" value="Complete" class="rounded bg-green-400 px-2 hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700 my-3"
           hx-patch="/issues/{{issue_id}}/tasks/{{task_id}}/isDone"
           hx-target="#main"
           hx-swap="innerHTML"
         >Mark Complete</button>
         {{/if}}
-        <button name="deleteTask" value="{{task_id}}" class="border-2 border-white rounded-lg px-2 bg-red-400"
+        <button name="deleteTask" value="{{task_id}}" class="rounded bg-red-400 px-2 hover:bg-red-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-red-700"
           hx-confirm="Are you sure you want to delete this task? This action cannot be undone."
           hx-delete="/issues/{{issue_id}}/tasks/{{task_id}}"
           hx-target="#main"
@@ -77,7 +77,7 @@
     </ul>
     {{!-- sending issue-id and property_id values to renderNewTaskForm via the button value attribute --}}
     <button name="newTask" value="{{issue.issue_id}} {{issue.property_id}}"
-      class="border-2 border-white rounded-lg px-2 bg-blue-400" hx-get="/tasks/new" hx-target="#addDiv"
+      class="rounded bg-green-400 px-2 hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700 my-3" hx-get="/tasks/new" hx-target="#addDiv"
       hx-swap="innerHTML">New Task</button>
 
     <div>

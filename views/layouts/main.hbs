@@ -14,11 +14,11 @@
   <header class="flex justify-between h-36 px-2">
     <img class="cursor-pointer" src="/img/Logo.png" alt="logo" hx-get="/home">
     <nav class="flex items-center me-4">
-      <a class="me-6" href="/users" hx-boost="true" hx-target="#main">
+      <a class="me-6 hover:scale-105" href="/users" hx-boost="true" hx-target="#main">
         <i class="fa-regular fa-user inline pr-1"></i>
         Account
       </a>
-      <button class="border-2 border-white rounded-xl px-2 py-1" hx-post="/users/logout">Logout</button>
+      <button class="border-2 border-white rounded-xl px-2 py-1 hover:scale-105" hx-post="/users/logout">Logout</button>
     </nav>
   </header>
 
