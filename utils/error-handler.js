@@ -13,7 +13,15 @@ async function errorHandler(err, req, res, next) {
 
   switch (err.from) {
     case "login": {
-      return res.status(200).render("login", { msg, isError, layout: false });
+      if (req.session.loggedIn) {
+        req.session.destroy(() => {
+          return res.status(200).redirect('/login');
+        })
+      }
+      else {
+        return res.status(200).render("login", { msg, isError, layout: false });
+      }
+      break;
     }
 
     case "signup": {
@@ -89,9 +97,11 @@ async function errorHandler(err, req, res, next) {
         .status(200)
         .render("vendor-form-new", { msg, isError, layout: false });
     }
-  }
 
-  res.status(500).json({ msg: "Something went wrong, try again later" });
+    default: {
+      res.status(500).json({ msg: "Something went wrong, try again later" });
+    }
+  }
 }
 
 module.exports = errorHandler;
