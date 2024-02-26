@@ -20,6 +20,7 @@ router.use(withAuth);
 
 router.get('/', c.renderHome);
 router.get('/home', c.redirectHome)
+router.get('/cancel', c.renderCancel)
 
 router.use(pageRedirect);
 
