@@ -85,7 +85,7 @@ async function renderNewUser(req, res) {
 }
 
 async function renderLoggedOut(req, res) {
-  if (req.session.logged_in) {
+  if (req.session.loggedIn) {
     req.session.destroy(() => {
       res.status(204).set('hx-redirect', '/login').end();
     });

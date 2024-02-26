@@ -8,4 +8,7 @@ router.route('/')
 router.route('/edit')
   .get(c.renderUserEditForm)
 
-module.exports = router; 
+router.route('/logout')
+  .post(c.renderLoggedOut);
+
+module.exports = router;
