@@ -63,7 +63,7 @@ async function renderNewUser(req, res) {
   for (x = 0; x < userData.length; x++) {
     if (user_email === userData[x].user_email) {
       throw new BadRequestError(
-        "An owner with this email address already exists",
+        "An user with this email address already exists",
       );
     }
   }

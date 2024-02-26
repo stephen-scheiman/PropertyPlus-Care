@@ -75,4 +75,7 @@
       hx-target="#main"
     >Cancel</button>
   </div>
+     {{#if isError}}
+    <div class="p-2 text-red-500">{{msg}}</div>
+    {{/if}}
 </form>
