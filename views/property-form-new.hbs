@@ -19,7 +19,7 @@
     {{/if}}
 
     <label for="owner">Property Owner:</label>
-    <select name="owner_id">
+    <select name="owner_id"  hx-preserve id="p_o">
       <option value="" disabled selected hidden>Select a property owner</option>
       {{#each owners}}
         <option value="{{owner_id}}">{{owner_first_name}}
