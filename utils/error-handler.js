@@ -50,6 +50,19 @@ async function errorHandler(err, req, res, next) {
         .status(200)
         .render("property-form-new", { msg, isError, layout: false });
     }
+
+    case "issue-form-edit": {
+      const issue = await findIssueByID(err.data.issue_id);
+      return res
+        .status(200)
+        .set({ "hx-retarget": "this", "hx-reswap": "outerHTML" })
+        .render("issue-form-edit", {
+          issue,
+          msg,
+          isError,
+          layout: false,
+        });
+    }
   }
 
   res.status(500).json({ msg: "Something went wrong, try again later" });
