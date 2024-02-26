@@ -1328,6 +1328,14 @@ video {
     max-width: 50%;
   }
 
+  .lg\:max-w-\[25\%\] {
+    max-width: 25%;
+  }
+
+  .lg\:max-w-\[30\%\] {
+    max-width: 30%;
+  }
+
   .lg\:justify-between {
     justify-content: space-between;
   }
