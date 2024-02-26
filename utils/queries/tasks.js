@@ -7,8 +7,14 @@ async function findOpenTasks() {
   const tasks = await Task.findAll({
     where: { is_done: false },
     include: [
-      { model: Property, attributes: ["property_name"] },
-      { model: Issue, attributes: ["issue_title"] },
+      {
+        model: Issue,
+        attributes: ["issue_title"],
+        include: {
+          model: Property,
+          attributes: ["property_name"],
+        }
+      },
     ],
   });
 
@@ -42,8 +48,14 @@ async function findOpenTasksByDueDate() {
       ]
     },
     include: [
-      { model: Property, attributes: ["property_name"] },
-      { model: Issue, attributes: ["issue_title"] },
+      {
+        model: Issue,
+        attributes: ["issue_title"],
+        include: {
+          model: Property,
+          attributes: ["property_name"],
+        }
+      },
     ],
   });
 
