@@ -1,0 +1,50 @@
+<main class="w-full max-w-xs">
+  <h1 class="flex justify-center text-white">Please input your information</h1>
+  <form
+    class="mb-4 flex flex-col justify-center rounded bg-white px-8 pb-8 pt-6 shadow-md"
+    hx-post="/signup"
+    hx-swap="none"
+    hx-push-url="true"
+  >
+    <label
+      for="user_name"
+      class="mb-2 block text-sm font-bold text-gray-700"
+    >Username:</label>
+    <input
+      type="text"
+      name="user_name"
+      class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+    />
+
+    <label
+      class="mb-2 block text-sm font-bold text-gray-700"
+      for="user_email"
+    >Email</label>
+    <input
+      class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+      type="email"
+      name="user_email"
+      placeholder="example@example.com"
+    />
+
+    <div class="p-2"></div>
+    <label
+      class="mb-2 block text-sm font-bold text-gray-700"
+      for="user_password"
+    >Password</label>
+    <input
+      class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+      type="password"
+      name="user_password"
+      placeholder="**********"
+    />
+
+    <div class="p-2 text-red-500">{{msg}}</div>
+
+    <button
+      class="bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-blue-700"
+      type="submit"
+    >Sign up</button>
+  </form>
+  <a href="/login">Login</a>
+</main>
