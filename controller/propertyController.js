@@ -55,8 +55,8 @@ async function renderNewPropertiesList(req, res) {
     throw new BadRequestError('property-form-new',"Missing Data - Please complete all fields");
   }
 
-  //validate that property name contains only letters and spaces
-  const propNamePattern = /^[a-zA-Z ]+$/;
+  //validate that property name contains only letters and spaces and the occasional apostrophe
+  const propNamePattern = /^[a-zA-Z' ]+$/;
   if (!propNamePattern.test(property_name)) {
     throw new BadRequestError('property-form-new',
       "Please enter a valid property name, letters and spaces only",
@@ -159,8 +159,8 @@ async function renderUpdatedProperty(req, res) {
     );
   }
 
-  //validate that property name contains only letters and spaces
-  const propNamePattern = /^[a-zA-Z ]+$/;
+  //validate that property name contains only letters and spaces and that darned apostrophe
+  const propNamePattern = /^[a-zA-Z' ]+$/;
   if (!propNamePattern.test(property_name)) {
     throw new BadRequestError(
       "property-form-edit",
