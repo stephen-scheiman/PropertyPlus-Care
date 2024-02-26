@@ -5,5 +5,4 @@ router.route('/')
   .get(c.renderSignupForm)
   .post(c.renderNewUser)
 
-
 module.exports = router;

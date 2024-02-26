@@ -2,11 +2,6 @@ const { BadRequestError } = require("../utils/errors");
 const { findOpenTasks, createTask, findOpenTasksDueToday, findOpenTasksPastDue } = require("../utils/queries/tasks");
 const { findOneIssue } = require("../utils/queries/issues");
 
-// I DON"T THINK WE NEED THIS
-// async function renderAllTasks(req, res) {
-//   const tasks = await findAllTasks();
-//   res.status(200).render('task-main', { tasks, layout: false });
-// }
 
 async function renderOpenTasks(req, res) {
   const tasks = await findOpenTasks(req, res);
@@ -24,13 +19,6 @@ async function renderOpenTasksDueDate(req, res) {
   // console.log(tasks)
   res.status(200).render('task-aside', { pastTasks, todayTasks, layout: false });
 }
-
-// WE MAY NOT NEED THIS RENDER ONE TASK
-// async function renderOneTask(req, res) {
-//   const { id: task_id } = req.params;
-//   const task = await findTaskByID(task_id);
-//   res.status(200).render(("issue-ID", { task }));
-// }
 
 async function renderNewTaskForm(req, res) {
   // separating out issue_id and property_id values and assign to variables
@@ -50,19 +38,23 @@ async function renderNewTask(req, res) {
   if (
     !(task_name && status_update && followUp_date && issue_id)
   ) {
-    throw new BadRequestError("Missing Data - Please complete all fields");
+    throw new BadRequestError(
+      'task-new',
+      "Missing Data - Please complete all fields");
   }
 
   followUp_date = new Date(followUp_date);
 
   if (isNaN(followUp_date)) {
     throw new BadRequestError(
+      'task-new',
       "Please enter a valid date in the form of MM/DD/YY",
     );
   }
 
   if (task_name.length > 255) {
     throw new BadRequestError(
+      'task-new',
       "Please limit the task name to 255 characters or less",
     );
   }
@@ -76,50 +68,10 @@ async function renderNewTask(req, res) {
   res.status(200).set('hx-trigger', 'update-tasks').render("issue-ID", { issue, layout: false });
 }
 
-//update task function
-// async function updateTask(req, res) {
-//   const task_id = req.params.id;
-//   let { task_name, status_update, followUp_date, is_done } = req.body;
-
-//   followUp_date = new Date(followUp_date);
-
-//   if (isNaN(followUp_date)) {
-//     throw new BadRequestError("Please enter a valid date in the form MM/DD/YY");
-//   }
-
-//   if (task_name.length > 255) {
-//     throw new BadRequestError(
-//       "Please limit the task name to 255 characters or less",
-//     );
-//   }
-
-//   const taskData = await Task.update(
-//     {
-//       task_name,
-//       status_update,
-//       followUp_date,
-//       is_done,
-//     },
-//     {
-//       where: {
-//         task_id,
-//       },
-//     },
-//   );
-
-//   if (!taskData[0]) {
-//     throw new BadRequestError("Update task failed");
-//   } else {
-//     res.status(200).json({ msg: `Update task ID: ${task_id} succeeded` });
-//   }
-// }
 
 module.exports = {
-  // renderAllTasks,
   renderOpenTasks,
-  // renderOneTask,
   renderNewTaskForm,
   renderNewTask,
-  // updateTask,
   renderOpenTasksDueDate,
 };

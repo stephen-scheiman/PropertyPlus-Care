@@ -31,20 +31,20 @@
   </select>
 </h2>
 
-<h3
-  id="issueDesc"
-  hx-swap-oob="true"
-  class="mt-2 text-lg font-semibold"
->Description:
-  <input
-    id="inputDesc"
-    hx-preserve
-    class="mb-2 rounded text-gray-500"
-    name="issue_description"
-    type="text"
-    value="{{issue.issue_description}}"
-  />
-</h3>
+<div id="issueDesc" hx-swap-oob="true">
+  <h3
+    hx-swap-oob="true"
+    class="mt-2 text-lg font-semibold"
+  >Description:
+  </h3>
+  <textarea
+      id="inputDesc"
+      hx-preserve
+      class="rounded text-gray-500 pl-1"
+      rows="5"
+      name="issue_description"
+  />{{issue.issue_description}}</textarea>
+</div>
 
 <form
   hx-patch="/issues/{{issue.issue_id}}/edit"

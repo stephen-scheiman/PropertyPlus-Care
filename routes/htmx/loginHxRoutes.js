@@ -5,6 +5,4 @@ router.route("/")
   .get(c.renderLoginForm)
   .post(c.renderLoggedInHome)
 
-
-
 module.exports = router;

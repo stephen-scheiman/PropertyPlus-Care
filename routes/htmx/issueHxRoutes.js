@@ -14,7 +14,6 @@ router.route('/whichIssues')
 router.route('/search')
   .post(c.renderIssuesSearch)
 
-// enter additional routes above the /id route as needed
 router.route('/:id')
   .get(c.renderOneIssue)
   .delete(c.renderDeletedIssue);

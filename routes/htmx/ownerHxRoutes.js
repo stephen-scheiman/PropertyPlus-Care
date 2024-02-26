@@ -3,7 +3,6 @@ const c = require('../../controller/ownerController');
 
 router.route('/')
   .get(c.renderOwners)
-// .post(c.renderNewOwner);
 
 router.route('/search')
   .post(c.renderOwnerSearch)

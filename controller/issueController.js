@@ -1,4 +1,4 @@
-const { findTasksByIssueID, updateIsDone, deleteTask } = require("../utils/queries/tasks");
+const { updateIsDone, deleteTask } = require("../utils/queries/tasks");
 const {
   createIssue,
   findOneIssue,
@@ -16,7 +16,6 @@ const {
 const { findVendorsByTradeNotIssue } = require("../utils/queries/vendors");
 const { findProperties } = require("../utils/queries/properties");
 const { BadRequestError } = require("../utils/errors");
-// const { BadRequestError } = require("../utils/error-handler");
 
 async function renderOpenIssues(req, res) {
   const issues = await findOpenIssues();

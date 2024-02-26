@@ -1,9 +1,4 @@
-const { Owner, Property } = require("../models");
-const {
-  InternalServerError,
-  NotFoundError,
-  BadRequestError,
-} = require("../utils/errors");
+const { BadRequestError } = require("../utils/errors");
 const {
   findOwners,
   findOwnerById,
@@ -309,7 +304,6 @@ async function renderOwnerSearch(req, res) {
 
   res.status(200).render('owner-aside', { owners, layout: false });
 }
-
 
 module.exports = {
   renderOneOwner,
