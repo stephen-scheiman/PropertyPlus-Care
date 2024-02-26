@@ -228,7 +228,7 @@ async function renderUpdatedProperty(req, res) {
 
   res
     .status(200)
-    .set("hx-trigger", "update-owners")
+    .set("hx-trigger", "update-properties")
     .render("property-id", { property, layout: false });
 }
 
