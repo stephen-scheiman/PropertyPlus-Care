@@ -40,10 +40,13 @@ async function findTasksByIssueID(issue_id) {
 }
 
 async function findOpenTasksByDueDate() {
+  const today = new Date();
+  today.setHours(-8, 0, 0, 0);
+
   const taskData = await Task.findAll({
     where: {
       [Op.and]: [
-        { followUp_date: { [Op.lte]: Date.now() } },
+        { followUp_date: { [Op.lt]: today } },
         { is_done: false }
       ]
     },
@@ -60,6 +63,33 @@ async function findOpenTasksByDueDate() {
   });
 
   const tasks = taskData.map(e => e.toJSON());
+  return tasks;
+}
+
+async function findTasksDueToday() {
+  const today = new Date();
+  today.setHours(-8, 0, 0, 0);
+
+  const result = await Task.findAll({
+    where: {
+      [Op.and]: [
+        { followUp_date: { [Op.eq]: today } },
+        { is_done: false }
+      ]
+    },
+    include: [
+      {
+        model: Issue,
+        attributes: ["issue_title"],
+        include: {
+          model: Property,
+          attributes: ["property_name"],
+        }
+      },
+    ],
+  });
+
+  const tasks = result.map(e => e.toJSON());
   return tasks;
 }
 
@@ -144,4 +174,5 @@ module.exports = {
   deleteTask,
   updateIsDone,
   findOpenTasksByDueDate,
+  findTasksDueToday,
 }
