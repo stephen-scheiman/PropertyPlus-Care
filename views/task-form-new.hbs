@@ -1,13 +1,15 @@
-<form class="flex flex-col max-w-[25%] text-white" hx-post="/tasks/new" hx-target="#main">
+<form class="flex flex-col lg:max-w-[50%] text-white" hx-post="/tasks/new" hx-target="#main">
 
   <label for="task_name">Task:</label>
   <input class="rounded text-gray-500 pl-1" type="text" name="task_name" placeholder="Enter To-Do" />
 
   <label for="status_update">Status Update:</label>
-  <input class="rounded text-gray-500 pl-1" type="text" name="status_update" placeholder="Enter Latest Update"/>
+  <textarea name="status_update" id="status_update" rows="5" placeholder="Enter Latest Update"
+  class="rounded text-gray-500 pl-1"></textarea>
+  {{!-- <input class="rounded text-gray-500 pl-1" type="text" name="status_update" placeholder="Enter Latest Update"/> --}}
 
   <label for="followUp_date">Follow-up Date:</label>
-  <input class="rounded text-gray-500 pl-1" type="date" name="followUp_date" />
+  <input class="max-w-[50%] rounded text-gray-500 pl-1" type="date" name="followUp_date" />
 
   {{!-- using issue_id and property-id value sent from taskController --}}
   {{!-- these elements are not seen by user, but values are passed in the request --}}

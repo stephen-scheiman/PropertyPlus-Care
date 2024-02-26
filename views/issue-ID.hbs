@@ -71,9 +71,6 @@
       >
       </form>
     </div>
-  </div>
-  {{!-- This is where the New Task Form or Assign Vendor will appear --}}
-  <div id="addDiv"></div>
   </ul>
 
   <div>
@@ -103,10 +100,13 @@
       </li>
       {{/each}}
     </ul>
+    {{!-- This is where the New Task Form or Assign Vendor will appear --}}
+    <div id="addDiv"></div>
     {{!-- sending issue-id and property_id values to renderNewTaskForm via the button value attribute --}}
     <button name="newTask" value="{{issue.issue_id}} {{issue.property_id}}"
-      class="bg-green-500 px-2 hover:bg-green-600 focus:outline-none focus:ring focus:ring-green-300 active:bg-green-700 my-3 shadow-lg me-4 border-2 border-white rounded-xl py-1 hover:scale-105 hover:shadow-xl" hx-get="/tasks/new" hx-target="#addDiv"
-      hx-swap="innerHTML">New Task</button>
-
-    
+      class="bg-green-500 px-2 hover:bg-green-600 focus:outline-none focus:ring focus:ring-green-300 active:bg-green-700 my-3 shadow-lg me-4 border-2 border-white rounded-xl py-1 hover:scale-105 hover:shadow-xl" 
+      hx-get="/tasks/new" 
+      hx-target="#addDiv"
+      hx-swap="innerHTML">New Task
+    </button>    
 </main>
