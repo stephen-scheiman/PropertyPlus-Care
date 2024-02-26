@@ -1,3 +1,4 @@
+<main class="m-4 rounded bg-white/30 px-4 text-white backdrop-blur-md"></main>
 <form
   class="flex flex-col text-white"
   hx-patch="/owners/{{owner.owner_id}}/edit"
@@ -75,4 +76,8 @@
       hx-target="#main"
     >Cancel</button>
   </div>
+     {{#if isError}}
+    <div class="p-2 text-red-500">{{msg}}</div>
+    {{/if}}
 </form>
+</main>

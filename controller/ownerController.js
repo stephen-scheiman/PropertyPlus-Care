@@ -4,11 +4,17 @@ const {
   NotFoundError,
   BadRequestError,
 } = require("../utils/errors");
-const { findOwners, findOwnerById, createOwner, updateOwner, deleteOwner } = require("../utils/queries/owners");
+const {
+  findOwners,
+  findOwnerById,
+  createOwner,
+  updateOwner,
+  deleteOwner,
+} = require("../utils/queries/owners");
 
 async function renderOwners(req, res) {
   const owners = await findOwners();
-  res.status(200).render('owner-aside', { owners, layout: false });
+  res.status(200).render("owner-aside", { owners, layout: false });
 }
 
 async function renderOneOwner(req, res) {
@@ -58,7 +64,10 @@ async function renderNewOwnersList(req, res) {
   owner_phone = owner_phone.replace(/[^0-9 ]/g, "");
 
   if (owner_phone.length > 10 || owner_phone.length < 10) {
-    throw new BadRequestError("Please enter a valid 10 digit phone number, no symbols or spaces");
+    throw new BadRequestError(
+      "owner-form-new",
+      "Please enter a valid 10 digit phone number, no symbols or spaces",
+    );
   }
 
   owner_phone =
@@ -75,11 +84,17 @@ async function renderNewOwnersList(req, res) {
   if (
     !(namePattern.test(owner_first_name) && namePattern.test(owner_last_name))
   ) {
-    throw new BadRequestError("Please enter your first and last name");
+    throw new BadRequestError(
+      "owner-form-new",
+      "Please enter your first and last name",
+    );
   }
 
   if (!emailPattern.test(owner_email)) {
-    throw new BadRequestError("Please enter a valid email address");
+    throw new BadRequestError(
+      "owner-form-new",
+      "Please enter a valid email address",
+    );
   }
 
   //validate that the email is unique
@@ -87,27 +102,38 @@ async function renderNewOwnersList(req, res) {
   for (x = 0; x < ownerData.length; x++) {
     if (owner_email === ownerData[x].owner_email) {
       throw new BadRequestError(
+        "owner-form-new",
         "An owner with this email address already exists",
       );
     }
   }
 
   if (!streetPattern.test(owner_street)) {
-    throw new BadRequestError("Please enter a valid street address");
+    throw new BadRequestError(
+      "owner-form-new",
+      "Please enter a valid street address",
+    );
   }
 
   if (!namePattern.test(owner_city)) {
-    throw new BadRequestError("Please enter a valid city name");
+    throw new BadRequestError(
+      "owner-form-new",
+      "Please enter a valid city name",
+    );
   }
 
   if (!statePattern.test(owner_state)) {
     throw new BadRequestError(
+      "owner-form-new",
       "Please enter a valid 2 letter state abbreviation",
     );
   }
 
   if (!zipPattern.test(owner_zip)) {
-    throw new BadRequestError("Please enter a valid 5 digit zip code");
+    throw new BadRequestError(
+      "owner-form-new",
+      "Please enter a valid 5 digit zip code",
+    );
   }
 
   const owner = await createOwner({
@@ -121,13 +147,16 @@ async function renderNewOwnersList(req, res) {
     owner_zip,
   });
 
-  res.status(200).set('hx-trigger', 'update-owners').render('owner-id', { owner, layout: false });
+  res
+    .status(200)
+    .set("hx-trigger", "update-owners")
+    .render("owner-form-edit", { owner, layout: false });
 }
 
 async function renderEditOwnerForm(req, res) {
   const { id } = req.params;
   const owner = await findOwnerById(id);
-  res.status(200).render('owner-form-edit', { owner, layout: false });
+  res.status(200).render("owner-form-edit", { owner, layout: false });
 }
 
 async function renderUpdatedOwner(req, res) {
@@ -167,7 +196,9 @@ async function renderUpdatedOwner(req, res) {
 
   if (owner_phone.length > 10 || owner_phone.length < 10) {
     throw new BadRequestError(
+      "owner-form-edit",
       "Please enter a valid 10 digit phone number, no symbols or spaces",
+      {owner_id: id}
     );
   }
 
@@ -185,37 +216,63 @@ async function renderUpdatedOwner(req, res) {
   if (
     !(namePattern.test(owner_first_name) && namePattern.test(owner_last_name))
   ) {
-    throw new BadRequestError("Please enter your first and last name");
+    throw new BadRequestError(
+      "owner-form-edit",
+      "Please enter your first and last name",
+      {owner_id: id}
+    );
   }
 
   if (!emailPattern.test(owner_email)) {
-    throw new BadRequestError("Please enter a valid email address");
+    throw new BadRequestError(
+      "owner-form-edit",
+      "Please enter a valid email address",
+      {owner_id: id}
+    );
   }
 
   // validate that the email is unique
   const ownerData = await findOwners();
-  for(x=0; x<ownerData.length; x++){
-    if (owner_email === ownerData[x].owner_email){
-      throw new BadRequestError("A user with this email address already exists")
+  for (x = 0; x < ownerData.length; x++) {
+    if (owner_email === ownerData[x].owner_email) {
+      throw new BadRequestError(
+        "owner-form-edit",
+        "An owner with this email address already exists",
+        {owner_id: id}
+      );
     }
   }
 
   if (!streetPattern.test(owner_street)) {
-    throw new BadRequestError("Please enter a valid street address");
+    throw new BadRequestError(
+      "owner-form-edit",
+      "Please enter a valid street address",
+      {owner_id: id}
+    );
   }
 
   if (!namePattern.test(owner_city)) {
-    throw new BadRequestError("Please enter a valid city name");
+    throw new BadRequestError(
+      "owner-form-edit",
+      "Please enter a valid city name",
+      {owner_id: id}
+    );
   }
 
   if (!statePattern.test(owner_state)) {
     throw new BadRequestError(
+      "owner-form-edit",
       "Please enter a valid 2 letter state abbreviation",
+      {owner_id: id}
     );
   }
 
   if (!zipPattern.test(owner_zip)) {
-    throw new BadRequestError("Please enter a valid 5 digit zip code");
+    throw new BadRequestError(
+      "owner-form-edit",
+      "Please enter a valid 5 digit zip code",
+      {owner_id: id}
+    );
   }
 
   await updateOwner(id, {
@@ -231,13 +288,16 @@ async function renderUpdatedOwner(req, res) {
 
   const owner = await findOwnerById(id);
 
-  res.status(200).set('hx-trigger', 'update-owners').render('owner-id', { owner, layout: false });
+  res
+    .status(200)
+    .set("hx-trigger", "update-owners")
+    .render("owner-id", { owner, layout: false });
 }
 
 async function renderDeletedOwner(req, res) {
   const { id: owner_id } = req.params;
   const owner = await deleteOwner(owner_id);
-  res.status(200).set('hx-trigger', 'update-owners').send('');
+  res.status(200).set("hx-trigger", "update-owners").send("");
 }
 
 module.exports = {
@@ -247,5 +307,5 @@ module.exports = {
   renderUpdatedOwner,
   renderDeletedOwner,
   renderNewOwnerForm,
-  renderEditOwnerForm
+  renderEditOwnerForm,
 };
