@@ -1,33 +1,37 @@
-<main class="m-4 rounded bg-white/30 px-4 text-white backdrop-blur-md">
+<main class="m-4 rounded bg-inherit px-4 py-2 text-white backdrop-blur-xl shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]">
   <form
-    class="flex flex-col text-gray-600"
+    class="flex flex-col sm:max-w-[50%]"
     hx-post="/owners/new"
     hx-target="#main"
   >
+  <h1 class="font-bold text-2xl my-5 text-white">Add New Owner:</h1>
     <label for="owner_first_name">First Name:</label>
-    <input type="text" name="owner_first_name" autofocus hx-preserve id="o_f_n" />
-    <label for="owner_last_name">Last Name:</label>
-    <input type="text" name="owner_last_name" hx-preserve id="o_l_n" />
-    <label for="owner_street">Owner Street Address:</label>
-    <input type="text" name="owner_street" hx-preserve id="o_s" />
-    <label for="owner_city">Owner City:</label>
-    <input type="text" name="owner_city" hx-preserve id="o_c"/>
-    <label for="owner_state">Owner State:</label>
-    <input type="text" name="owner_state" hx-preserve id="o_st" />
-    <label for="owner_zip">Owner Zip:</label>
-    <input type="text" name="owner_zip" hx-preserve id="o_z"/>
-    <label for="owner_email">Email:</label>
-    <input type="email" name="owner_email" hx-preserve id="o_e"/>
-    <label for="owner_phone">Phone Number:</label>
-    <input type="text" name="owner_phone" hx-preserve id="o_p"/>
-    <button class="my-5" type="submit">Submit</button>
-    {{#if isError}}
+    <input class="pl-1 rounded" placeholder="First Name"type="text" name="owner_first_name" autofocus hx-preserve id="o_f_n" />
+    <label class="mt-2" for="owner_last_name">Last Name:</label>
+    <input class="pl-1 rounded" placeholder="Last Name" name="owner_last_name" hx-preserve id="o_l_n" />
+    <label class="mt-2" for="owner_street">Owner Street Address:</label>
+    <input class="pl-1 rounded" placeholder="Street Address" type="text" name="owner_street" hx-preserve id="o_s" />
+    <label class="mt-2" for="owner_city">Owner City:</label>
+    <input class="pl-1 rounded" placeholder="City" type="text" name="owner_city" hx-preserve id="o_c"/>
+    <label class="mt-2" for="owner_state">Owner State:</label>
+    <input class="pl-1 rounded" placeholder="State" type="text" name="owner_state" hx-preserve id="o_st" />
+    <label class="mt-2" for="owner_zip">Owner Zip:</label>
+    <input class="pl-1 rounded" placeholder="Zipcode" type="text" name="owner_zip" hx-preserve id="o_z"/>
+    <label class="mt-2" for="owner_email">Email:</label>
+    <input class="pl-1 rounded" placeholder="Email Address" type="email" name="owner_email" hx-preserve id="o_e"/>
+    <label class="mt-2" for="owner_phone">Phone Number:</label>
+    <input class="pl-1 rounded" placeholder="Phone Number" type="text" name="owner_phone" hx-preserve id="o_p"/>
+        {{#if isError}}
       <div class="p-2 text-red-500">{{msg}}</div>
     {{/if}}
-  </form>
-  <button class="rounded-lg border-2 border-slate-300 px-2"
+    </div>
+    <div class="pt-2">
+    <button class="rounded my-3 px-2 bg-green-400 hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700 shadow-lg" type="submit">Submit New Property</button>
+      <button class="rounded my-3 mx-1 px-2 bg-red-400 hover:bg-red-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-red-700 shadow-lg"
     hx-get="/"
     hx-target="body"
     hx-swap="innerHTML"
   >Cancel New Property</button>
+
+  </form>
 </main>

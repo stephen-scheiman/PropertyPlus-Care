@@ -89,13 +89,13 @@
           hx-patch="/issues/{{issue_id}}/tasks/{{task_id}}/isDone" hx-target="#main"
           hx-swap="innerHTML">Re-Open</button>
         {{else}}
-        <button name="isDone" value="Complete" class="rounded bg-green-400 px-2 hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700 my-3 shadow-lg"
+        <button name="isDone" value="Complete" class="text-sm rounded bg-green-400 px-2 hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700 my-3 shadow-lg"
           hx-patch="/issues/{{issue_id}}/tasks/{{task_id}}/isDone"
           hx-target="#main"
           hx-swap="innerHTML"
         >Mark Complete</button>
         {{/if}}
-        <button name="deleteTask" value="{{task_id}}" class="rounded bg-red-400 px-2 hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300 active:bg-red-700 shadow-lg"
+        <button name="deleteTask" value="{{task_id}}" class="text-sm rounded bg-red-400 px-2 hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300 active:bg-red-700 shadow-lg"
           hx-confirm="Are you sure you want to delete this task? This action cannot be undone."
           hx-delete="/issues/{{issue_id}}/tasks/{{task_id}}"
           hx-target="#main"

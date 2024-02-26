@@ -14,12 +14,12 @@
   <input type="input" name="issue_id" value="{{issue_id}}" hidden />
   <input type="input" name="property_id" value="{{property_id}}" hidden />
 
-  <span class="flex justify-center">
+  <div>
     <button
-      class="rounded text-nowrap text-sm my-3 px-2 bg-green-400 hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700 shadow-lg"
+      class="rounded text-sm my-3 px-2 bg-green-400 hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700 shadow-lg"
       type="submit">Save Task</button>
     <button
-      class="rounded text-nowrap text-sm my-3 mx-3 px-2 bg-red-400 hover:bg-red-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-red-700 shadow-lg"
+      class="rounded text-sm my-3 mx-1 px-2 bg-red-400 hover:bg-red-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-red-700 shadow-lg"
       hx-get="/issues/{{issue_id}}" hx-target="#main">Cancel Task</button>
-  </span>
+  </div>
 </form>
