@@ -169,15 +169,6 @@ async function renderUpdatedVendor(req, res) {
       );
     }
 
-  //validate that the email is unique
-  // const vendData = await getAllVendors();
-  // for(x=0; x<vendData.length; x++){
-  //   if (vendor_email === vendData[x].vendor_email){
-  //     throw new BadRequestError("A user with this email address already exists")
-  //   }
-  // }
-
-
   //format the phone number as (XXX)XXX-XXXX
   vendor_phone = vendor_phone.replace(/[^0-9 ]/g, "");
 

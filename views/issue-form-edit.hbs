@@ -45,17 +45,15 @@
     value="{{issue.issue_description}}"
   />
 </h3>
-
 <form
   hx-swap-oob="true"
   id="editForm"
+  hx-preserve
   hx-patch="/issues/{{issue.issue_id}}/edit"
   hx-target="#main"
   hx-include="#issueTitle, #selectProperty, #inputDesc"
 >
+
   <button class="bg-green-400" type="submit">Submit</button>
   <button class="bg-red-400">Cancel</button>
-  {{#if isError}}
-    <div class="p-2 text-red-500">{{msg}}</div>
-  {{/if}}
 </form>
