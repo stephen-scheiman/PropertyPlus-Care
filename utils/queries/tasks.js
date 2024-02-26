@@ -39,7 +39,7 @@ async function findTasksByIssueID(issue_id) {
   return tasks;
 }
 
-async function findOpenTasksByDueDate() {
+async function findOpenTasksPastDue() {
   const today = new Date();
   today.setHours(-8, 0, 0, 0);
 
@@ -66,7 +66,7 @@ async function findOpenTasksByDueDate() {
   return tasks;
 }
 
-async function findTasksDueToday() {
+async function findOpenTasksDueToday() {
   const today = new Date();
   today.setHours(-8, 0, 0, 0);
 
@@ -173,6 +173,6 @@ module.exports = {
   // updateTask,
   deleteTask,
   updateIsDone,
-  findOpenTasksByDueDate,
-  findTasksDueToday,
+  findOpenTasksPastDue,
+  findOpenTasksDueToday,
 }
