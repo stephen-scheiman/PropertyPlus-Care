@@ -28,7 +28,6 @@ async function renderNewOwnerForm(req, res) {
 }
 
 async function renderNewOwnersList(req, res) {
-  console.log(req.body);
   let {
     //changed to let to allow for automated corrections
     owner_first_name,
@@ -40,6 +39,21 @@ async function renderNewOwnersList(req, res) {
     owner_state,
     owner_zip,
   } = req.body;
+
+  if (
+    !(
+      owner_first_name &&
+      owner_last_name &&
+      owner_email &&
+      owner_phone &&
+      owner_street &&
+      owner_city &&
+      owner_state &&
+      owner_zip
+    )
+  ) {
+    throw new BadRequestError('owner-form-new',"Missing Data - Please complete all fields");
+  }
 
   //validate letters only
   const namePattern = /^[a-zA-Z ]+$/;
