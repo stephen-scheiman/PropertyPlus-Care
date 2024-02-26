@@ -5,9 +5,12 @@
 >
   <button id="newIssue" name="newIssue"
     hx-get="/issues/new"
+    {{!-- taret is off --}}
     hx-target="#main"
+    {{!-- hx-swap-oob="true" --}}
     hx-swap="innerHTML"
   >New Issue</button>
+
   {{#each issues}}
     <div class="backdrop-blur-sm bg-white/30 m-4 p-2 text-white rounded cursor-pointer">
       <h2
@@ -31,10 +34,12 @@
 </div>
 
 {{#if isOob}}
+  <h1 id="asideTitle" hx-swap-oob="true" class="mx-4 my-3 text-4xl font-bold">Issues</h1>
+
   <input
     type="search"
     id="searchBar"
-    class="text-gray-600"
+    class="text-gray-600 ms-4 my-2 rounded-md p-1"
     name="search"
     placeholder="search issue's name"
     hx-swap-oob="true"
@@ -43,9 +48,7 @@
     hx-trigger="input changed delay:300ms, search"
   />
 
-  <h1 id="asideTitle" hx-swap-oob="true" class="mx-4 mb-5 pt-5 text-4xl font-bold">Issues</h1>
-
-  <select name="issueStatus" id="selectOption" class="text-gray-600 flex"
+  <select name="issueStatus" id="selectOption" class="text-gray-600 ms-4 rounded-md"
     hx-swap-oob="true"
     hx-get="/issues/whichIssues"
     hx-target="#aside"
