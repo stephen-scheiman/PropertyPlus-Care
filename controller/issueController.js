@@ -120,7 +120,7 @@ async function renderDeletedIssue(req, res) {
   const issue_id = req.params.id;
 
   const issue = await deleteIssue(issue_id);
-  res.status(200).send('');
+  res.status(200).set("HX-Trigger","update-issues").send('');
 }
 
 async function renderVendorsByTrade(req, res) {

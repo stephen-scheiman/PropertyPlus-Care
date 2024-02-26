@@ -19,6 +19,7 @@
       <button name="deleteIssue" value="{{issue.issue_id}}" class="border-2 border-white rounded-lg px-2 bg-blue-400 mt-8"
         hx-confirm="Are you sure you want to delete this issue? This action cannot be undone."
         hx-delete="/issues/{{issue.issue_id}}"
+        hx-target="#main"
       >Delete Issue</button>
     </div>
   </div>
