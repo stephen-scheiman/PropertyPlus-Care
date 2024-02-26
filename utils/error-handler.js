@@ -1,24 +1,38 @@
+const { ValidationError, ValidationErrorItem } = require('sequelize');
+
 async function errorHandler(err, req, res, next) {
-  console.log(err);
+  // console.log('\n\n');
+  // console.log(err);
+  // console.log('\n\n')
+  // console.log(err.errors[0])
+  // console.log('\n\n')
+
+  // console.log('\n\n', err instanceof ValidationError ,'\n\n');
+  // console.log('\n\n', err.errors[0] instanceof ValidationErrorItem ,'\n\n');
 
   const msg = err.message;
-
-  // const customError = {
-  //   message: err.msg || 'Something went wrong. Try again later.',
-  //   statusCode: err.statusCode || 500
-  // };
-
+  const isError = true;
   switch (err.from) {
     case 'login': {
-      console.log('\n\nfrom switch\n\n');
-      return res.status(200).render('error-login', { msg, layout: false });
+      return res.status(200).render('login', { msg, isError, layout: false });
     }
+
+    case 'signup': {
+      return res.status(200).render('error-signup', { msg, layout: false });
+    }
+
+  }
+
+  switch (key) {
+    case value:
+
+      break;
 
     default:
       break;
   }
 
-  res.status(customError.statusCode).json({ message: err.message });
+  res.status(500).json({ msg: 'Something went wrong, try again later' });
 }
 
 module.exports = errorHandler;
