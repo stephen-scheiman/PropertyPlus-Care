@@ -29,7 +29,6 @@ async function errorHandler(err, req, res, next) {
     case "owner-form-new": {
       return res
         .status(200)
-        .set({'hx-retarget': 'this', 'hx-reswap': 'outerHTML'})
         .render("owner-form-new", { msg, isError, layout: false });
     }
 
