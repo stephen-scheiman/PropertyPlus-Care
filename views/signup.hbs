@@ -1,24 +1,27 @@
 <main class="w-full max-w-xs">
-  <h1 class="text-white text-center text-2xl font-bold mb-2">Please input your information</h1>
+  <h1 class="mb-2 text-center text-2xl font-bold text-white">Please input your
+    information</h1>
   <form
-    class="m-4 rounded bg-inherit px-4 text-white backdrop-blur-xl shadow-lg"
+    class="m-4 rounded bg-inherit px-4 text-white shadow-lg backdrop-blur-xl"
     hx-post="/signup"
     hx-target="#main"
     hx-push-url="true"
   >
     <label
       for="user_name"
-      class="mb-2 pt-3 block text-sm font-bold text-white"
+      class="mb-2 block pt-3 text-sm font-bold text-white"
     >Username:</label>
     <input
       type="text"
       name="user_name"
       placeholder="Username"
+      hx-preserve
+      id="u_n"
       class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-500 shadow focus:outline-none"
     />
 
     <label
-      class="mb-2 pt-3 block text-sm font-bold text-white"
+      class="mb-2 block pt-3 text-sm font-bold text-white"
       for="user_email"
     >Email</label>
     <input
@@ -26,6 +29,8 @@
       type="email"
       name="user_email"
       placeholder="example@example.com"
+      hx-preserve
+      id="u_e"
     />
 
     <div class="p-2"></div>
@@ -38,14 +43,16 @@
       type="password"
       name="user_password"
       placeholder="**********"
+      hx-preserve
+      id="u_p"
     />
 
     <div class="p-2 text-red-500">{{msg}}</div>
     <div class="flex justify-center">
-    <button
-      class="bg-blue-500 px-2 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700 shadow-lg me-4 border-2 border-white rounded-xl py-1 hover:scale-105 hover:shadow-xl align-center mb-3"
-      type="submit"
-    >Sign up</button>
+      <button
+        class="align-center mb-3 me-4 rounded-xl border-2 border-white bg-blue-500 px-2 py-1 shadow-lg hover:scale-105 hover:bg-blue-600 hover:shadow-xl focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700"
+        type="submit"
+      >Sign up</button>
     </div>
   </form>
 </main>
