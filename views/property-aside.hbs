@@ -21,8 +21,19 @@
 </ul>
 
 {{#if isOob}}
+  <input
+    type="search"
+    id="searchBar"
+    class="text-gray-600"
+    name="search"
+    placeholder="property information"
+    hx-swap-oob="true"
+    hx-post="/properties/search"
+    hx-target="#aside"
+    hx-trigger="input changed delay:300ms, search"
+  />
+
   <h1 id="asideTitle" hx-swap-oob="true" class="mx-4 mb-5 pt-5 text-4xl font-bold">Properties</h1>
   <div id="selectOption" hx-swap-oob="true" ></div>
-  <div id="searchBar" hx-swap-oob="true" ></div>
   <button id="addBtn" hx-swap-oob="true" hx-get="/properties/new" hx-target="#main">Add New Property</button>
 {{/if}}

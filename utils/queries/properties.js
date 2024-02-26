@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { Property, Owner, Issue } = require('../../models');
 const { InternalServerError, NotFoundError } = require('../errors');
 
@@ -63,11 +64,30 @@ async function deleteProperty(property_id) {
   return property;
 };
 
+async function searchProperties(search) {
+  const result = await Property.findAll({
+    where: {
+      [Op.or]: [
+        { property_name: { [Op.like]: `%${search}%` } },
+        { property_street: { [Op.like]: `%${search}%` } },
+        { property_city: { [Op.like]: `%${search}%` } },
+        { property_state: { [Op.like]: `%${search}%` } },
+        { property_zip: { [Op.like]: `%${search}%` } },
+      ]
+    }
+  });
+
+  const properties = result.map(e => e.toJSON());
+
+  return properties;
+}
+
 module.exports = {
   findProperties,
   findPropertyByID,
   createProperty,
   updateProperty,
   deleteProperty,
+  searchProperties,
 
 }

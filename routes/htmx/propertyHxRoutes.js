@@ -4,6 +4,9 @@ const c = require('../../controller/propertyController');
 router.route('/')
   .get(c.renderProperties)
 
+router.route('/search')
+  .post(c.renderPropertySearch)
+
 router.route('/new')
   .get(c.renderNewPropertyForm)
   .post(c.renderNewPropertiesList);

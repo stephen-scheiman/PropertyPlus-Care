@@ -6,6 +6,7 @@ const {
   createProperty,
   deleteProperty,
   updateProperty,
+  searchProperties,
 } = require("../utils/queries/properties");
 const { findOwners } = require("../utils/queries/owners");
 
@@ -237,6 +238,13 @@ async function renderDeletedProperty(req, res) {
   res.status(200).set("hx-trigger", "update-properties").send("");
 }
 
+async function renderPropertySearch(req, res) {
+  const { search } = req.body;
+  const properties = await searchProperties(search.toLowerCase());
+
+  res.status(200).render('property-aside', { properties, layout: false });
+}
+
 module.exports = {
   renderProperties,
   renderOneProperty,
@@ -245,4 +253,5 @@ module.exports = {
   renderEditPropertyForm,
   renderNewPropertiesList,
   renderDeletedProperty,
+  renderPropertySearch,
 };
