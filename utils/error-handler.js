@@ -1,5 +1,6 @@
 const { findProperties, findPropertyByID } = require("./queries/properties");
 const { findOwnerById } = require("./queries/owners");
+const { findVendorByID } = require('./queries/vendors');
 
 async function errorHandler(err, req, res, next) {
   console.log("\n\n");
@@ -62,6 +63,14 @@ async function errorHandler(err, req, res, next) {
           isError,
           layout: false,
         });
+    }
+
+    case "vendor-form-edit": {
+      const vendor = await findVendorByID(err.data.vendor_id);
+      return res
+        .status(200)
+        .set({ "hx-retarget": "this", "hx-reswap": "outerHTML" })
+        .render('vendor-form-edit', { vendor, msg, isError, layout: false });
     }
   }
 
