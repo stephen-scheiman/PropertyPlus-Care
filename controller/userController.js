@@ -68,11 +68,11 @@ async function renderNewUser(req, res) {
     }
   }
 
-  if (
-    !passwordPattern.test(user_password)
-  ) {
-    throw new BadRequestError('signup', "Your password must consist of 8 characters and contain uppercase and lowercase characters as well as a symbol and a number")
-  }
+  // if (
+  //   !passwordPattern.test(user_password)
+  // ) {
+  //   throw new BadRequestError('signup', "Your password must consist of 8 characters and contain uppercase and lowercase characters as well as a symbol and a number")
+  // }
 
   const user = await createUser({ user_name, user_password, user_email });
 
