@@ -38,7 +38,7 @@ async function renderNewPropertiesList(req, res) {
   // with this property, then transfer the id of the selected owner into here
   // this means that before someone can add a new property, they have to first add the new Owner so...
   if (!owner_id) {
-    throw new BadRequestError("You must select an existing property owner.");
+    throw new BadRequestError('property-form-new',"You must select an existing property owner");
   }
 
   if (
@@ -51,13 +51,13 @@ async function renderNewPropertiesList(req, res) {
       owner_id
     )
   ) {
-    throw new BadRequestError("Missing Data - Please complete all fields");
+    throw new BadRequestError('property-form-new',"Missing Data - Please complete all fields");
   }
 
   //validate that property name contains only letters and spaces
   const propNamePattern = /^[a-zA-Z ]+$/;
   if (!propNamePattern.test(property_name)) {
-    throw new BadRequestError(
+    throw new BadRequestError('property-form-new',
       "Please enter a valid property name, letters and spaces only",
     );
   }
@@ -66,14 +66,14 @@ async function renderNewPropertiesList(req, res) {
   const propertyNames = await findProperties();
   for (x = 0; x < propertyNames.length; x++) {
     if (property_name === propertyNames[x].property_name) {
-      throw new BadRequestError("Please enter a unique property name");
+      throw new BadRequestError('property-form-new',"Please enter a unique property name");
     }
   }
 
   //validate proper street address
   const streetPattern = /^[a-zA-Z0-9. ]+$/;
   if (!streetPattern.test(property_street)) {
-    throw new BadRequestError("Please enter a valid street address");
+    throw new BadRequestError('property-form-new',"Please enter a valid street address");
   }
 
   //format city name
@@ -83,13 +83,13 @@ async function renderNewPropertiesList(req, res) {
   //validate letters only in city name
   const namePattern = /^[a-zA-Z ]+$/;
   if (!namePattern.test(property_city)) {
-    throw new BadRequestError("Please enter a valid city name");
+    throw new BadRequestError('property-form-new',"Please enter a valid city name");
   }
 
   //validate two letter state
   const statePattern = /^[a-zA-Z]{2}$/;
   if (!statePattern.test(property_state)) {
-    throw new BadRequestError(
+    throw new BadRequestError('property-form-new',
       "Please use the proper, two letter state abbreviation",
     );
   }
@@ -97,7 +97,7 @@ async function renderNewPropertiesList(req, res) {
   //validate zip is 5 digit number
   const zipPattern = /^\d{5}$/;
   if (!zipPattern.test(property_zip)) {
-    throw new BadRequestError("Please use a proper, five digit zip code");
+    throw new BadRequestError('property-form-new',"Please use a proper, five digit zip code");
   }
 
   // convert state abbreviation to upper case
@@ -152,21 +152,30 @@ async function renderUpdatedProperty(req, res) {
       owner_id
     )
   ) {
-    throw new BadRequestError("Missing Data - Please complete all fields");
+    throw new BadRequestError(
+      "property-form-edit",
+      "Missing Data - Please complete all fields",
+    );
   }
 
   //validate that property name contains only letters and spaces
   const propNamePattern = /^[a-zA-Z ]+$/;
   if (!propNamePattern.test(property_name)) {
     throw new BadRequestError(
+      "property-form-edit",
       "Please enter a valid property name, letters and spaces only",
+      { property_id: id },
     );
   }
 
   //validate proper street address
   const streetPattern = /^[a-zA-Z0-9. ]+$/;
   if (!streetPattern.test(property_street)) {
-    throw new BadRequestError("Please enter a valid street address");
+    throw new BadRequestError(
+      "property-form-edit",
+      "Please enter a valid street address",
+      { property_id: id },
+    );
   }
 
   //format city name
@@ -175,21 +184,31 @@ async function renderUpdatedProperty(req, res) {
   //validate letters only
   const namePattern = /^[a-zA-Z ]+$/;
   if (!namePattern.test(property_city)) {
-    throw new BadRequestError("Please enter a valid city name");
+    throw new BadRequestError(
+      "property-form-edit",
+      "Please enter a valid city name",
+      { property_id: id },
+    );
   }
 
   //validate two letter state
   const statePattern = /^[a-zA-Z]{2}$/;
   if (!statePattern.test(property_state)) {
     throw new BadRequestError(
+      "property-form-edit",
       "Please use the proper, two letter state abbreviation",
+      { property_id: id },
     );
   }
 
   //validate zip is 5 digit number
   const zipPattern = /^\d{5}$/;
   if (!zipPattern.test(property_zip)) {
-    throw new BadRequestError("Please use a proper, five digit zip code");
+    throw new BadRequestError(
+      "property-form-edit",
+      "Please use a proper, five digit zip code",
+      { property_id: id },
+    );
   }
 
   // convert state abbreviation to upper case

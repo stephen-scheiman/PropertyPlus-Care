@@ -10,6 +10,15 @@ const { findOneIssue } = require("../utils/queries/issues");
 
 async function renderOpenTasks(req, res) {
   const tasks = await findOpenTasks(req, res);
+  // console.log('\n\ntaskcontroller\n\n');
+  // console.log(tasks)
+  res.status(200).render('task-aside', { tasks, layout: false });
+}
+
+async function renderOpenTasksDueDate(req, res) {
+  const tasks = await findOpenTasks(req, res);
+  // console.log('\n\ntaskcontroller\n\n');
+  // console.log(tasks)
   res.status(200).render('task-aside', { tasks, layout: false });
 }
 
@@ -110,4 +119,5 @@ module.exports = {
   renderNewTaskForm,
   renderNewTask,
   // updateTask,
+  renderOpenTasksDueDate,
 };

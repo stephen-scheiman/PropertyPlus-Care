@@ -17,13 +17,16 @@ router.route('/search')
 // enter additional routes above the /id route as needed
 router.route('/:id')
   .get(c.renderOneIssue)
-  // .put(c.renderUpdatedIssue)
   .delete(c.renderDeletedIssue);
+
+router.route('/:id/edit')
+  .get(c.renderIssueFormEdit)
+  .patch(c.renderUpdatedIssue)
 
 router.route('/:id/assign-vendor')
   .get(c.renderVendorsByTrade)
   .patch(c.renderAddVendor);
-  
+
 router.route('/:id/unassign-vendor')
   .patch(c.renderUnassignVendor);
 

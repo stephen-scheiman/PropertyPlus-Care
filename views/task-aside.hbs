@@ -1,6 +1,6 @@
 <ul id="tasksList"
   hx-target="#aside"
-  hx-get="/tasks"
+  hx-get="/tasks/due"
   hx-trigger="update-tasks from:body">
 {{#each tasks}}
   <div
@@ -15,7 +15,7 @@
       <span class="font-normal">{{this.issue.issue_title}}</span>
     </h3>
     <h3 class="font-semibold">Property:
-      <span class="font-normal">{{this.property.property_name}}</span>
+      <span class="font-normal">{{this.issue.property.property_name}}</span>
     </h3>
     <h3 class="font-semibold">Due Date:
       <span class="font-normal">{{format_date this.followUp_date}}</span>

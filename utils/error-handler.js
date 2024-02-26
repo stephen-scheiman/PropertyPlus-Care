@@ -1,5 +1,5 @@
-const { findProperties } = require('./queries/properties');
-const { findOwnerById } = require('./queries/owners');
+const { findProperties, findPropertyByID } = require("./queries/properties");
+const { findOwnerById } = require("./queries/owners");
 
 async function errorHandler(err, req, res, next) {
   console.log("\n\n");
@@ -19,10 +19,10 @@ async function errorHandler(err, req, res, next) {
     }
 
     case "owner-form-edit": {
-      const owner = await findOwnerById(err.data.owner_id)
+      const owner = await findOwnerById(err.data.owner_id);
       return res
         .status(200)
-        .set({'hx-retarget': 'this', 'hx-reswap': 'outerHTML'})
+        .set({ "hx-retarget": "this", "hx-reswap": "outerHTML" })
         .render("owner-form-edit", { owner, msg, isError, layout: false });
     }
 
@@ -31,14 +31,38 @@ async function errorHandler(err, req, res, next) {
         .status(200)
         .render("owner-form-new", { msg, isError, layout: false });
     }
-  }
 
-  switch (key) {
-    case value:
-      break;
+    case "property-form-edit": {
+      const property = await findPropertyByID(err.data.property_id);
+      return res
+        .status(200)
+        .set({ "hx-retarget": "this", "hx-reswap": "outerHTML" })
+        .render("property-form-edit", {
+          property,
+          msg,
+          isError,
+          layout: false,
+        });
+    }
 
-    default:
-      break;
+    case "property-form-new": {
+      return res
+        .status(200)
+        .render("property-form-new", { msg, isError, layout: false });
+    }
+
+    case "issue-form-edit": {
+      const issue = await findIssueByID(err.data.issue_id);
+      return res
+        .status(200)
+        .set({ "hx-retarget": "this", "hx-reswap": "outerHTML" })
+        .render("issue-form-edit", {
+          issue,
+          msg,
+          isError,
+          layout: false,
+        });
+    }
   }
 
   res.status(500).json({ msg: "Something went wrong, try again later" });

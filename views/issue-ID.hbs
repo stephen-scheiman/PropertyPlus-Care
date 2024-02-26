@@ -1,6 +1,6 @@
 <main class="px-4 backdrop-blur-md bg-white/30 m-4 text-white rounded">
   <div class="flex justify-between">
-    <h1 class="font-bold text-2xl mt-8">{{issue.issue_title}}</h1>
+    <h1 id="issueTitle" class="font-bold text-2xl mt-8">{{issue.issue_title}}</h1>
     <div>
       {{#if issue.issue_isDone}}
       <button name="issueDone" value="Re-Open" class="border-2 border-white rounded-lg px-2 bg-green-400 mt-8"
@@ -16,6 +16,10 @@
       >Mark Complete</button>
       {{/if}}
 
+      <button
+        hx-get="/issues/{{issue.issue_id}}/edit"
+      >Edit Issue</button>
+
       <button name="deleteIssue" value="{{issue.issue_id}}" class="border-2 border-white rounded-lg px-2 bg-blue-400 mt-8"
         hx-confirm="Are you sure you want to delete this issue? This action cannot be undone."
         hx-delete="/issues/{{issue.issue_id}}"
@@ -24,23 +28,26 @@
     </div>
   </div>
 
-  <h2 class="font-semibold text-xl mt-5">Property:
+  <h2 id="propertyName" class="font-semibold text-xl mt-5">Property:
     <span class="font-normal text-lg">{{issue.property.property_name}}</span>
   </h2>
+  <h3 id="issueDesc" class="font-semibold text-lg mt-2">Description: <span class="font-normal text-lg">{{issue.issue_description}}</span></h3>
+
+  <div id="editForm"></div>
+
+  <h3 class="font-semibold text-lg mt-2">Vendors Assigned: <span class="font-normal text-lg">(Double click to open vendor info)</span></h3>
+  <ul>
+    {{#each issue.Vendors}}
+      <li ><a hx-get="/vendors/{{vendor_id}}" hx-target="#main" hx-boost="true" hx-trigger="dblclick" class="cursor-pointer">{{vendor_first_name}} {{vendor_last_name}} ({{vendor_trade}})</a>
+        <button class="border-2 border-white rounded-lg px-2 bg-blue-400" name="vendor_id" value="{{vendor_id}}"
+          hx-patch="/issues/{{../issue.issue_id}}/unassign-vendor"
+          hx-target="#main"
+        >Unassign Vendor</button>
+      </li>
+    {{/each}}
+  </ul>
 
   <div>
-    <h3 class="font-semibold text-lg mt-2">Description: <span class="font-normal text-lg">{{issue.issue_description}}</span></h3>
-    <h3 class="font-semibold text-lg mt-2">Vendors Assigned: <span class="font-normal text-lg">(Double click to open vendor info)</span></h3>
-    <ul>
-      {{#each issue.Vendors}}
-        <li ><a hx-get="/vendors/{{vendor_id}}" hx-target="#main" hx-boost="true" hx-trigger="dblclick" class="cursor-pointer">{{vendor_first_name}} {{vendor_last_name}} ({{vendor_trade}})</a>
-          <button class="border-2 border-white rounded-lg px-2 bg-blue-400" name="vendor_id" value="{{vendor_id}}"
-            hx-patch="/issues/{{../issue.issue_id}}/unassign-vendor"
-            hx-target="#main"
-          >Unassign Vendor</button>
-        </li>
-      {{/each}}
-    </ul>
     <h4 class="font-semibold text-lg mt-2">Actions Taken:</h4>
     <ul>
       {{#each issue.tasks}}

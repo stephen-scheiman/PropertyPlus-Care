@@ -60,23 +60,6 @@ Task.belongsTo(Issue, {
 });
 
 
-Property.hasMany(Task, {
-  foreignKey: {
-    name: "property_id",
-    allowNull: false,
-  },
-  onDelete: 'CASCADE',
-  onUpdate: 'CASCADE',
-});
-Task.belongsTo(Property, {
-  foreignKey: {
-    name: "property_id",
-    allowNull: false,
-  },
-  onDelete: 'CASCADE',
-  onUpdate: 'CASCADE',
-});
-
 // SMM association
 Vendor.belongsToMany(Issue, {
   through: VendorIssue,

@@ -44,16 +44,6 @@ Task.init(
         key: 'issue_id',
       },
     },
-    property_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-      references: {
-        model: Property,
-        key: 'property_id',
-      },
-    },
   },
   {
     sequelize,
