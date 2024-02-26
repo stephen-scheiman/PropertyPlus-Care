@@ -1,0 +1,35 @@
+<h1 id="issueTitle" class="mt-8 text-2xl font-bold" hx-swap-oob="true">
+  <input id="inputTitle" class="mb-2 rounded text-gray-500" name="issue_title" type="text" value="{{issue.issue_title}}" />
+</h1>
+
+<h2
+  id="propertyName"
+  hx-swap-oob="true"
+  class="mt-5 text-xl font-semibold"
+>Property:
+  <select id="selectProperty" name="property_id" class="mb-2 rounded text-gray-500">
+    <option value="{{property_id}}" selected disabled hidden>{{issue.property.property_name}}</option>
+    {{#each properties}}
+    <option value="{{property_id}}">{{property_name}}</option>
+    {{/each}}
+  </select>
+</h2>
+
+<h3
+  id="issueDesc"
+  hx-swap-oob="true"
+  class="mt-2 text-lg font-semibold"
+>Description:
+  <input
+    id="inputDesc"
+    class="mb-2 rounded text-gray-500"
+    name="issue_description"
+    type="text"
+    value="{{issue.issue_description}}"
+  />
+</h3>
+
+<form hx-swap-oob="true" id="editForm" hx-patch="/issues/{{issue.issue_id}}/edit" hx-target="#main" hx-include="#issueTitle, #selectProperty, #inputDesc">
+  <button class="bg-green-400" type="submit">Submit</button>
+  <button class="bg-red-400">Cancel</button>
+</form>
