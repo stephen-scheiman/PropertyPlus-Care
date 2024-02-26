@@ -589,11 +589,6 @@ video {
   margin-bottom: 1.25rem;
 }
 
-.mx-3 {
-  margin-left: 0.75rem;
-  margin-right: 0.75rem;
-}
-
 .mx-1 {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
@@ -1229,10 +1224,6 @@ video {
     display: none;
   }
 
-  .sm\:flex-col {
-    flex-direction: column;
-  }
-
   .sm\:max-w-\[50\%\] {
     max-width: 50%;
   }
@@ -1326,6 +1317,10 @@ video {
 
   .lg\:w-\[70\%\] {
     width: 70%;
+  }
+
+  .lg\:max-w-\[50\%\] {
+    max-width: 50%;
   }
 
   .lg\:justify-between {
