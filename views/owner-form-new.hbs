@@ -1,10 +1,10 @@
 <main class="m-4 rounded bg-inherit px-4 py-2 text-white backdrop-blur-xl shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]">
+  <h1 class="font-bold text-2xl my-5 text-white">Add New Owner:</h1>
   <form
     class="flex flex-col lg:max-w-[50%]"
     hx-post="/owners/new"
     hx-target="#main"
   >
-  <h1 class="font-bold text-2xl my-5 text-white">Add New Owner:</h1>
     <label for="owner_first_name">First Name:</label>
     <input class="pl-1 rounded" placeholder="First Name"type="text" name="owner_first_name" autofocus hx-preserve id="o_f_n" />
     <label class="mt-2" for="owner_last_name">Last Name:</label>
