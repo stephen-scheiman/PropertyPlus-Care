@@ -218,7 +218,7 @@ async function renderUpdatedOwner(req, res) {
   ) {
     throw new BadRequestError(
       "owner-form-edit",
-      "Please enter your first and last name",
+      "Please enter a valid owner first and last name",
       {owner_id: id}
     );
   }
@@ -229,18 +229,6 @@ async function renderUpdatedOwner(req, res) {
       "Please enter a valid email address",
       {owner_id: id}
     );
-  }
-
-  // validate that the email is unique
-  const ownerData = await findOwners();
-  for (x = 0; x < ownerData.length; x++) {
-    if (owner_email === ownerData[x].owner_email) {
-      throw new BadRequestError(
-        "owner-form-edit",
-        "An owner with this email address already exists",
-        {owner_id: id}
-      );
-    }
   }
 
   if (!streetPattern.test(owner_street)) {

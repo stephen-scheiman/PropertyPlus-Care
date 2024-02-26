@@ -1,4 +1,4 @@
-const { findProperties } = require('./queries/properties');
+const { findProperties, findPropertyByID } = require('./queries/properties');
 const { findOwnerById } = require('./queries/owners');
 
 async function errorHandler(err, req, res, next) {
@@ -29,9 +29,19 @@ async function errorHandler(err, req, res, next) {
     case "owner-form-new": {
       return res
         .status(200)
+        .set({'hx-retarget': 'this', 'hx-reswap': 'outerHTML'})
         .render("owner-form-new", { msg, isError, layout: false });
     }
+
+    case "property-form-edit": {
+      const property = await findPropertyByID(err.data.property_id)
+      return res
+        .status(200)
+        .set({'hx-retarget': 'this', 'hx-reswap': 'outerHTML'})
+        .render("property-form-edit", { property, msg, isError, layout: false });
+    }
   }
+  
 
   switch (key) {
     case value:
