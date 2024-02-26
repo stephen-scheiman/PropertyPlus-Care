@@ -91,7 +91,7 @@ async function findOneIssue(issue_id) {
 };
 
 async function createIssue(issue_data) {
-  
+
   const issue = await Issue.create(issue_data);
 
   if (!issue) {
@@ -160,7 +160,12 @@ async function updateIssueDone(issue_id, issue_isDone) {
 
 async function searchIssues(search) {
   const result = await Issue.findAll({
-    where: { issue_title: { [Op.like]: `%${search}%` } },
+    where: {
+      [Op.or]: [
+        { issue_title: { [Op.like]: `%${search}%` } },
+        { issue_description: { [Op.like]: `%${search}%` } },
+      ]
+    },
     include: [
       { model: Property },
       { model: Task },

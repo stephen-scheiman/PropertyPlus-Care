@@ -63,13 +63,13 @@ async function renderNewVendorsList(req, res) {
       vendor_phone
     )
   ) {
-    throw new BadRequestError("Missing Data - Please complete all fields");
+    throw new BadRequestError('vendor-form-new', "Missing Data - Please complete all fields");
   }
 
    //validate letters only
    const namePattern = /^[a-zA-Z]+$/;
    if (!(namePattern.test(vendor_first_name) && namePattern.test(vendor_last_name))) {
-     throw new BadRequestError("Please enter the vendor's first and last name");
+     throw new BadRequestError('vendor-form-new', "Please enter the vendor's first and last name");
    }
 
   //format vendor name before sending to db
@@ -83,14 +83,14 @@ async function renderNewVendorsList(req, res) {
   const emailPattern =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if (!emailPattern.test(vendor_email)) {
-    throw new BadRequestError("Please enter a valid email address");
+    throw new BadRequestError('vendor-form-new', "Please enter a valid email address");
   }
 
   //validate that the email is unique
   const vendorData = await findAllVendors();
   for(x=0; x<vendorData.length; x++){
   if (vendor_email === vendorData[x].vendor_email){
-    throw new BadRequestError("A vendor with this email address already exists")
+    throw new BadRequestError('vendor-form-new', "A vendor with this email address already exists")
   }
   }
 
@@ -98,7 +98,7 @@ async function renderNewVendorsList(req, res) {
   vendor_phone = vendor_phone.replace(/[^0-9 ]/g, "");
 
   if (vendor_phone.length > 10 || vendor_phone.length < 10) {
-    throw new BadRequestError("Please enter a valid 10 digit phone number, no symbols or spaces");
+    throw new BadRequestError('vendor-form-new', "Please enter a valid 10 digit phone number, no symbols or spaces");
   }
 
   vendor_phone =
