@@ -1229,6 +1229,10 @@ video {
     display: none;
   }
 
+  .sm\:flex-col {
+    flex-direction: column;
+  }
+
   .sm\:max-w-\[50\%\] {
     max-width: 50%;
   }
@@ -1308,12 +1312,24 @@ video {
 }
 
 @media (min-width: 1024px) {
+  .lg\:me-4 {
+    margin-inline-end: 1rem;
+  }
+
+  .lg\:flex {
+    display: flex;
+  }
+
   .lg\:w-\[25\%\] {
     width: 25%;
   }
 
   .lg\:w-\[70\%\] {
     width: 70%;
+  }
+
+  .lg\:justify-between {
+    justify-content: space-between;
   }
 }
 
