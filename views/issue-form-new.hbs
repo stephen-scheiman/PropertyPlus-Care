@@ -1,32 +1,32 @@
-<form
-  class="flex flex-col text-gray-600"
-  hx-post="/issues/new"
-  hx-target="#main"
->
+<main class="m-4 rounded bg-inherit px-4 py-2 text-white backdrop-blur-xl shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]">
+  <h1 class="font-bold text-2xl my-5 text-white">Add New Issue:</h1>
+  
+  <form class="flex flex-col lg:max-w-[50%]" hx-post="/issues/new" hx-target="#main">
+    <label for="issue_title" class="pt-2 text-lg font-semibold">Issue Title:</label>
+    <input type="text" name="issue_title" hx-preserve id="i_t" class="pl-1 rounded text-gray-600" />
 
-  <label for="issue_title">Issue Title:</label>
-  <input type="text" name="issue_title" hx-preserve id="i_t"/>
+    <label for="issue_description" class="pt-2 text-lg font-semibold">Issue Description:</label>
+    <textarea name="issue_description" id="i_d" rows="5" placeholder="Enter Issue Description"
+      class="rounded text-gray-600 pl-1"></textarea>
+    {{!-- <input type="text" name="issue_description" hx-preserve id="i_d" /> --}}
 
-  <label for="issue_description">Issue Description:</label>
-  <input type="text" name="issue_description" hx-preserve id="i_d" />
-
-  <label for="followUp_date">Issue Property:</label>
-  <select name="property_id" class="mt-2 rounded text-gray-400" hx-preserve id="i_p">
-    {{#each properties}}
+    <label for="followUp_date" class="pt-2 text-lg font-semibold">Property:</label>
+    <select name="property_id" class="mt-2 rounded text-gray-600" hx-preserve id="i_p">
+      {{#each properties}}
       <option value="{{property_id}}">{{property_name}}</option>
-    {{/each}}
-  </select>
+      {{/each}}
+    </select>
 
-  <button
-    class="my-5 rounded-lg border-2 border-slate-300 px-2 text-white"
-    type="submit"
-  >Save Issue</button>
-  {{#if isError}}
+    {{#if isError}}
     <div class="p-2 text-red-500">{{msg}}</div>
-  {{/if}}
-</form>
-<button
-  class="rounded-lg border-2 border-slate-300 px-2"
-  hx-get="/cancel"
-  hx-target="#main"
->Cancel New Issue</button>
+    {{/if}}
+
+    <div class="pt-2">
+      <button class="rounded my-3 px-2 bg-green-400 hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700 shadow-lg" type="submit">Submit New Issue</button>
+      <button class="rounded my-3 mx-1 px-2 bg-red-400 hover:bg-red-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-red-700 shadow-lg"
+        hx-get="/cancel"
+        hx-target="#main"
+      >Cancel New Issue</button>
+    </div>
+  </form>  
+</main>
