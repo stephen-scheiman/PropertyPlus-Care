@@ -3,6 +3,8 @@
 
 PropertyPlus Care is your premier solution for efficient property maintenance management. Our intuitive platform offers a comprehensive suite of tools to streamline the upkeep of your real estate assets with ease and confidence. From scheduling routine inspections to tracking repair requests and monitoring vendor performance, PropertyPlus Care empowers you to stay in control of every aspect of property maintenance. With timely notifications and seamless communication, PropertyPlus Care ensures that issues are promptly addressed, minimizing downtime and maximizing tenant satisfaction. Trust PropertyPlus Care to be your partner in maintaining and enhancing the value of your real estate investments.
 
+![image](/public/img/screencap.png)
+
 ## Features
 
 - **Scheduled Inspections:** Easily schedule and manage routine property inspections to identify maintenance issues and prevent potential problems.
@@ -55,5 +57,8 @@ If you encounter any issues or have any questions or suggestions, please don't h
 
 PropertyPlus Care is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
 
+## Application Repository
+https://github.com/stephen-scheiman/PropertyPlus-Care
 
-
+## Application Deployed to Heroku
+https://property-plus-care-557bf1c35b3f.herokuapp.com/
