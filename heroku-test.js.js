@@ -4,3 +4,4 @@ async function herokuServerTest() {
 
   console.log('\nsetHours all 0\n', today);
 }
+herokuServerTest();
