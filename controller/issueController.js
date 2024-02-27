@@ -105,7 +105,7 @@ async function renderNewIssue(req, res) {
 
   const issue = await createIssue({ issue_title, issue_description, property_id });
   console.log(issue);
-  res.status(200).set('hx-trigger', 'update-issues').render("issue-id", { issue, layout: false });
+  res.status(200).set('hx-trigger', 'update-issues').render("issue-ID", { issue, layout: false });
 }
 
 async function renderDeletedIssue(req, res) {
