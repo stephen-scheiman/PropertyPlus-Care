@@ -93,18 +93,17 @@ async function findOpenTasksDueToday() {
   return tasks;
 }
 
-// (async function () {
-//   const date = new Date();
-//   // date.setHours(0,0,0,0) ;
-//   const task = await Task.findByPk(6);
+(async function () {
+  const date = new Date();
+  date.setHours(0,0,0,0) ;
+  const task = await Task.findByPk(6);
 
-//   console.log('\n\ntasks.js \n\n');
-//   console.log('\n');
-//   console.log(date);
-//   console.log(task.toJSON().followUp_date)
-//   console.log('\n');
-
-// })()
+  console.log('\n\ntasks.js \n\n');
+  console.log('\n');
+  console.log(date);
+  console.log(task.toJSON().followUp_date)
+  console.log('\n');
+})()
 
 async function createTask(taskData) {
   const task = await Task.create(taskData);
