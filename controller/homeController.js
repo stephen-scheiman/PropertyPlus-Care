@@ -17,6 +17,8 @@ async function renderHome(req, res) {
   const p3 = findOpenTasksDueToday();
   const [user, pastTasks, todayTasks] = await Promise.all([p1, p2, p3]);
 
+  // console.log(todayTasks);
+
   res.status(200).render('task-aside', { pastTasks, todayTasks, user, });
 }
 
