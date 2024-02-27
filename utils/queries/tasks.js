@@ -41,7 +41,7 @@ async function findTasksByIssueID(issue_id) {
 
 async function findOpenTasksPastDue() {
   const today = new Date();
-  today.setHours(-12, 0, 0, 0);
+  today.setHours(-24, 0, 0, 0);
 
   const taskData = await Task.findAll({
     where: {
@@ -68,7 +68,7 @@ async function findOpenTasksPastDue() {
 
 async function findOpenTasksDueToday() {
   const today = new Date();
-  today.setHours(-12, 0, 0, 0);
+  today.setHours(-24, 0, 0, 0);
 
   const result = await Task.findAll({
     where: {
@@ -92,18 +92,6 @@ async function findOpenTasksDueToday() {
   const tasks = result.map(e => e.toJSON());
   return tasks;
 }
-
-(async function () {
-  const date = new Date();
-  date.setHours(0,0,0,0) ;
-  const task = await Task.findByPk(6);
-
-  console.log('\n\ntasks.js \n\n');
-  console.log('\n');
-  console.log(date);
-  console.log(task.toJSON().followUp_date)
-  console.log('\n');
-})()
 
 async function createTask(taskData) {
   const task = await Task.create(taskData);
