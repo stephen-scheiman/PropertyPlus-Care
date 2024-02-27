@@ -1,8 +1,8 @@
-<h1 id="issueTitle" class="mt-8 text-2xl font-bold" hx-swap-oob="true">
+<h1 id="issueTitle" class="mt-8 text-lg font-bold" hx-swap-oob="true">Change Issue Title:
   <input
     id="inputTitle"
     hx-preserve
-    class="mb-2 rounded text-gray-500"
+    class="mb-2 rounded text-gray-400"
     name="issue_title"
     type="text"
     value="{{issue.issue_title}}"
@@ -12,12 +12,12 @@
 <h2
   id="propertyName"
   hx-swap-oob="true"
-  class="mt-5 text-xl font-semibold"
->Property:
+  class="mt-5 text-lg font-semibold"
+>Change Associated Property:
   <select
     id="selectProperty"
     name="property_id"
-    class="mb-2 rounded text-gray-500"
+    class="mb-2 rounded text-gray-400"
   >
     <option
       value="{{issue.property_id}}"
@@ -35,12 +35,12 @@
   <h3
     hx-swap-oob="true"
     class="mt-2 text-lg font-semibold"
-  >Description:
+  >Edit Issue Description:
   </h3>
   <textarea
       id="inputDesc"
       hx-preserve
-      class="rounded text-gray-500 pl-1"
+      class="rounded text-gray-400 lg:w-[50%] bg-white pl-1"
       rows="5"
       name="issue_description"
   />{{issue.issue_description}}</textarea>
@@ -51,8 +51,8 @@
   hx-target="#main"
   hx-include="#issueTitle, #selectProperty, #inputDesc"
 >
-  <button class="bg-green-400" type="submit">Submit</button>
-  <button class="bg-red-400">Cancel</button>
+  <button class="rounded my-3 px-2 bg-green-400 hover:bg-green-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-green-700 shadow-lg" type="submit" type="submit">Submit</button>
+  <button class="rounded my-3 mx-1 px-2 bg-red-400 hover:bg-red-600 focus:outline-none focus:ring focus:ring-blue-300 active:bg-red-700 shadow-lg">Cancel</button>
   {{#if isError}}
     <div class="p-2 text-red-500">{{msg}}</div>
   {{/if}}

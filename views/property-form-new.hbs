@@ -1,20 +1,21 @@
 <main class="m-4 rounded bg-inherit px-4 py-2 text-white backdrop-blur-xl shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]">
+  <h1 class="font-bold text-2xl mt-5 text-white">Add New Property:</h1>
+  <p>Please note, you must create New Owner prior to creating New Property</p>
   <form
-    class="flex flex-col text-white lg:max-w-[50%]"
+    class="flex flex-col text-white lg:max-w-[50%] mt-2"
     hx-post="/properties/new"
     hx-target="#main"
   >
-  <h1 class="font-bold text-2xl my-5 text-white">Add New Property:</h1>
     <label for="property_name">Property Name:</label>
-    <input class="pl-1 rounded" placeholder="Cherry Orchards" type="text" name="property_name" autofocus hx-preserve id="p_n" />
+    <input class="pl-1 rounded text-gray-600" placeholder="Property Name" type="text" name="property_name" autofocus hx-preserve id="p_n" />
     <label class="mt-2" for="property_street">Property Street Address:</label>
-    <input class="pl-1 rounded" placeholder="123 Cherry Ln. #3" type="text" name="property_street" hx-preserve id="p_s" />
+    <input class="pl-1 rounded text-gray-600" placeholder="Street Address" type="text" name="property_street" hx-preserve id="p_s" />
     <label class="mt-2" for="property_city">Property City:</label>
-    <input class="pl-1 rounded" placeholder="City" type="text" name="property_city" hx-preserve id="p_c" />
+    <input class="pl-1 rounded text-gray-600" placeholder="City" type="text" name="property_city" hx-preserve id="p_c" />
     <label class="mt-2" for="property_state">Property State:</label>
-    <input class="pl-1 rounded" placeholder="State" type="text" name="property_state" hx-preserve id="p_st" />
+    <input class="pl-1 rounded text-gray-600" placeholder="State" type="text" name="property_state" hx-preserve id="p_st" />
     <label class="mt-2" for="property_zip">Property Zip:</label>
-    <input class="pl-1 rounded" placeholder="Zipcode" type="text" name="property_zip" hx-preserve id="p_z" />
+    <input class="pl-1 rounded text-gray-600" placeholder="Zipcode" type="text" name="property_zip" hx-preserve id="p_z" />
     {{#if isError}}
       <div class="p-2 text-red-500">{{msg}}</div>
     {{/if}}
