@@ -7,15 +7,15 @@
     hx-target="#main"
   >
     <label for="property_name">Property Name:</label>
-    <input class="pl-1 rounded" placeholder="Property Name" type="text" name="property_name" autofocus hx-preserve id="p_n" />
+    <input class="pl-1 rounded text-gray-600" placeholder="Property Name" type="text" name="property_name" autofocus hx-preserve id="p_n" />
     <label class="mt-2" for="property_street">Property Street Address:</label>
-    <input class="pl-1 rounded" placeholder="Street Address" type="text" name="property_street" hx-preserve id="p_s" />
+    <input class="pl-1 rounded text-gray-600" placeholder="Street Address" type="text" name="property_street" hx-preserve id="p_s" />
     <label class="mt-2" for="property_city">Property City:</label>
-    <input class="pl-1 rounded" placeholder="City" type="text" name="property_city" hx-preserve id="p_c" />
+    <input class="pl-1 rounded text-gray-600" placeholder="City" type="text" name="property_city" hx-preserve id="p_c" />
     <label class="mt-2" for="property_state">Property State:</label>
-    <input class="pl-1 rounded" placeholder="State" type="text" name="property_state" hx-preserve id="p_st" />
+    <input class="pl-1 rounded text-gray-600" placeholder="State" type="text" name="property_state" hx-preserve id="p_st" />
     <label class="mt-2" for="property_zip">Property Zip:</label>
-    <input class="pl-1 rounded" placeholder="Zipcode" type="text" name="property_zip" hx-preserve id="p_z" />
+    <input class="pl-1 rounded text-gray-600" placeholder="Zipcode" type="text" name="property_zip" hx-preserve id="p_z" />
     {{#if isError}}
       <div class="p-2 text-red-500">{{msg}}</div>
     {{/if}}
