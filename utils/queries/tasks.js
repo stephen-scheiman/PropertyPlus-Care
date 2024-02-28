@@ -41,7 +41,8 @@ async function findTasksByIssueID(issue_id) {
 
 async function findOpenTasksPastDue() {
   const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  today.setUTCHours(today.getUTCHours() - 8);
+  today.setUTCHours(0,0,0,0);
 
   const taskData = await Task.findAll({
     where: {
@@ -68,7 +69,8 @@ async function findOpenTasksPastDue() {
 
 async function findOpenTasksDueToday() {
   const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  today.setUTCHours(today.getUTCHours() - 8);
+  today.setUTCHours(0,0,0,0);
 
   const result = await Task.findAll({
     where: {
