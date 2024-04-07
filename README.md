@@ -61,4 +61,4 @@ PropertyPlus Care is licensed under the MIT License. See the [LICENSE](LICENSE) 
 https://github.com/stephen-scheiman/PropertyPlus-Care
 
 ## Application Deployed to Heroku
-https://property-plus-care-557bf1c35b3f.herokuapp.com/
+https://property-plus-care-dab80668cb03.herokuapp.com/
